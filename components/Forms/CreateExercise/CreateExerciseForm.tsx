@@ -1,4 +1,4 @@
-import { Button, Modal, Text, View } from "react-native";
+import { Button, Modal, StyleSheet, Text, View } from "react-native";
 
 interface CreateExerciseFormProps {
     showForm: boolean;
@@ -12,8 +12,8 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
             transparent={true}
             visible={showForm}
         >
-            <View style={{ alignItems: "center", justifyContent: "center", flex: 1, backgroundColor: "rgba(0, 0, 0, .8)" }}>
-                <View style={{ aspectRatio: 5/4, width: "95%", backgroundColor: "white", borderRadius: 15 }}>
+            <View style={styles.modalBackground}>
+                <View style={styles.formContainer}>
                     <Button title="Close" onPress={closeForm}/>
                     <Text>Form Two</Text>
                 </View>
@@ -21,3 +21,18 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
         </Modal>
     )
 }
+
+const styles = StyleSheet.create({
+    modalBackground: {
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, .8)",
+        justifyContent: "center",
+        flex: 1
+    },
+    formContainer: {
+        aspectRatio: 5/4,
+        backgroundColor: "white",
+        borderRadius: 15,
+        width: "95%"
+    }
+})
