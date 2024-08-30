@@ -1,5 +1,5 @@
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
-import { createSelectSchema } from "drizzle-zod"
+import { createInsertSchema, createSelectSchema } from "drizzle-zod"
 import { z } from "zod";
 
 export const exercise = sqliteTable("exercise", {
@@ -11,4 +11,7 @@ export const exercise = sqliteTable("exercise", {
 });
 
 export const exerciseSelectSchema = createSelectSchema(exercise);
+export const exerciseInsertSchema = createInsertSchema(exercise);
+
 export type Exercise = z.infer<typeof exerciseSelectSchema>;
+export type ExerciseInsert = z.infer<typeof exerciseInsertSchema>;
