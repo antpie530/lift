@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Exercise } from "@/db/schema";
@@ -64,7 +64,13 @@ export default function ExerciseList({ isPending, isError, error, data }: Exerci
     }
 
     if (data?.length == 0) {
-        return <Text>No exercises</Text>
+        return (
+            <View style={{ alignItems: "center", flex: 1 }}>
+                <Text style={{ color: "white", fontSize: 18, fontWeight: "700"}}>
+                    No Exercises
+                </Text>
+            </View>
+        )
     }
 
     return (
