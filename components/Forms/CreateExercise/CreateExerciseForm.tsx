@@ -29,6 +29,7 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
         handleSubmit,
         reset,
         setValue,
+        getValues,
         formState: { errors }
     } = useForm<ExerciseInsert>({
         resolver: zodResolver(exerciseInsertSchema)
@@ -39,14 +40,13 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
     const mutation = useMutation({
         mutationFn: (data: ExerciseInsert) => createExercise(data),
         onSuccess: () => {
+            reset();
             queryClient.invalidateQueries({ queryKey: ["exercises"]});
         }
     });
 
     const onSubmit = (data: ExerciseInsert) => {
-        console.log(data);
         mutation.mutate(data);
-        reset();
         closeForm();
     }
 
