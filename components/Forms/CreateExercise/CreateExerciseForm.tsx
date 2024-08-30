@@ -29,7 +29,6 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
         handleSubmit,
         reset,
         setValue,
-        getValues,
         formState: { errors }
     } = useForm<ExerciseInsert>({
         resolver: zodResolver(exerciseInsertSchema)

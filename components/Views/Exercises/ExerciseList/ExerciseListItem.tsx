@@ -1,4 +1,4 @@
-import { Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
@@ -48,15 +48,36 @@ export default function ExerciseListItem({ id, name, schema, openDetails, openHi
             <Pressable
                 onPress={() => {
                     console.log("Show edit for ID:", id)
+                    lightHaptic();
                     openDetails();
                 }}
-                style={({ pressed }) => [{ 
-                    backgroundColor: pressed ? "rgba(50, 173, 240, .8)" : "white",
-                    padding: 15 
-                }]}
+                style={({ pressed }) => [
+                    { 
+                        backgroundColor: pressed ? "rgba(50, 173, 240, 1)" : "rgba(57, 60, 64, 1)",
+                    },
+                    styles.itemContainer
+                ]}
             >
-                <Text>{name}</Text>
+                <Text style={styles.itemText}>{name}</Text>
+                <Text style={styles.schema}>{schema}</Text>
             </Pressable>
         </Swipeable>
     )
 }
+
+const styles = StyleSheet.create({
+    itemContainer: {
+        borderBottomWidth: 1,
+        borderColor: "rgba(255, 255, 255, .8)",
+        padding: 15,
+    },
+    itemText: {
+        color: "white",
+        fontSize: 18,
+        fontWeight: "700"
+    },
+    schema: {
+        color: "rgba(166, 166, 166, .8)",
+        fontWeight: "700"
+    }
+})
