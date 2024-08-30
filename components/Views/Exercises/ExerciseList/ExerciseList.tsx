@@ -19,6 +19,7 @@ interface ExerciseListProps {
 
 export default function ExerciseList({ isPending, isError, error, data }: ExerciseListProps) {
     const [showDetails, setShowDetails] = useState(false);
+    const [showDetailId, setShowDetailId] = useState(0);
     const [hideExerciseId, setHideExerciseId] = useState<number | undefined>(undefined);
     const [hideExerciseHeader, setHideExerciseHeader] = useState("");
     const [hideExerciseDescription, setHideExerciseDescription] = useState("");
@@ -75,13 +76,14 @@ export default function ExerciseList({ isPending, isError, error, data }: Exerci
 
     return (
         <>
-            <ExerciseDetailViewer showDetails={showDetails} setShowDetails={setShowDetails} />
+            <ExerciseDetailViewer id={showDetailId} showDetails={showDetails} setShowDetails={setShowDetails} />
             {data?.map(exercise => (
                 <ExerciseListItem
                     key={exercise.id}
                     id={exercise.id} 
                     name={exercise.name} 
-                    schema={exercise.schema} 
+                    schema={exercise.schema}
+                    setShowDetailId={setShowDetailId}
                     openDetails={openDetails}
                     openHideExercisePopUp={() => openHideExercisePopUp(exercise.id, exercise.name)}
                 />

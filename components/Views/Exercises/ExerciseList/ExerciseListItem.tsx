@@ -17,6 +17,7 @@ interface ExerciseListItemProps {
     schema: Exercise["schema"];
     openDetails: () => void;
     openHideExercisePopUp: () => void;
+    setShowDetailId: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function HideExerciseView ({ id, openHideExercisePopUp }: HideExerciseViewProps) {
@@ -40,7 +41,7 @@ function HideExerciseView ({ id, openHideExercisePopUp }: HideExerciseViewProps)
     )
 }
 
-export default function ExerciseListItem({ id, name, schema, openDetails, openHideExercisePopUp }: ExerciseListItemProps) {
+export default function ExerciseListItem({ id, name, schema, openDetails, openHideExercisePopUp, setShowDetailId }: ExerciseListItemProps) {
     return (
         <Swipeable
             renderRightActions={() => <HideExerciseView id={id} openHideExercisePopUp={openHideExercisePopUp}/>}
@@ -49,6 +50,7 @@ export default function ExerciseListItem({ id, name, schema, openDetails, openHi
                 onPress={() => {
                     console.log("Show edit for ID:", id)
                     lightHaptic();
+                    setShowDetailId(id);
                     openDetails();
                 }}
                 style={({ pressed }) => [

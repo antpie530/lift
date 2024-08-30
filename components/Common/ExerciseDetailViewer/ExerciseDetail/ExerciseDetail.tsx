@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Button, Modal, StyleSheet, Text, View } from "react-native";
+import { useQuery } from "@tanstack/react-query";
+
+import { getExercise } from "@/db/queries";
 
 import TabNavigator from "./utils/TabNavigator/TabNavigator";
 import ExerciseAnalytics from "./ExerciseAnalytics";
@@ -12,10 +15,15 @@ interface ExerciseDetailProps {
     showDetails: boolean;
     closeDetails: () => void;
     openForm: () => void;
+    id: number;
 }
 
-export default function ExerciseDetail({ showDetails, closeDetails, openForm }: ExerciseDetailProps) {
+export default function ExerciseDetail({ id, showDetails, closeDetails, openForm }: ExerciseDetailProps) {
     const [activeTab, setActiveTab] = useState<ActiveTab>("Description");
+    const { isPending, isError, error, data } = useQuery({
+        queryKey: ["exercises", id],
+        queryFn: () => getExercise(id)
+    })
 
     return (
         <Modal
@@ -27,7 +35,9 @@ export default function ExerciseDetail({ showDetails, closeDetails, openForm }: 
                 <View style={styles.detailsBackground}>
                     <View style={styles.header}>
                         <Button title="Exit" onPress={closeDetails} />
-                        <Text style={styles.headerText}>Exercise Details</Text>
+                        <Text style={styles.headerText}>
+                            {data?.length == 1 ? data[0].name : "Exercise"} Details
+                        </Text>
                         <Button title="Edit" onPress={openForm} />
                     </View>
                     <View style={styles.navigator}>
@@ -36,7 +46,7 @@ export default function ExerciseDetail({ showDetails, closeDetails, openForm }: 
 
                     {activeTab == "Analytics" && <ExerciseAnalytics />}
                     {activeTab == "History" && <ExerciseHistory />}
-                    {activeTab == "Description" && <ExerciseDescription />}
+                    {activeTab == "Description" && <ExerciseDescription exercise={data?.length == 1 ? data[0] : undefined} />}
 
                 </View>
             </View>
@@ -53,7 +63,7 @@ const styles = StyleSheet.create({
     },
     detailsBackground: {
         aspectRatio: 5/9,
-        backgroundColor: "white",
+        backgroundColor: "rgba(80, 80, 80, 1)",
         borderRadius: 15,
         width: "95%"
     },
@@ -65,6 +75,7 @@ const styles = StyleSheet.create({
         paddingTop: 15
     },
     headerText: {
+        color: "white",
         fontSize: 18,
         fontWeight: "700"
     },

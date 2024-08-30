@@ -7,3 +7,5 @@ export const getAllExercises = async () => await db.select().from(exercise).wher
 export const createExercise = async (data: ExerciseInsert) => await db.insert(exercise).values(data);
 
 export const hideExercise = async (id: number) => await db.update(exercise).set({ hidden: true }).where(eq(exercise.id, id));
+
+export const getExercise = async (id: number) => await db.select().from(exercise).where(eq(exercise.id, id));

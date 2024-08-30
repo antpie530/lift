@@ -6,9 +6,10 @@ import EditExerciseForm from "@/components/Forms/EditExercise/EditExerciseForm";
 interface ExerciseDetailViewerProps {
     showDetails: boolean;
     setShowDetails: React.Dispatch<React.SetStateAction<boolean>>;
+    id: number;
 }
 
-export default function ExerciseDetailViewer({ showDetails, setShowDetails }: ExerciseDetailViewerProps) {
+export default function ExerciseDetailViewer({ id, showDetails, setShowDetails }: ExerciseDetailViewerProps) {
     const [showForm, setShowForm] = useState(false);
 
     const openDetails = () => setShowDetails(true);
@@ -25,7 +26,7 @@ export default function ExerciseDetailViewer({ showDetails, setShowDetails }: Ex
 
     return (
         <>
-            <ExerciseDetail openForm={openForm} showDetails={showDetails} closeDetails={closeDetails}/>
+            <ExerciseDetail id={id} openForm={openForm} showDetails={showDetails} closeDetails={closeDetails}/>
             <EditExerciseForm showForm={showForm} closeForm={closeForm}/>
         </>
     )
