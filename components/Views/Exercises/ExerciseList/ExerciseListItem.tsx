@@ -2,10 +2,13 @@ import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
+import { lightHaptic } from "@/utils/haptics/haptics";
+
 import { Exercise } from "@/db/schema";
 
 interface HideExerciseViewProps {
     id: Exercise["id"];
+    openHideExercisePopUp: () => void;
 }
 
 interface ExerciseListItemProps {
@@ -13,9 +16,10 @@ interface ExerciseListItemProps {
     name: Exercise["name"];
     schema: Exercise["schema"];
     openDetails: () => void;
+    openHideExercisePopUp: () => void;
 }
 
-function HideExerciseView ({ id }: HideExerciseViewProps) {
+function HideExerciseView ({ id, openHideExercisePopUp }: HideExerciseViewProps) {
     return (
         <View style={{ width: 150 }}>
             <TouchableOpacity 
@@ -25,7 +29,10 @@ function HideExerciseView ({ id }: HideExerciseViewProps) {
                     flex: 1,
                     justifyContent: "center",
                 }}
-                onPress={() => console.log("Hiding exercise", id)}
+                onPress={() => {
+                    lightHaptic();
+                    openHideExercisePopUp();
+                }}
             >
                 <FontAwesome5 name="trash-alt" size={24} color="white" />
             </TouchableOpacity>
@@ -33,10 +40,10 @@ function HideExerciseView ({ id }: HideExerciseViewProps) {
     )
 }
 
-export default function ExerciseListItem({ id, name, schema, openDetails }: ExerciseListItemProps) {
+export default function ExerciseListItem({ id, name, schema, openDetails, openHideExercisePopUp }: ExerciseListItemProps) {
     return (
         <Swipeable
-            renderRightActions={() => <HideExerciseView id={id} />}
+            renderRightActions={() => <HideExerciseView id={id} openHideExercisePopUp={openHideExercisePopUp}/>}
         >
             <Pressable
                 onPress={() => {

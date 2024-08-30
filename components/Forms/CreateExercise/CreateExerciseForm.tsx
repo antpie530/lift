@@ -45,7 +45,7 @@ export default function CreateExerciseForm({ showForm, closeForm }: CreateExerci
 
     const onSubmit = (data: ExerciseInsert) => {
         console.log(data);
-        mutation.mutate(data)
+        mutation.mutate(data);
         reset();
         closeForm();
     }
