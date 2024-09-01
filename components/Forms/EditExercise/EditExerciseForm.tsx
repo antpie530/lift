@@ -6,6 +6,8 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+import { editExercise } from "@/db/queries";
+
 import { lightHaptic } from "@/utils/haptics/haptics";
 
 import { Exercise } from "@/db/schema";
@@ -17,6 +19,7 @@ interface EditExerciseFormProps {
 }
 
 interface data {
+    id: number,
     name: string;
     description: string | null | undefined;
 }
@@ -26,6 +29,14 @@ export default function EditExerciseForm({ exercise, showForm, closeForm }: Edit
     const offset = useSharedValue(0);
     
     const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: (data: data) => editExercise(data.id, data.name, data.description),
+        onSuccess: () => {
+            reset();
+            closeForm();
+            queryClient.invalidateQueries({ queryKey: ["exercises"]});
+        }
+    });
 
     const {
         control,
@@ -34,6 +45,7 @@ export default function EditExerciseForm({ exercise, showForm, closeForm }: Edit
         formState: { errors }
     } = useForm({
         defaultValues: {
+            id: exercise.id,
             name: exercise.name,
             description: exercise.description
         }
@@ -42,8 +54,7 @@ export default function EditExerciseForm({ exercise, showForm, closeForm }: Edit
     const onSubmit = (data: data) => {
         console.log("Submiting data:", data);
         lightHaptic();
-        reset();
-        closeForm();
+        mutation.mutate(data);
     }
 
     const showDescription = () => {
