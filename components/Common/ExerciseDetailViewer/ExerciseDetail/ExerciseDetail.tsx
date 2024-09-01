@@ -8,24 +8,38 @@ import TabNavigator from "./utils/TabNavigator/TabNavigator";
 import ExerciseAnalytics from "./ExerciseAnalytics";
 import ExerciseHistory from "./ExerciseHistory";
 import ExerciseDescription from "./ExerciseDescription";
+import EditExerciseForm from "@/components/Forms/EditExercise/EditExerciseForm";
 
 export type ActiveTab = "Analytics" | "History" | "Description";
 
 interface ExerciseDetailProps {
     showDetails: boolean;
     closeDetails: () => void;
+    showForm: boolean;
     openForm: () => void;
+    closeForm: () => void;
     id: number;
 }
 
-export default function ExerciseDetail({ id, showDetails, closeDetails, openForm }: ExerciseDetailProps) {
+export default function ExerciseDetail({ id, showDetails, closeDetails, showForm, openForm, closeForm }: ExerciseDetailProps) {
     const [activeTab, setActiveTab] = useState<ActiveTab>("Description");
     const { isPending, isError, error, data } = useQuery({
         queryKey: ["exercises", id],
         queryFn: () => getExercise(id)
     })
 
+    let form;
+    if (isPending) {
+        form =  <Text>Loading</Text>
+    } else if (isError) {
+        form = <Text>{error.message}</Text>
+    } else {
+        console.log(data);
+        form = <EditExerciseForm showForm={showForm} closeForm={closeForm} exercise={data[0]} />
+    }
+
     return (
+        <>
         <Modal
             animationType="fade"
             transparent={true}
@@ -51,6 +65,8 @@ export default function ExerciseDetail({ id, showDetails, closeDetails, openForm
                 </View>
             </View>
         </Modal>
+        {data?.length == 1 && <EditExerciseForm showForm={showForm} closeForm={closeForm} exercise={data[0]} />}
+        </>
     )
 }
 

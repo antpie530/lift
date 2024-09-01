@@ -26,8 +26,7 @@ export default function ExerciseDetailViewer({ id, showDetails, setShowDetails }
 
     return (
         <>
-            <ExerciseDetail id={id} openForm={openForm} showDetails={showDetails} closeDetails={closeDetails}/>
-            <EditExerciseForm showForm={showForm} closeForm={closeForm}/>
+            <ExerciseDetail id={id} openForm={openForm} showForm={showForm} closeForm={closeForm} showDetails={showDetails} closeDetails={closeDetails}/>
         </>
     )
 }
