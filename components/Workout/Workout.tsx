@@ -1,19 +1,19 @@
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import Animated, { useSharedValue, AnimatedStyle, SharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import TopTab from "./TopTab";
+import CancelButton from "./CancelButton";
 
 interface WorkoutProps {
     bottom: number;
     height: SharedValue<number>;
     offset: AnimatedStyle;
     minHeight: number;
+    maxHeight: number;
 }
 
-export default function Workout({ bottom, height, offset, minHeight }: WorkoutProps) {
-    const maxHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
+export default function Workout({ bottom, height, offset, minHeight, maxHeight }: WorkoutProps) {
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
 
@@ -48,7 +48,7 @@ export default function Workout({ bottom, height, offset, minHeight }: WorkoutPr
             <GestureDetector gesture={pan}>
                 <TopTab />
             </GestureDetector>
-            <Text>Workout</Text>
+            <CancelButton />
         </Animated.View>
     )
 }
