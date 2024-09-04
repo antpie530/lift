@@ -1,12 +1,9 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import {
-    BottomTabBarProps,
-} from '@react-navigation/bottom-tabs';
-import {
-    NavigationHelpers,
     ParamListBase,
     TabNavigationState,
 } from '@react-navigation/native';
+import Animated, { AnimatedStyle } from "react-native-reanimated"
 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Tab from "./Tab";
@@ -14,14 +11,15 @@ import Tab from "./Tab";
 interface TabBarProps {
     state: TabNavigationState<ParamListBase>;
     height: number;
+    offset: AnimatedStyle;
 }
 
-export default function TabBar({ state, height }: TabBarProps) {
+export default function TabBar({ state, height, offset }: TabBarProps) {
     const activeTabIndex = state.index;
     const activeTabName = state.routes[activeTabIndex].name;
 
     return (
-        <View style={[styles.container, { height: height }]}>
+        <Animated.View style={[styles.container, { height: height }, offset]}>
             <Tab 
                 name="traq"
                 color={"index" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"}
@@ -46,7 +44,7 @@ export default function TabBar({ state, height }: TabBarProps) {
                     />
                 }
             />
-        </View>
+        </Animated.View>
     )
 }
 
