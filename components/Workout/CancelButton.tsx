@@ -1,23 +1,36 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { WorkoutContext } from "@/hooks/workoutContext";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
+import ConfirmationPopUp from "@/components/Common/ConfirmationPopUp/ConfirmationPopUp";
+
 export default function CancelButton() {
     const { closeWorkout } = useContext(WorkoutContext);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 
     return (
         <View style={styles.container}>
             <TouchableOpacity
                 onPress={() => {
                     lightHaptic();
-                    closeWorkout();
+                    setShowConfirmation(true);
                 }}
                 style={styles.button}
             >
                 <Text style={styles.buttonText}>Cancel</Text>
             </TouchableOpacity>
+            <ConfirmationPopUp 
+                header="Cancel Workout"
+                description="All data from this workout will be lost. Select 'Confirm' if you would like to proceed."
+                showConfirmation={showConfirmation}
+                closeConfirmation={() => setShowConfirmation(false)}
+                onConfirm={() => {
+                    setShowConfirmation(false);
+                    closeWorkout();
+                }}
+            />
         </View>
     )
 }

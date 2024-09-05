@@ -21,8 +21,6 @@ interface EllapsedTimeProps {
 
 export default function EllapsedTime({ startTime }: EllapsedTimeProps) {
     const [ellapsedTime, setEllapsedTime] = useState(0);
-    
-    console.log(startTime, ellapsedTime);
 
     useEffect(() => {
         if (startTime) {
