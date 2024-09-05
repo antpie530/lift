@@ -4,6 +4,7 @@ import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 import TopTab from "./TopTab";
 import CancelButton from "./CancelButton";
+import EllapsedTime from "./EllapsedTime";
 
 interface WorkoutProps {
     bottom: number;
@@ -11,9 +12,10 @@ interface WorkoutProps {
     offset: AnimatedStyle;
     minHeight: number;
     maxHeight: number;
+    startTime: number | undefined;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime }: WorkoutProps) {
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
 
@@ -48,6 +50,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight }
             <GestureDetector gesture={pan}>
                 <TopTab />
             </GestureDetector>
+            <EllapsedTime startTime={startTime} />
             <CancelButton />
         </Animated.View>
     )

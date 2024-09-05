@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Dimensions } from "react-native";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -8,16 +9,19 @@ import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
 
 export default function TabsLayout() {
+    const [workoutStartTime, setWorkoutStartTime] = useState<number | undefined>();
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
-    const workoutHeight = useSharedValue<number>(60);
+    const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 60;
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
 
     const openWorkout = () => {
+        setWorkoutStartTime(Date.now());
         workoutHeight.value = withTiming(maxWorkoutHeight, { duration: 200 });
     }
 
     const closeWorkout = () => {
+        setWorkoutStartTime(undefined);
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
 
@@ -26,7 +30,12 @@ export default function TabsLayout() {
     }));
 
     return (
-        <WorkoutContext.Provider value={{ openWorkout: openWorkout, closeWorkout: closeWorkout }}>
+        <WorkoutContext.Provider 
+            value={{ 
+                openWorkout: openWorkout, 
+                closeWorkout: closeWorkout, 
+            }}
+        >
             <Tabs 
                 screenOptions={{ headerShown: false }}
                 tabBar={({ state }) => <TabBar state={state} height={tabBarHeight} offset={offsetAnimatedStyle}/>}
@@ -40,6 +49,7 @@ export default function TabsLayout() {
                 offset={offsetAnimatedStyle}
                 minHeight={minWorkoutHeight}
                 maxHeight={maxWorkoutHeight}
+                startTime={workoutStartTime}
             />
         </WorkoutContext.Provider>
     )
