@@ -1,10 +1,13 @@
-import { StyleSheet, Text } from "react-native";
+import { useState } from "react";
+import { StyleSheet } from "react-native";
 import Animated, { useSharedValue, AnimatedStyle, SharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 import TopTab from "./TopTab";
 import CancelButton from "./CancelButton";
+import AddExerciseButton from "./AddExerciseButton";
 import EllapsedTime from "./EllapsedTime";
+import AddExercisePopUp from "./AddExercisePopUp/AddExercisePopUp";
 
 interface WorkoutProps {
     bottom: number;
@@ -16,6 +19,7 @@ interface WorkoutProps {
 }
 
 export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime }: WorkoutProps) {
+    const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
 
@@ -51,7 +55,12 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 <TopTab />
             </GestureDetector>
             <EllapsedTime startTime={startTime} />
+            <AddExerciseButton openAddExercisePopUp={() => setShowAddExercisePopUp(true)}/>
             <CancelButton />
+            <AddExercisePopUp 
+                showAddExercisePopUp={showAddExercisePopUp}
+                closeAddExercisePopUp={() => setShowAddExercisePopUp(false)}
+            />
         </Animated.View>
     )
 }
