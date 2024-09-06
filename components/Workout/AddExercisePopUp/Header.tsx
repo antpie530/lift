@@ -6,13 +6,21 @@ import { lightHaptic } from "@/utils/haptics/haptics";
 interface HeaderProps {
     close: () => void;
     selectedExerciseCount: number;
+    onAdd: () => void;
 }
 
-export default function Header({ close, selectedExerciseCount }: HeaderProps) {
+export default function Header({ close, selectedExerciseCount, onAdd }: HeaderProps) {
     let addButton;
     if (selectedExerciseCount > 0) {
         addButton = (
-            <TouchableOpacity style={[styles.exitButtonWrapper]}>
+            <TouchableOpacity 
+                onPress={() => {
+                    lightHaptic();
+                    onAdd();
+                    close();
+                }}
+                style={styles.exitButtonWrapper}
+            >
                 <Text style={[styles.addButtonText, { color: "white"}]}>Add({selectedExerciseCount})</Text>
             </TouchableOpacity>
             

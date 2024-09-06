@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getAllExercises } from "@/db/queries";
 
+import { ExerciseInput } from "../Workout";
+
 import Header from "./Header";
 import Filters from "./Filters";
 import ExerciseList from "./ExerciseList/ExerciseList";
@@ -13,15 +15,17 @@ import CreateExerciseForm from "@/components/Forms/CreateExercise/CreateExercise
 interface AddExercisePopUpProps {
     showAddExercisePopUp: boolean;
     closeAddExercisePopUp: () => void;
+    addExercises: (exercises: ExerciseInput[]) => void;
 }
 
 export default function AddExercisePopUp({ 
     showAddExercisePopUp,
-    closeAddExercisePopUp
+    closeAddExercisePopUp,
+    addExercises
 }: AddExercisePopUpProps) {
     const [searchValue, setSearchValue] = useState("");
     const [showCreateExerciseForm, setShowCreateExerciseForm] = useState(false);
-    const [selectedIds, setSelectedIds] = useState(new Set<number>());
+    const [selectedExercises, setSelectedExercises] = useState(new Map<number, ExerciseInput>());
     const { isPending, isError, error, data } = useQuery({
         queryKey: ["exercises"],
         queryFn: getAllExercises
@@ -30,11 +34,21 @@ export default function AddExercisePopUp({
     const openCreateExerciseForm = () => setShowCreateExerciseForm(true);
     const closeCreateExerciseForm = () => setShowCreateExerciseForm(false);
 
-    const addSelectedId = (id: number) => setSelectedIds(prevSet => new Set(prevSet).add(id));
-    const removeSelectedId = (id: number) => {
-        const newSet = new Set(selectedIds);
+    const addSelectedExercise = (exercise: ExerciseInput) => {
+        setSelectedExercises(prevSet => new Map(prevSet).set(exercise.id, {
+            id: exercise.id,
+            name: exercise.name,
+            schema: exercise.schema
+        }))
+    };
+    const removeSelectedExercise = (id: number) => {
+        const newSet = new Map(selectedExercises);
         newSet.delete(id);
-        setSelectedIds(newSet);
+        setSelectedExercises(newSet);
+    }
+
+    const onAdd = () => {
+        addExercises(Array.from(selectedExercises.values()));
     }
 
     let exerciseList;
@@ -50,9 +64,9 @@ export default function AddExercisePopUp({
         exerciseList = (
             <ExerciseList 
                 data={filteredData}
-                selectedIds={selectedIds}
-                addId={addSelectedId}
-                removeId={removeSelectedId}
+                selectedExercises={selectedExercises}
+                addExercise={addSelectedExercise}
+                removeExercise={removeSelectedExercise}
             />
         )
     }
@@ -66,8 +80,12 @@ export default function AddExercisePopUp({
             <View style={styles.modal}>
                 <View style={styles.content}>
                     <Header 
-                        close={closeAddExercisePopUp} 
-                        selectedExerciseCount={selectedIds.size}
+                        close={() => {
+                            setSelectedExercises(new Map<number, ExerciseInput>());
+                            closeAddExercisePopUp();
+                        }} 
+                        selectedExerciseCount={selectedExercises.size}
+                        onAdd={onAdd}
                     />
                     <Filters 
                         openCreateExerciseForm={openCreateExerciseForm} 

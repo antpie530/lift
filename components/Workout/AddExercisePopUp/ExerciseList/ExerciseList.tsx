@@ -1,17 +1,18 @@
 import { FlatList } from "react-native";
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { Exercise } from "@/db/schema";
+import { ExerciseInput } from "../../Workout";
 
 import ExerciseItem from "./ExerciseItem";
 
 interface ExerciseListProps {
     data: Exercise[];
-    selectedIds: Set<number>;
-    addId: (id: number) => void;
-    removeId: (id: number) => void; 
+    selectedExercises: Map<number, ExerciseInput>;
+    addExercise: (exercise: ExerciseInput) => void;
+    removeExercise: (id: number) => void; 
 }
 
-export default function ExerciseList({ data, selectedIds, addId, removeId }: ExerciseListProps) {
+export default function ExerciseList({ data, selectedExercises, addExercise, removeExercise }: ExerciseListProps) {
     return (
         <FlatList
             data={data}
@@ -19,13 +20,13 @@ export default function ExerciseList({ data, selectedIds, addId, removeId }: Exe
                 <ExerciseItem 
                     name={item.name} 
                     schema={item.schema}
-                    selected={selectedIds.has(item.id)}
+                    selected={selectedExercises.has(item.id)}
                     onPress={() => {
                         lightHaptic();
-                        if (selectedIds.has(item.id)) {
-                            removeId(item.id);
+                        if (selectedExercises.has(item.id)) {
+                            removeExercise(item.id);
                         } else {
-                            addId(item.id);
+                            addExercise(item);
                         }
                     }}
                 />

@@ -2,12 +2,20 @@ import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Animated, { useSharedValue, AnimatedStyle, SharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import { Exercise } from "@/db/schema";
 
 import TopTab from "./TopTab";
-import CancelButton from "./CancelButton";
-import AddExerciseButton from "./AddExerciseButton";
 import EllapsedTime from "./EllapsedTime";
 import AddExercisePopUp from "./AddExercisePopUp/AddExercisePopUp";
+import Form from "./Form/Form";
+
+export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema">;
+
+interface FormValues {
+    exercises: ExerciseInput[];
+}
 
 interface WorkoutProps {
     bottom: number;
@@ -22,6 +30,22 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
+    const { control, handleSubmit, reset } = useForm<FormValues>({
+        defaultValues: {
+            exercises: []
+        }
+    });
+
+    const { fields: exercises, append, remove } = useFieldArray({
+        control,
+        name: "exercises"
+    });
+
+    const addExercises = (exercises: ExerciseInput[]) => {
+        exercises.forEach(exercise => {
+            append(exercise);
+        });
+    }
 
     const pan = Gesture.Pan()
         .onStart(() => {
@@ -55,11 +79,11 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 <TopTab />
             </GestureDetector>
             <EllapsedTime startTime={startTime} />
-            <AddExerciseButton openAddExercisePopUp={() => setShowAddExercisePopUp(true)}/>
-            <CancelButton />
-            <AddExercisePopUp 
+            <Form data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} />
+            <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}
                 closeAddExercisePopUp={() => setShowAddExercisePopUp(false)}
+                addExercises={addExercises}
             />
         </Animated.View>
     )
