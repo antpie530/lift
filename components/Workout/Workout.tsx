@@ -18,9 +18,10 @@ interface WorkoutProps {
     maxHeight: number;
     startTime: number | undefined;
     control: Control<FormValues>;
+    setValue: (name: string, data: ExerciseInput[]) => void;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
@@ -69,7 +70,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 <TopTab />
             </GestureDetector>
             <EllapsedTime startTime={startTime} />
-            <Form data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} />
+            <Form data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} setValue={setValue} />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}
                 closeAddExercisePopUp={() => setShowAddExercisePopUp(false)}
