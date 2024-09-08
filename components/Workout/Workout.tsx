@@ -2,20 +2,13 @@ import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Animated, { useSharedValue, AnimatedStyle, SharedValue, withTiming } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useFieldArray, useForm } from "react-hook-form";
-
-import { Exercise } from "@/db/schema";
+import { useFieldArray, Control } from "react-hook-form";
+import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";
 import AddExercisePopUp from "./AddExercisePopUp/AddExercisePopUp";
 import Form from "./Form/Form";
-
-export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema">;
-
-interface FormValues {
-    exercises: ExerciseInput[];
-}
 
 interface WorkoutProps {
     bottom: number;
@@ -24,21 +17,18 @@ interface WorkoutProps {
     minHeight: number;
     maxHeight: number;
     startTime: number | undefined;
+    control: Control<FormValues>;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
-    const { control, handleSubmit, reset } = useForm<FormValues>({
-        defaultValues: {
-            exercises: []
-        }
-    });
 
     const { fields: exercises, append, remove } = useFieldArray({
         control,
-        name: "exercises"
+        name: "exercises",
+        keyName: "keyName"
     });
 
     const addExercises = (exercises: ExerciseInput[]) => {

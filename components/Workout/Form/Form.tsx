@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 
-import { ExerciseInput } from "../Workout";
+import { ExerciseInput } from "@/app/(tabs)/_layout";
 
 import AddExerciseButton from "../AddExerciseButton";
 import CancelButton from "../CancelButton";

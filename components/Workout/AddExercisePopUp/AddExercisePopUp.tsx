@@ -3,8 +3,7 @@ import { Modal, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 
 import { getAllExercises } from "@/db/queries";
-
-import { ExerciseInput } from "../Workout";
+import { ExerciseInput } from "@/app/(tabs)/_layout";
 
 import Header from "./Header";
 import Filters from "./Filters";
@@ -39,7 +38,7 @@ export default function AddExercisePopUp({
             id: exercise.id,
             name: exercise.name,
             schema: exercise.schema
-        }))
+        }));
     };
     const removeSelectedExercise = (id: number) => {
         const newSet = new Map(selectedExercises);

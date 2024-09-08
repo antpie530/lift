@@ -3,10 +3,18 @@ import { Dimensions } from "react-native";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Extrapolation, interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { useForm } from "react-hook-form";
+import { Exercise } from "@/db/schema";
 
 import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
+
+export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema">;
+
+export interface FormValues {
+    exercises: ExerciseInput[];
+}
 
 export default function TabsLayout() {
     const [workoutStartTime, setWorkoutStartTime] = useState<number | undefined>();
@@ -15,6 +23,11 @@ export default function TabsLayout() {
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 60;
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
+    const { control, handleSubmit, reset } = useForm<FormValues>({
+        defaultValues: {
+            exercises: []
+        }
+    });
 
     const openWorkout = () => {
         setWorkoutIsActive(true);
@@ -25,6 +38,7 @@ export default function TabsLayout() {
     const closeWorkout = () => {
         setWorkoutIsActive(false);
         setWorkoutStartTime(undefined);
+        reset();
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
 
@@ -54,6 +68,7 @@ export default function TabsLayout() {
                 minHeight={minWorkoutHeight}
                 maxHeight={maxWorkoutHeight}
                 startTime={workoutStartTime}
+                control={control}
             />
         </WorkoutContext.Provider>
     )

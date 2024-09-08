@@ -1,7 +1,7 @@
 import { FlatList } from "react-native";
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { Exercise } from "@/db/schema";
-import { ExerciseInput } from "../../Workout";
+import { ExerciseInput } from "@/app/(tabs)/_layout";
 
 import ExerciseItem from "./ExerciseItem";
 
@@ -13,6 +13,8 @@ interface ExerciseListProps {
 }
 
 export default function ExerciseList({ data, selectedExercises, addExercise, removeExercise }: ExerciseListProps) {
+    console.log(data);
+
     return (
         <FlatList
             data={data}
