@@ -21,9 +21,9 @@ export default function TabsLayout() {
     const [workoutIsActive, setWorkoutIsActive] = useState(false);
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
     const workoutHeight = useSharedValue<number>(0);
-    const minWorkoutHeight = 60;
+    const minWorkoutHeight = 65;
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
-    const { control, handleSubmit, reset, setValue } = useForm<FormValues>({
+    const { control, handleSubmit, reset, setValue, formState: { errors } } = useForm<FormValues>({
         defaultValues: {
             exercises: []
         }
@@ -40,6 +40,12 @@ export default function TabsLayout() {
         setWorkoutStartTime(undefined);
         reset();
         workoutHeight.value = withTiming(0, { duration: 200 });
+    }
+
+    const onSubmit = (data: FormValues) => {
+        console.log("Data Submitted");
+        console.log(data);
+        closeWorkout();
     }
 
     const offsetAnimatedStyle = useAnimatedStyle(() => ({
@@ -70,6 +76,8 @@ export default function TabsLayout() {
                 startTime={workoutStartTime}
                 control={control}
                 setValue={setValue}
+                onFormSubmit={handleSubmit(onSubmit)}
+                errors={errors}
             />
         </WorkoutContext.Provider>
     )

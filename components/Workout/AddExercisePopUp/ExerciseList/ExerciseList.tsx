@@ -13,8 +13,6 @@ interface ExerciseListProps {
 }
 
 export default function ExerciseList({ data, selectedExercises, addExercise, removeExercise }: ExerciseListProps) {
-    console.log(data);
-
     return (
         <FlatList
             data={data}

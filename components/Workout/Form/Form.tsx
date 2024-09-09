@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableHighlight } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
-
-import { ExerciseInput } from "@/app/(tabs)/_layout";
+import { UseFormSetValue } from "react-hook-form";
+import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import AddExerciseButton from "../AddExerciseButton";
 import CancelButton from "../CancelButton";
@@ -9,7 +9,7 @@ import CancelButton from "../CancelButton";
 interface FormProps {
     data: ExerciseInput[];
     openAddExercisePopUp: () => void;
-    setValue: (name: string, data: ExerciseInput[]) => void;
+    setValue: UseFormSetValue<FormValues>;
 }
 
 export default function Form({ data, openAddExercisePopUp, setValue }: FormProps) {
