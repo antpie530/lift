@@ -34,7 +34,6 @@ export default function ExerciseDetail({ id, showDetails, closeDetails, showForm
     } else if (isError) {
         form = <Text>{error.message}</Text>
     } else {
-        console.log(data);
         form = <EditExerciseForm showForm={showForm} closeForm={closeForm} exercise={data[0]} />
     }
 

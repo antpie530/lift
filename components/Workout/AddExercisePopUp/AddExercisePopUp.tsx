@@ -37,7 +37,8 @@ export default function AddExercisePopUp({
         setSelectedExercises(prevSet => new Map(prevSet).set(exercise.id, {
             id: exercise.id,
             name: exercise.name,
-            schema: exercise.schema
+            schema: exercise.schema,
+            notes: ""
         }));
     };
     const removeSelectedExercise = (id: number) => {

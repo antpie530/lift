@@ -10,7 +10,7 @@ import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
 
-export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema">;
+export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string };
 
 export interface FormValues {
     exercises: ExerciseInput[];

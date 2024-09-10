@@ -48,7 +48,6 @@ export default function ExerciseList({ isPending, isError, error, data }: Exerci
     }
 
     const handleHideExercise = () => {
-        console.log("Hiding exercise", hideExerciseId);
         if (hideExerciseId) {
             mutation.mutate(hideExerciseId);
         }
