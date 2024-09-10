@@ -29,7 +29,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
 
-    const { fields: exercises, append, remove } = useFieldArray({
+    const { fields: exercises, append, remove, move } = useFieldArray({
         control,
         name: "exercises",
         keyName: "keyName"
@@ -74,7 +74,14 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             </GestureDetector>
             <Header startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
             <EllapsedTime startTime={startTime} />
-            <Form remove={remove} data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} setValue={setValue} />
+            <Form 
+                remove={remove} 
+                data={exercises} 
+                openAddExercisePopUp={() => setShowAddExercisePopUp(true)} 
+                setValue={setValue}
+                control={control}
+                move={move}
+            />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}
                 closeAddExercisePopUp={() => setShowAddExercisePopUp(false)}

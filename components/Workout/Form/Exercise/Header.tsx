@@ -5,16 +5,20 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { lightHaptic } from "@/utils/haptics/haptics";
 
 import ExerciseDetailViewer from "@/components/Common/ExerciseDetailViewer/ExerciseDetailViewer";
-import RemoveButton from "./RemoveButton";
+import RemoveButton from "./Buttons/RemoveButton";
+import NotesVisibilityButton from "./Buttons/NotesVisibilityButton";
 
 interface HeaderProps {
     index: number | undefined;
     name: string;
     id: number;
     removeExercise: (id: number | undefined) => void;
+    notesVisible: boolean;
+    closeNotes: () => void;
+    openNotes: () => void;
 }
 
-export default function Header({ index, name, id, removeExercise }: HeaderProps) {
+export default function Header({ index, name, id, removeExercise, notesVisible, closeNotes, openNotes }: HeaderProps) {
     const [showDetails, setShowDetails] = useState(false);
     const [showPopper, setShowPopper] = useState(false);
 
@@ -53,6 +57,17 @@ export default function Header({ index, name, id, removeExercise }: HeaderProps)
                         setShowPopper(false);
                         removeExercise(index);
                     }} 
+                />
+                <NotesVisibilityButton 
+                    notesVisible={notesVisible}
+                    closeNotes={() => {
+                        closeNotes();
+                        setShowPopper(false);
+                    }}
+                    openNotes={() => {
+                        openNotes();
+                        setShowPopper(false);
+                    }}
                 />
             </Popover>
             <ExerciseDetailViewer id={id} showDetails={showDetails} setShowDetails={setShowDetails}/>

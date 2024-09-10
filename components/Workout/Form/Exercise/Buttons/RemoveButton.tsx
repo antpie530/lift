@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 
 import ConfirmationPopUp from "@/components/Common/ConfirmationPopUp/ConfirmationPopUp";
@@ -22,7 +22,9 @@ export default function RemoveButton({ name, removeExercise }: RemoveButtonProps
                 }}
                 style={styles.container}
             >
-                <Feather name="x" size={20} color="red" />
+                <View style={styles.icon}>
+                    <Feather name="x" size={20} color="red" />
+                </View>
                 <Text style={styles.text}>Remove Exercise</Text>
             </TouchableOpacity>
             <ConfirmationPopUp 
@@ -42,6 +44,10 @@ export default function RemoveButton({ name, removeExercise }: RemoveButtonProps
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row"
+    },
+    icon: {
+        alignItems: "center",
+        width: 25
     },
     text: {
         color: "white",
