@@ -1,0 +1,75 @@
+import { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Popover, { PopoverPlacement } from 'react-native-popover-view';
+import Entypo from '@expo/vector-icons/Entypo';
+import { lightHaptic } from "@/utils/haptics/haptics";
+
+import ExerciseDetailViewer from "@/components/Common/ExerciseDetailViewer/ExerciseDetailViewer";
+import RemoveButton from "./RemoveButton";
+
+interface HeaderProps {
+    name: string;
+    id: number;
+    removeExercise: (id: number) => void;
+}
+
+export default function Header({ name, id, removeExercise }: HeaderProps) {
+    const [showDetails, setShowDetails] = useState(false);
+
+    return (
+        <View style={styles.container}>
+            <TouchableOpacity
+                onPress={() => {
+                    lightHaptic();
+                    setShowDetails(true);
+                }}
+            >
+                <Text style={styles.name}>{name}</Text>
+            </TouchableOpacity>
+            <Popover
+                arrowSize={{ height: 0, width: 0}}
+                onOpenStart={lightHaptic}
+                placement={PopoverPlacement.LEFT}
+                popoverStyle={styles.optionsPopover}
+                backgroundStyle={{ backgroundColor: "rgba(0, 0, 0, .3)"}}
+                from={(
+                    <TouchableOpacity style={styles.options}>
+                        <Entypo name="dots-three-horizontal" size={24} color="white" />
+                    </TouchableOpacity>
+                )}
+            >
+                <RemoveButton name={name} removeExercise={() => removeExercise(id)} />
+            </Popover>
+            <ExerciseDetailViewer id={id} showDetails={showDetails} setShowDetails={setShowDetails}/>
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        justifyContent: "space-between",
+        flexDirection: "row",
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+        width: "100%"
+    },
+    name: {
+        color: "white",
+        fontSize: 16,
+        fontWeight: "700"
+    },
+    options: {
+        alignItems: "center",
+        backgroundColor: "rgba(145, 145, 145, .5)",
+        borderRadius: 8,
+        justifyContent: "center",
+        paddingVertical: 0,
+        paddingHorizontal: 5
+    },
+    optionsPopover: {
+        backgroundColor: "rgba(73, 76, 82, 1)",
+        borderRadius: 15,
+        padding: 10,
+        width: 200
+    }
+})

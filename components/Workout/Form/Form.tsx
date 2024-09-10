@@ -5,6 +5,7 @@ import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import AddExerciseButton from "../AddExerciseButton";
 import CancelButton from "../CancelButton";
+import Exercise from "./Exercise/Exercise";
 
 interface FormProps {
     data: ExerciseInput[];
@@ -13,8 +14,14 @@ interface FormProps {
 }
 
 export default function Form({ data, openAddExercisePopUp, setValue }: FormProps) {
+
+    const removeExercise = (id: number) => {
+        const updatedData = data.filter(exercise => exercise.id !== id);
+        setValue("exercises", updatedData);
+    }
+
     return (
-        <DraggableFlatList 
+        <DraggableFlatList
             data={data}
             onDragEnd={({ data }) => setValue("exercises", data)}
             keyExtractor={item => item.id.toString()}
@@ -23,19 +30,9 @@ export default function Form({ data, openAddExercisePopUp, setValue }: FormProps
                     <TouchableHighlight
                         onLongPress={drag}
                         disabled={isActive}
-                        style={{
-                            padding: 15,
-                            borderBottomWidth: 2,
-                            borderColor: "white"
-                        }}
                         underlayColor="transparent"
                     >
-                        <>
-                            <Text style={styles.text}>Index:</Text>
-                            <Text style={styles.text}>ID: {item.id}</Text>
-                            <Text style={styles.text}>Name: {item.name}</Text>
-                            <Text style={styles.text}>Schema: {item.schema}</Text>
-                        </>
+                        <Exercise name={item.name} id={item.id} removeExercise={removeExercise} />   
                     </TouchableHighlight>
                 </ScaleDecorator>
             )}
