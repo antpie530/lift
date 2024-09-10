@@ -8,13 +8,15 @@ import ExerciseDetailViewer from "@/components/Common/ExerciseDetailViewer/Exerc
 import RemoveButton from "./RemoveButton";
 
 interface HeaderProps {
+    index: number | undefined;
     name: string;
     id: number;
-    removeExercise: (id: number) => void;
+    removeExercise: (id: number | undefined) => void;
 }
 
-export default function Header({ name, id, removeExercise }: HeaderProps) {
+export default function Header({ index, name, id, removeExercise }: HeaderProps) {
     const [showDetails, setShowDetails] = useState(false);
+    const [showPopper, setShowPopper] = useState(false);
 
     return (
         <View style={styles.container}>
@@ -27,18 +29,31 @@ export default function Header({ name, id, removeExercise }: HeaderProps) {
                 <Text style={styles.name}>{name}</Text>
             </TouchableOpacity>
             <Popover
+                isVisible={showPopper}
                 arrowSize={{ height: 0, width: 0}}
-                onOpenStart={lightHaptic}
                 placement={PopoverPlacement.LEFT}
+                onRequestClose={() => setShowPopper(false)}
                 popoverStyle={styles.optionsPopover}
                 backgroundStyle={{ backgroundColor: "rgba(0, 0, 0, .3)"}}
                 from={(
-                    <TouchableOpacity style={styles.options}>
+                    <TouchableOpacity 
+                        onPress={() => {
+                            lightHaptic();
+                            setShowPopper(true);
+                        }}
+                        style={styles.options}
+                    >
                         <Entypo name="dots-three-horizontal" size={24} color="white" />
                     </TouchableOpacity>
                 )}
             >
-                <RemoveButton name={name} removeExercise={() => removeExercise(id)} />
+                <RemoveButton 
+                    name={name} 
+                    removeExercise={() => {
+                        setShowPopper(false);
+                        removeExercise(index);
+                    }} 
+                />
             </Popover>
             <ExerciseDetailViewer id={id} showDetails={showDetails} setShowDetails={setShowDetails}/>
         </View>

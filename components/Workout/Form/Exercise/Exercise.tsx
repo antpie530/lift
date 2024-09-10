@@ -1,15 +1,16 @@
 import Header from "./Header";
 
 interface ExerciseProps {
+    index: number | undefined;
     name: string;
     id: number;
-    removeExercise: (id: number) => void;
+    removeExercise: (id: number | undefined) => void;
 }
 
-export default function Exercise({ name, id, removeExercise }: ExerciseProps) {
+export default function Exercise({ index, name, id, removeExercise }: ExerciseProps) {
     return (
         <>
-            <Header name={name} id={id} removeExercise={removeExercise} />
+            <Header index={index} name={name} id={id} removeExercise={removeExercise} />
         </>
     )
 }

@@ -11,28 +11,23 @@ interface FormProps {
     data: ExerciseInput[];
     openAddExercisePopUp: () => void;
     setValue: UseFormSetValue<FormValues>;
+    remove: () => void;
 }
 
-export default function Form({ data, openAddExercisePopUp, setValue }: FormProps) {
-
-    const removeExercise = (id: number) => {
-        const updatedData = data.filter(exercise => exercise.id !== id);
-        setValue("exercises", updatedData);
-    }
-
+export default function Form({ remove, data, openAddExercisePopUp, setValue }: FormProps) {
     return (
         <DraggableFlatList
             data={data}
             onDragEnd={({ data }) => setValue("exercises", data)}
             keyExtractor={item => item.id.toString()}
-            renderItem={({ item, drag, isActive }) => (
+            renderItem={({ item, drag, isActive, getIndex }) => (
                 <ScaleDecorator>
                     <TouchableHighlight
                         onLongPress={drag}
                         disabled={isActive}
                         underlayColor="transparent"
                     >
-                        <Exercise name={item.name} id={item.id} removeExercise={removeExercise} />   
+                        <Exercise index={getIndex()} name={item.name} id={item.id} removeExercise={remove} />   
                     </TouchableHighlight>
                 </ScaleDecorator>
             )}

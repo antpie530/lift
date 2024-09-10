@@ -74,7 +74,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             </GestureDetector>
             <Header startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
             <EllapsedTime startTime={startTime} />
-            <Form data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} setValue={setValue} />
+            <Form remove={remove} data={exercises} openAddExercisePopUp={() => setShowAddExercisePopUp(true)} setValue={setValue} />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}
                 closeAddExercisePopUp={() => setShowAddExercisePopUp(false)}
