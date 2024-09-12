@@ -1,7 +1,8 @@
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
+import { TouchableHighlight } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
 import { UseFormSetValue, Control } from "react-hook-form";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { lightHaptic } from "@/utils/haptics/haptics";
 
 import AddExerciseButton from "../AddExerciseButton";
 import CancelButton from "../CancelButton";
@@ -16,11 +17,14 @@ interface FormProps {
     control: Control<FormValues>;
 }
 
-export default function Form({ remove, data, openAddExercisePopUp, setValue, control, move }: FormProps) {
+export default function Form({ remove, data, openAddExercisePopUp, control, move }: FormProps) {
     return (
         <DraggableFlatList
+            containerStyle={{ flex: 1 }}
             data={data}
+            onDragBegin={() => lightHaptic()}
             onDragEnd={({ data, from, to }) => move(from, to)}
+            onPlaceholderIndexChange={() => lightHaptic()}
             keyExtractor={item => item.id.toString()}
             renderItem={({ item, drag, isActive, getIndex }) => (
                 <ScaleDecorator>
@@ -30,11 +34,12 @@ export default function Form({ remove, data, openAddExercisePopUp, setValue, con
                         underlayColor="transparent"
                     >
                         <Exercise 
-                            index={getIndex()} 
+                            index={getIndex() as number} 
                             name={item.name} 
                             id={item.id} 
                             removeExercise={remove} 
-                            control={control}    
+                            control={control}  
+                            schema={item.schema}  
                         />   
                     </TouchableHighlight>
                 </ScaleDecorator>
@@ -48,11 +53,3 @@ export default function Form({ remove, data, openAddExercisePopUp, setValue, con
         />
     )
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "700"
-    }
-})

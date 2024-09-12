@@ -1,20 +1,60 @@
 import { useState } from "react";
-import { Control } from "react-hook-form";
-import { FormValues } from "@/app/(tabs)/_layout";
+import { Control, useFieldArray } from "react-hook-form";
+import { FormValues, ExerciseInput } from "@/app/(tabs)/_layout";
 
 import Header from "./Header";
 import Notes from "./Notes";
+import Sets from "./Sets/Sets";
+import AddSetButton from "./AddSetButton";
 
 interface ExerciseProps {
-    index: number | undefined;
+    index: number;
     name: string;
     id: number;
-    removeExercise: (id: number | undefined) => void;
+    schema: ExerciseInput["schema"];
+    removeExercise: (id: number) => void;
     control: Control<FormValues>;
 }
 
-export default function Exercise({ index, name, id, removeExercise, control }: ExerciseProps) {
+export default function Exercise({ index, name, id, schema, removeExercise, control }: ExerciseProps) {
     const [showNotes, setShowNotes] = useState(false);
+
+    const { fields: sets, append, remove: removeSet } = useFieldArray({
+        control,
+        name: `exercises.${index}.sets`,
+        keyName: "keyName"
+    });
+
+    const addSet = (schema: ExerciseInput["schema"]) => {
+        switch(schema) {
+            case "Weight Reps":
+                append({
+                    weight: 0,
+                    reps: 0,
+                    completed: false
+                });
+                break;
+            case "Reps Only":
+                append({ 
+                    reps: 0, 
+                    completed: false 
+                });
+                break;
+            case "Time Only":
+                append({ 
+                    time: 0, 
+                    completed: false
+                });
+                break;
+            case "Weight Throws":
+                append({ 
+                    weight: 0, 
+                    throws: 0, 
+                    completed: false 
+                });
+                break;
+        }
+    };
 
     return (
         <>
@@ -28,6 +68,8 @@ export default function Exercise({ index, name, id, removeExercise, control }: E
                 openNotes={() => setShowNotes(true)}
             />
             {showNotes && <Notes index={index} control={control} />}
+            <Sets control={control} sets={sets} exerciseIndex={index} schema={schema} removeSet={removeSet}/>
+            <AddSetButton addSet={() => addSet(schema)}/>
         </>
     )
 }

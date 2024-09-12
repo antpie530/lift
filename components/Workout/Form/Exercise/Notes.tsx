@@ -8,7 +8,7 @@ import { lightHaptic } from "@/utils/haptics/haptics";
 
 interface NotesProps {
     control: Control<FormValues>;
-    index: number | undefined;
+    index: number;
 }
 
 export default function Notes({ control, index}: NotesProps) {
@@ -18,7 +18,7 @@ export default function Notes({ control, index}: NotesProps) {
         <View style={styles.container}>
             <Controller 
                 control={control}
-                name={`exercises[${index}].notes`}
+                name={`exercises.${index}.notes`}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         onBlur={onBlur}

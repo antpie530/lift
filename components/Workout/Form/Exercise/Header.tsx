@@ -9,10 +9,10 @@ import RemoveButton from "./Buttons/RemoveButton";
 import NotesVisibilityButton from "./Buttons/NotesVisibilityButton";
 
 interface HeaderProps {
-    index: number | undefined;
+    index: number;
     name: string;
     id: number;
-    removeExercise: (id: number | undefined) => void;
+    removeExercise: (index: number) => void;
     notesVisible: boolean;
     closeNotes: () => void;
     openNotes: () => void;
@@ -29,6 +29,7 @@ export default function Header({ index, name, id, removeExercise, notesVisible, 
                     lightHaptic();
                     setShowDetails(true);
                 }}
+                style={styles.nameWrapper}
             >
                 <Text style={styles.name}>{name}</Text>
             </TouchableOpacity>
@@ -80,8 +81,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection: "row",
         paddingHorizontal: 15,
-        paddingVertical: 5,
         width: "100%"
+    },
+    nameWrapper: {
+        alignItems: "center",
+        justifyContent: "flex-end"
     },
     name: {
         color: "white",

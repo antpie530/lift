@@ -10,7 +10,31 @@ import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
 
-export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string };
+type WeightReps = {
+    weight: number;
+    reps: number;
+    completed: boolean;
+};
+
+type RepsOnly = {
+    reps: number;
+    completed: boolean;
+}
+
+type WeightThrows = {
+    weight: number;
+    throws: number;
+    completed: boolean;
+}
+
+type TimeOnly = {
+    time: number;
+    completed: boolean;
+}
+
+export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
+
+export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string, sets: SetType[] };
 
 export interface FormValues {
     exercises: ExerciseInput[];
@@ -44,7 +68,7 @@ export default function TabsLayout() {
 
     const onSubmit = (data: FormValues) => {
         console.log("Data Submitted");
-        console.log(data);
+        console.log(JSON.stringify(data, null, 2));
         closeWorkout();
     }
 
