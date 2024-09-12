@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Control, useFieldArray } from "react-hook-form";
+import Animated, { FadeOut, LinearTransition } from "react-native-reanimated"
 import { FormValues, ExerciseInput } from "@/app/(tabs)/_layout";
 
 import Header from "./Header";
@@ -42,7 +43,7 @@ export default function Exercise({ index, name, id, schema, removeExercise, cont
                 break;
             case "Time Only":
                 append({ 
-                    time: 0, 
+                    time: "", 
                     completed: false
                 });
                 break;
@@ -57,7 +58,10 @@ export default function Exercise({ index, name, id, schema, removeExercise, cont
     };
 
     return (
-        <>
+        <Animated.View
+            exiting={FadeOut}
+            layout={LinearTransition}
+        >
             <Header 
                 index={index} 
                 name={name} 
@@ -70,6 +74,6 @@ export default function Exercise({ index, name, id, schema, removeExercise, cont
             {showNotes && <Notes index={index} control={control} />}
             <Sets control={control} sets={sets} exerciseIndex={index} schema={schema} removeSet={removeSet}/>
             <AddSetButton addSet={() => addSet(schema)}/>
-        </>
+        </Animated.View>
     )
 }

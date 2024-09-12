@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Control, Controller, FieldArrayWithId } from "react-hook-form";
 import Animated, { FadeInRight, FadeOutLeft, LinearTransition } from "react-native-reanimated";
@@ -6,15 +7,18 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { FormValues } from "@/app/(tabs)/_layout";
+import MaskInput, { Mask } from 'react-native-mask-input';
 
-interface WeightRepsSetsProps {
+interface TimeOnlySetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     control: Control<FormValues>;
 }
 
-export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control }: WeightRepsSetsProps) {
+export default function TimeOnlySets({ exerciseIndex, removeSet, sets, control }: TimeOnlySetsProps) {
+    const [formattedTime, setFormattedTime] = useState('');
+
     return (
         <View style={styles.container}>
             <View style={styles.headers}>
@@ -22,11 +26,8 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                     <Text style={styles.headerText}>Set</Text>
                 </View>
                 <View style={styles.schemaColumns}>
-                    <View style={styles.weightColumn}>
-                        <Text style={styles.headerText}>lbs</Text>
-                    </View>
-                    <View style={styles.repsColumn}>
-                        <Text style={styles.headerText}>Reps</Text>
+                    <View style={styles.timeColumn}>
+                        <Text style={styles.headerText}>HH:MM:SS.SS</Text>
                     </View>
                     <View style={styles.statusColumn}>
                         <Text style={styles.headerText}>Status</Text>
@@ -61,39 +62,31 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                             </View>
                         </View>
                         <View style={styles.schemaColumns}>
-                            <View style={styles.weightColumn}>
-                                <Controller 
-                                    control={control}
-                                    name={`exercises.${exerciseIndex}.sets.${index}.weight`}
-                                    render={({ field: { onChange, onBlur, value }}) => (
-                                        <TextInput
-                                            keyboardType="numeric"
-                                            inputMode="numeric"
-                                            style={[styles.textInput, styles.weightInput]}
-                                            value={value?.toString()}
-                                            onChangeText={(text) => {
-                                                const updatedText = text ? parseInt(text) : text;
-                                                onChange(updatedText);
-                                            }}
-                                            onBlur={onBlur}
-                                        />
-                                    )}
-                                />
-                            </View>
-                            <View style={styles.repsColumn}>
+                            <View style={styles.timeColumn}>
                                 <Controller
                                     control={control}
-                                    name={`exercises.${exerciseIndex}.sets.${index}.reps`}
+                                    name={`exercises.${exerciseIndex}.sets.${index}.time`}
                                     render={({ field: { onChange, onBlur, value }}) => (
-                                        <TextInput
+                                        <MaskInput
+                                            mask={(text) => {
+                                                const parts = text ? text.replace(/[^0-9]/g, '') : "";
+                                                if (parts.length <= 4) {
+                                                    return [/\d/, /\d/, ".", /\d/, /\d/];
+                                                } else if (parts.length <= 5) {
+                                                    return [/\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
+                                                } else if (parts.length <= 6) {
+                                                    return [/\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
+                                                } else if (parts.length <= 7) {
+                                                    return [/\d/, ":", /\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
+                                                } else {
+                                                    return [/\d/, /\d/, ":", /\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
+                                                }
+                                            }}
                                             keyboardType="numeric"
                                             inputMode="numeric"
-                                            style={[styles.textInput, styles.repsInput]}
-                                            value={value?.toString()}
-                                            onChangeText={(text) => {
-                                                const updatedText = text ? parseInt(text) : text;
-                                                onChange(updatedText);
-                                            }}
+                                            style={[styles.textInput, styles.timeInput]}
+                                            value={value}
+                                            onChangeText={onChange}
                                             onBlur={onBlur}
                                         />
                                     )}
@@ -148,13 +141,9 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         width: 50
     },
-    weightColumn: {
+    timeColumn: {
         alignItems: "center",
-        width: 70
-    },
-    repsColumn: {
-        alignItems: "center",
-        width: 70
+        width: 120
     },
     statusColumn: {
         alignItems: "flex-end",
@@ -170,11 +159,8 @@ const styles = StyleSheet.create({
         paddingVertical: 3,
         textAlign: "center",
     },
-    weightInput: {
-        width: 70
-    },
-    repsInput: {
-        width: 45
+    timeInput: {
+        minWidth: 70
     },
     icon: {
         paddingVertical: 3,

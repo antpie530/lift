@@ -1,4 +1,5 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import Animated, { LinearTransition } from "react-native-reanimated";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { lightHaptic } from "@/utils/haptics/haptics";
 
@@ -8,7 +9,10 @@ interface AddSetButtonProps {
 
 export default function AddSetButton({ addSet }: AddSetButtonProps) {
     return (
-        <View style={styles.container}>
+        <Animated.View
+            layout={LinearTransition}
+            style={styles.container}
+        >
             <TouchableOpacity
                 onPress={() => {
                     lightHaptic();
@@ -21,7 +25,7 @@ export default function AddSetButton({ addSet }: AddSetButtonProps) {
                 </View>
                 <FontAwesome6 name="dumbbell" size={20} color="white" />
             </TouchableOpacity>
-        </View>
+        </Animated.View>
     )
 }
 

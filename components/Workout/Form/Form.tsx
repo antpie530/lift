@@ -1,6 +1,7 @@
-import { TouchableHighlight } from "react-native";
+import { TouchableHighlight, View } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
 import { UseFormSetValue, Control } from "react-hook-form";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
@@ -18,6 +19,8 @@ interface FormProps {
 }
 
 export default function Form({ remove, data, openAddExercisePopUp, control, move }: FormProps) {
+    const bottomInsetHeight = useSafeAreaInsets().bottom;
+    
     return (
         <DraggableFlatList
             containerStyle={{ flex: 1 }}
@@ -48,6 +51,7 @@ export default function Form({ remove, data, openAddExercisePopUp, control, move
                 <>
                     <AddExerciseButton openAddExercisePopUp={openAddExercisePopUp}/>
                     <CancelButton />
+                    <View style={{ height: bottomInsetHeight }}/>
                 </>
             )}
         />

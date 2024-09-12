@@ -7,14 +7,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { FormValues } from "@/app/(tabs)/_layout";
 
-interface WeightRepsSetsProps {
+interface WeightThrowsSetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     control: Control<FormValues>;
 }
 
-export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control }: WeightRepsSetsProps) {
+export default function WeightThrowsSets({ exerciseIndex, removeSet, sets, control }: WeightThrowsSetsProps) {
     return (
         <View style={styles.container}>
             <View style={styles.headers}>
@@ -23,10 +23,10 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                 </View>
                 <View style={styles.schemaColumns}>
                     <View style={styles.weightColumn}>
-                        <Text style={styles.headerText}>lbs</Text>
+                        <Text style={styles.headerText}>grams</Text>
                     </View>
-                    <View style={styles.repsColumn}>
-                        <Text style={styles.headerText}>Reps</Text>
+                    <View style={styles.throwsColumn}>
+                        <Text style={styles.headerText}>Throws</Text>
                     </View>
                     <View style={styles.statusColumn}>
                         <Text style={styles.headerText}>Status</Text>
@@ -80,15 +80,15 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                                     )}
                                 />
                             </View>
-                            <View style={styles.repsColumn}>
+                            <View style={styles.throwsColumn}>
                                 <Controller
                                     control={control}
-                                    name={`exercises.${exerciseIndex}.sets.${index}.reps`}
+                                    name={`exercises.${exerciseIndex}.sets.${index}.throws`}
                                     render={({ field: { onChange, onBlur, value }}) => (
                                         <TextInput
                                             keyboardType="numeric"
                                             inputMode="numeric"
-                                            style={[styles.textInput, styles.repsInput]}
+                                            style={[styles.textInput, styles.throwsInput]}
                                             value={value?.toString()}
                                             onChangeText={(text) => {
                                                 const updatedText = text ? parseInt(text) : text;
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: 70
     },
-    repsColumn: {
+    throwsColumn: {
         alignItems: "center",
         width: 70
     },
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     weightInput: {
         width: 70
     },
-    repsInput: {
+    throwsInput: {
         width: 45
     },
     icon: {

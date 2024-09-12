@@ -7,14 +7,14 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { FormValues } from "@/app/(tabs)/_layout";
 
-interface WeightRepsSetsProps {
+interface RepsOnlySetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     control: Control<FormValues>;
 }
 
-export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control }: WeightRepsSetsProps) {
+export default function RepsOnlySets({ exerciseIndex, removeSet, sets, control }: RepsOnlySetsProps) {
     return (
         <View style={styles.container}>
             <View style={styles.headers}>
@@ -22,9 +22,6 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                     <Text style={styles.headerText}>Set</Text>
                 </View>
                 <View style={styles.schemaColumns}>
-                    <View style={styles.weightColumn}>
-                        <Text style={styles.headerText}>lbs</Text>
-                    </View>
                     <View style={styles.repsColumn}>
                         <Text style={styles.headerText}>Reps</Text>
                     </View>
@@ -61,25 +58,6 @@ export default function WeightRepsSets({ exerciseIndex, removeSet, sets, control
                             </View>
                         </View>
                         <View style={styles.schemaColumns}>
-                            <View style={styles.weightColumn}>
-                                <Controller 
-                                    control={control}
-                                    name={`exercises.${exerciseIndex}.sets.${index}.weight`}
-                                    render={({ field: { onChange, onBlur, value }}) => (
-                                        <TextInput
-                                            keyboardType="numeric"
-                                            inputMode="numeric"
-                                            style={[styles.textInput, styles.weightInput]}
-                                            value={value?.toString()}
-                                            onChangeText={(text) => {
-                                                const updatedText = text ? parseInt(text) : text;
-                                                onChange(updatedText);
-                                            }}
-                                            onBlur={onBlur}
-                                        />
-                                    )}
-                                />
-                            </View>
                             <View style={styles.repsColumn}>
                                 <Controller
                                     control={control}
@@ -148,10 +126,6 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         width: 50
     },
-    weightColumn: {
-        alignItems: "center",
-        width: 70
-    },
     repsColumn: {
         alignItems: "center",
         width: 70
@@ -169,9 +143,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
         paddingVertical: 3,
         textAlign: "center",
-    },
-    weightInput: {
-        width: 70
     },
     repsInput: {
         width: 45

@@ -28,7 +28,7 @@ type WeightThrows = {
 }
 
 type TimeOnly = {
-    time: number;
+    time: string;
     completed: boolean;
 }
 
