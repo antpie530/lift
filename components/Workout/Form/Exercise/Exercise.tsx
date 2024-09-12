@@ -30,14 +30,14 @@ export default function Exercise({ index, name, id, schema, removeExercise, cont
         switch(schema) {
             case "Weight Reps":
                 append({
-                    weight: 0,
-                    reps: 0,
+                    weight: undefined,
+                    reps: undefined,
                     completed: false
                 });
                 break;
             case "Reps Only":
                 append({ 
-                    reps: 0, 
+                    reps: undefined, 
                     completed: false 
                 });
                 break;
@@ -49,8 +49,8 @@ export default function Exercise({ index, name, id, schema, removeExercise, cont
                 break;
             case "Weight Throws":
                 append({ 
-                    weight: 0, 
-                    throws: 0, 
+                    weight: undefined, 
+                    throws: undefined, 
                     completed: false 
                 });
                 break;

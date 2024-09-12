@@ -11,19 +11,19 @@ import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
 
 type WeightReps = {
-    weight: number;
-    reps: number;
+    weight: number | undefined;
+    reps: number | undefined;
     completed: boolean;
 };
 
 type RepsOnly = {
-    reps: number;
+    reps: number | undefined;
     completed: boolean;
 }
 
 type WeightThrows = {
-    weight: number;
-    throws: number;
+    weight: number | undefined;
+    throws: number | undefined;
     completed: boolean;
 }
 
