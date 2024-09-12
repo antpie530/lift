@@ -1,4 +1,4 @@
-import { TouchableHighlight, View } from "react-native";
+import { KeyboardAvoidingView, Platform, TouchableHighlight, View } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
 import { UseFormSetValue, Control } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -22,38 +22,44 @@ export default function Form({ remove, data, openAddExercisePopUp, control, move
     const bottomInsetHeight = useSafeAreaInsets().bottom;
     
     return (
-        <DraggableFlatList
-            containerStyle={{ flex: 1 }}
-            data={data}
-            onDragBegin={() => lightHaptic()}
-            onDragEnd={({ data, from, to }) => move(from, to)}
-            onPlaceholderIndexChange={() => lightHaptic()}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item, drag, isActive, getIndex }) => (
-                <ScaleDecorator>
-                    <TouchableHighlight
-                        onLongPress={drag}
-                        disabled={isActive}
-                        underlayColor="transparent"
-                    >
-                        <Exercise 
-                            index={getIndex() as number} 
-                            name={item.name} 
-                            id={item.id} 
-                            removeExercise={remove} 
-                            control={control}  
-                            schema={item.schema}  
-                        />   
-                    </TouchableHighlight>
-                </ScaleDecorator>
-            )}
-            ListFooterComponent={() => (
-                <>
-                    <AddExerciseButton openAddExercisePopUp={openAddExercisePopUp}/>
-                    <CancelButton />
-                    <View style={{ height: bottomInsetHeight }}/>
-                </>
-            )}
-        />
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={100}
+        >
+            <DraggableFlatList
+                containerStyle={{ flex: 1 }}
+                data={data}
+                onDragBegin={() => lightHaptic()}
+                onDragEnd={({ data, from, to }) => move(from, to)}
+                onPlaceholderIndexChange={() => lightHaptic()}
+                keyExtractor={item => item.id.toString()}
+                renderItem={({ item, drag, isActive, getIndex }) => (
+                    <ScaleDecorator>
+                        <TouchableHighlight
+                            onLongPress={drag}
+                            disabled={isActive}
+                            underlayColor="transparent"
+                        >
+                            <Exercise 
+                                index={getIndex() as number} 
+                                name={item.name} 
+                                id={item.id} 
+                                removeExercise={remove} 
+                                control={control}  
+                                schema={item.schema}  
+                            />   
+                        </TouchableHighlight>
+                    </ScaleDecorator>
+                )}
+                ListFooterComponent={() => (
+                    <>
+                        <AddExerciseButton openAddExercisePopUp={openAddExercisePopUp}/>
+                        <CancelButton />
+                        <View style={{ height: bottomInsetHeight }}/>
+                    </>
+                )}
+            />
+        </KeyboardAvoidingView>
     )
 }
