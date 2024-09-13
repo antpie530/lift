@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { Control, FieldArrayWithId } from "react-hook-form";
+import { Control, FieldArrayWithId, UseFormGetValues, UseFormSetValue } from "react-hook-form";
 import { FormValues } from "@/app/(tabs)/_layout";
 
 import { styles } from "../styles";
@@ -12,9 +12,11 @@ interface TimeOnlySetsProps {
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     control: Control<FormValues>;
+    setValue: UseFormSetValue<FormValues>;
+    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function TimeOnlySets({ exerciseIndex, removeSet, sets, control }: TimeOnlySetsProps) {
+export default function TimeOnlySets({ getValues, setValue, exerciseIndex, removeSet, sets, control }: TimeOnlySetsProps) {
     return (
         <View style={styles.container}>
             <Header />
@@ -26,6 +28,8 @@ export default function TimeOnlySets({ exerciseIndex, removeSet, sets, control }
                     setIndex={index}
                     removeSet={removeSet}
                     key={set.keyName}
+                    getValues={getValues}
+                    setValue={setValue}
                 />
             ))}
         </View>

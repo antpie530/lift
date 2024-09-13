@@ -19,10 +19,10 @@ interface SetsProps {
 export default function Sets({ setValue, getValues, schema, removeSet, sets, exerciseIndex, control }: SetsProps) {
     return (
         <>
-            {schema == "Weight Reps" && <WeightRepsSets control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
+            {schema == "Weight Reps" && <WeightRepsSets setValue={setValue} getValues={getValues} control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
             {schema == "Reps Only" && <RepsOnlySets setValue={setValue} getValues={getValues} control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Time Only" && <TimeOnlySets control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Weight Throws" && <WeightThrowsSets control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Time Only" && <TimeOnlySets setValue={setValue} getValues={getValues} control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Weight Throws" && <WeightThrowsSets setValue={setValue} getValues={getValues} control={control} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
         </>
     )
 }

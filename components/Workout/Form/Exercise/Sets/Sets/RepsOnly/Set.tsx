@@ -8,9 +8,7 @@ import Animated, {
     useAnimatedStyle, 
     useSharedValue, 
     withTiming, 
-    withSequence, 
-    withSpring, 
-    withDelay
+    withSequence
 } from "react-native-reanimated";
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
@@ -38,6 +36,11 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
     });
     const scaleValue = useSharedValue(1);
     const rotationValue = useSharedValue("0deg");
+    const completeButtonScale = useSharedValue(1);
+
+    const completeButtonAnimatedStyle = useAnimatedStyle(() => ({
+        transform: [{ scale: completeButtonScale.value }]
+    }));
 
     const animatedStyle = useAnimatedStyle(() => ({
         transform: [
@@ -60,6 +63,12 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
         });
     }
 
+    const handleCompleteButtonAnimation = () => {
+        completeButtonScale.value = withTiming(1.3, { duration: 300 }, () => {
+            completeButtonScale.value = withTiming(1, { duration: 300 });
+        })
+    }
+
     const isValid = () => {
         const repsValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.reps`);
         if (repsValue) {
@@ -78,7 +87,7 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
         } else {
             setUnderValidation(true);
             if (isValid()) {
-                console.log("Change to true");
+                handleCompleteButtonAnimation();
                 setValue(`exercises.${exerciseIndex}.sets.${setIndex}.completed`, true);
             } else {
                 errorHaptic();
@@ -130,6 +139,7 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
                                                 keyboardType="numeric"
                                                 inputMode="numeric"
                                                 editable={!completed}
+                                                selectTextOnFocus
                                                 style={[
                                                     styles.textInput, 
                                                     styles.repsInput,
@@ -149,15 +159,17 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
                                 />
                             </View>
                             <View style={styles.statusColumn}>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        lightHaptic();
-                                        handleTapComplete();
-                                    }}
-                                    style={[styles.icon, { backgroundColor: completed ? "rgba(14, 150, 75, .5)" : "rgba(0, 0, 0, .5)"}]}
-                                >
-                                    <Ionicons name="checkmark-sharp" size={18} color="white" />
-                                </TouchableOpacity>
+                                <Animated.View style={completeButtonAnimatedStyle}>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            lightHaptic();
+                                            handleTapComplete();
+                                        }}
+                                        style={[styles.icon, { backgroundColor: completed ? "rgba(14, 150, 75, .5)" : "rgba(0, 0, 0, .5)"}]}
+                                    >
+                                        <Ionicons name="checkmark-sharp" size={18} color="white" />
+                                    </TouchableOpacity>
+                                </Animated.View>
                             </View>
                         </View>
                     </View>
