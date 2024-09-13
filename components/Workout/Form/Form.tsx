@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, Platform, TouchableHighlight, View } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
-import { UseFormSetValue, Control } from "react-hook-form";
+import { UseFormGetValues, UseFormSetValue, Control } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 import { lightHaptic } from "@/utils/haptics/haptics";
@@ -16,9 +16,10 @@ interface FormProps {
     remove: () => void;
     move: (from: number, to: number) => void;
     control: Control<FormValues>;
+    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function Form({ remove, data, openAddExercisePopUp, control, move }: FormProps) {
+export default function Form({ remove, data, openAddExercisePopUp, control, move, getValues, setValue }: FormProps) {
     const bottomInsetHeight = useSafeAreaInsets().bottom;
     
     return (
@@ -47,7 +48,9 @@ export default function Form({ remove, data, openAddExercisePopUp, control, move
                                 id={item.id} 
                                 removeExercise={remove} 
                                 control={control}  
-                                schema={item.schema}  
+                                schema={item.schema}
+                                getValues={getValues}
+                                setValue={setValue}
                             />   
                         </TouchableHighlight>
                     </ScaleDecorator>

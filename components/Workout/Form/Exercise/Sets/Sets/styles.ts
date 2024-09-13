@@ -16,7 +16,7 @@ export const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 15,
-        paddingBottom: 5
+        paddingVertical: 5
     },
     schemaColumns: {
         flexDirection: "row"

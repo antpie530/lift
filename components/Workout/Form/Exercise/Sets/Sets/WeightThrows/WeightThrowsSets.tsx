@@ -1,10 +1,5 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Control, Controller, FieldArrayWithId } from "react-hook-form";
-import Animated, { FadeInRight, FadeOutLeft, LinearTransition } from "react-native-reanimated";
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { lightHaptic } from "@/utils/haptics/haptics";
+import { View } from "react-native";
+import { Control, FieldArrayWithId } from "react-hook-form";
 import { FormValues } from "@/app/(tabs)/_layout";
 
 import { styles } from "../styles";

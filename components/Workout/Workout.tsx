@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import Animated, { useSharedValue, AnimatedStyle, SharedValue, withTiming } from "react-native-reanimated";
+import Animated, { 
+    useSharedValue, 
+    AnimatedStyle, 
+    SharedValue, 
+    withTiming
+} from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useFieldArray, Control, UseFormSetValue } from "react-hook-form";
+import { UseFormGetValues, useFieldArray, Control, UseFormSetValue } from "react-hook-form";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import TopTab from "./TopTab";
@@ -22,9 +27,10 @@ interface WorkoutProps {
     setValue: UseFormSetValue<FormValues>;
     onFormSubmit: () => void;
     errors: {};
+    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue, onFormSubmit, errors  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue, onFormSubmit, errors, getValues  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
@@ -81,6 +87,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 setValue={setValue}
                 control={control}
                 move={move}
+                getValues={getValues}
             />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}

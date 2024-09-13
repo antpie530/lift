@@ -47,7 +47,7 @@ export default function TabsLayout() {
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 65;
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
-    const { control, handleSubmit, reset, setValue, formState: { errors } } = useForm<FormValues>({
+    const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = useForm<FormValues>({
         defaultValues: {
             exercises: []
         }
@@ -102,6 +102,7 @@ export default function TabsLayout() {
                 setValue={setValue}
                 onFormSubmit={handleSubmit(onSubmit)}
                 errors={errors}
+                getValues={getValues}
             />
         </WorkoutContext.Provider>
     )
