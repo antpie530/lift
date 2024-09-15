@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
+import FormHeader from "./FormHeader";
 import AddExerciseButton from "../AddExerciseButton";
 import CancelButton from "../CancelButton";
 import Exercise from "./Exercise/Exercise";
@@ -17,9 +18,11 @@ interface FormProps {
     move: (from: number, to: number) => void;
     control: Control<FormValues>;
     getValues: UseFormGetValues<FormValues>;
+    startTime: number;
+    scrollHandler: (offset: number) => void;
 }
 
-export default function Form({ remove, data, openAddExercisePopUp, control, move, getValues, setValue }: FormProps) {
+export default function Form({ scrollHandler, startTime, remove, data, openAddExercisePopUp, control, move, getValues, setValue }: FormProps) {
     const bottomInsetHeight = useSafeAreaInsets().bottom;
     
     return (
@@ -31,9 +34,14 @@ export default function Form({ remove, data, openAddExercisePopUp, control, move
             <DraggableFlatList
                 containerStyle={{ flex: 1 }}
                 data={data}
+                ListHeaderComponent={() => <FormHeader startTime={startTime} control={control} />}
                 onDragBegin={() => lightHaptic()}
                 onDragEnd={({ data, from, to }) => move(from, to)}
                 onPlaceholderIndexChange={() => lightHaptic()}
+                onScrollOffsetChange={(offset) => {
+                    console.log(offset);
+                    scrollHandler(offset);
+                }}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item, drag, isActive, getIndex }) => (
                     <ScaleDecorator>

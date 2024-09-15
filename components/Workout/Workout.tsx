@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
-import Animated, { 
+import Animated, {
+    useAnimatedScrollHandler,
+    useAnimatedStyle,
     useSharedValue, 
     AnimatedStyle, 
     SharedValue, 
-    withTiming
+    withTiming,
+    interpolate,
+    Extrapolation
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { UseFormGetValues, useFieldArray, Control, UseFormSetValue } from "react-hook-form";
@@ -34,6 +38,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
+    const opacity = useSharedValue(0);
 
     const { fields: exercises, append, remove, move } = useFieldArray({
         control,
@@ -45,6 +50,18 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
         exercises.forEach(exercise => {
             append(exercise);
         });
+    }
+
+    const ellapsedTimeAnimatedStyle = useAnimatedStyle(() => ({
+        alignItems: "center",
+        borderBottomWidth: 1,
+        borderColor: "white",
+        opacity: opacity.value,
+        width: "100%"
+    }));
+
+    const scrollHandler = (offset: number) => {
+        opacity.value = interpolate(offset, [0, 50], [0, 1], Extrapolation.CLAMP);
     }
 
     const pan = Gesture.Pan()
@@ -79,7 +96,9 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 <TopTab />
             </GestureDetector>
             <Header startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
-            <EllapsedTime startTime={startTime} />
+            <Animated.View style={ellapsedTimeAnimatedStyle}>
+                <EllapsedTime startTime={startTime} />
+            </Animated.View>
             <Form 
                 remove={remove} 
                 data={exercises} 
@@ -88,6 +107,8 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 control={control}
                 move={move}
                 getValues={getValues}
+                startTime={startTime as number}
+                scrollHandler={scrollHandler}
             />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}

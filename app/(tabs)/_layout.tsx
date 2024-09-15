@@ -37,6 +37,8 @@ export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
 export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string, sets: SetType[] };
 
 export interface FormValues {
+    name: string,
+    notes: string,
     exercises: ExerciseInput[];
 }
 
@@ -49,6 +51,8 @@ export default function TabsLayout() {
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
     const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = useForm<FormValues>({
         defaultValues: {
+            name: "New Workout",
+            notes: "",
             exercises: []
         }
     });

@@ -44,7 +44,6 @@ export default function EllapsedTime({ startTime }: EllapsedTimeProps) {
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: "center"
     },
     timeText: {
         color: "white",
