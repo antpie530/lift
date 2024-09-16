@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 20,
         fontWeight: "800",
+        textAlign: "center"
     },
     exitButtonWrapper: {
         backgroundColor: "rgba(255, 255, 255, .3)",

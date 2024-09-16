@@ -10,9 +10,10 @@ interface HeaderProps {
     startTime: number | undefined;
     height: SharedValue<number>;
     onFormSubmit: () => void;
+    allSetsAreComplete: () => boolean;
 }
 
-export default function Header({ headerHeight, startTime, height, onFormSubmit }: HeaderProps) {
+export default function Header({ allSetsAreComplete, headerHeight, startTime, height, onFormSubmit }: HeaderProps) {
     const buttonAnimatedStyle = useAnimatedStyle(() => ({
         opacity: interpolate(height.value, [650, headerHeight], [1, 0], Extrapolation.CLAMP)
     }));
@@ -30,7 +31,7 @@ export default function Header({ headerHeight, startTime, height, onFormSubmit }
                 <EllapsedTime startTime={startTime} />
             </Animated.View>
             <Animated.View style={[styles.finishButtonSection, buttonAnimatedStyle]}>
-                <FinishButton onFormSubmit={onFormSubmit}/>
+                <FinishButton allSetsAreComplete={allSetsAreComplete} onFormSubmit={onFormSubmit} />
             </Animated.View>
         </View>
     )

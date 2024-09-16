@@ -39,7 +39,6 @@ export default function Form({ scrollHandler, startTime, remove, data, openAddEx
                 onDragEnd={({ data, from, to }) => move(from, to)}
                 onPlaceholderIndexChange={() => lightHaptic()}
                 onScrollOffsetChange={(offset) => {
-                    console.log(offset);
                     scrollHandler(offset);
                 }}
                 keyExtractor={item => item.id.toString()}

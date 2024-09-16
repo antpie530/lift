@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { StyleSheet } from "react-native";
 import Animated, {
-    useAnimatedScrollHandler,
     useAnimatedStyle,
     useSharedValue, 
     AnimatedStyle, 
@@ -32,9 +31,10 @@ interface WorkoutProps {
     onFormSubmit: () => void;
     errors: {};
     getValues: UseFormGetValues<FormValues>;
+    allSetsAreComplete: () => boolean;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue, onFormSubmit, errors, getValues  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue, onFormSubmit, errors, getValues, allSetsAreComplete  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
@@ -95,7 +95,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             <GestureDetector gesture={pan}>
                 <TopTab />
             </GestureDetector>
-            <Header startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
+            <Header allSetsAreComplete={allSetsAreComplete} startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
             <Animated.View style={ellapsedTimeAnimatedStyle}>
                 <EllapsedTime startTime={startTime} />
             </Animated.View>

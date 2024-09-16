@@ -70,8 +70,21 @@ export default function TabsLayout() {
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
 
+    const allSetsAreComplete = () => {
+        const exercises = getValues("exercises");
+        return exercises.every(exercise => exercise.sets.every(set => set.completed === true));
+    }
+
+    const removeUncompleteSets = (data: FormValues) => {
+        data.exercises.forEach(exercise => {
+            exercise.sets = exercise.sets.filter(set => set.completed === true);
+        })
+    }
+
     const onSubmit = (data: FormValues) => {
+        removeUncompleteSets(data);
         console.log("Data Submitted");
+        console.log(workoutStartTime);
         console.log(JSON.stringify(data, null, 2));
         closeWorkout();
     }
@@ -107,6 +120,7 @@ export default function TabsLayout() {
                 onFormSubmit={handleSubmit(onSubmit)}
                 errors={errors}
                 getValues={getValues}
+                allSetsAreComplete={allSetsAreComplete}
             />
         </WorkoutContext.Provider>
     )
