@@ -1,12 +1,11 @@
-import { Text, View } from "react-native";
-
 import ScreenWrapper from "@/components/Views/ScreenWrapper";
 
-export default function Traq() {
+import Traq from "@/components/Views/Traq/Traq";
+
+export default function Index() {
     return (
         <ScreenWrapper name="traq" >
-            <View style={{ height: 50, backgroundColor: "orange" }} />
-            <View style={{ height: 50, backgroundColor: "violet" }} />
+            <Traq />
         </ScreenWrapper>
     )
 }

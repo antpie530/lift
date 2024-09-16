@@ -48,7 +48,6 @@ export default function ExerciseListItem({ id, name, schema, openDetails, openHi
         >
             <Pressable
                 onPress={() => {
-                    console.log("Show edit for ID:", id)
                     lightHaptic();
                     setShowDetailId(id);
                     openDetails();
