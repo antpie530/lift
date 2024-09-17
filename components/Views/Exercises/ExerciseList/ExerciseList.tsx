@@ -66,7 +66,7 @@ export default function ExerciseList({ isPending, isError, error, data }: Exerci
     if (data?.length == 0) {
         return (
             <View style={{ alignItems: "center", flex: 1 }}>
-                <Text style={{ color: "white", fontSize: 18, fontWeight: "700"}}>
+                <Text style={{ color: "white", fontSize: 18, fontWeight: "700", paddingTop: 15 }}>
                     No Exercises
                 </Text>
             </View>

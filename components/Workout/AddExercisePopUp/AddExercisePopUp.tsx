@@ -38,7 +38,8 @@ export default function AddExercisePopUp({
             id: exercise.id,
             name: exercise.name,
             schema: exercise.schema,
-            notes: ""
+            notes: "",
+            sets: []
         }));
     };
     const removeSelectedExercise = (id: number) => {
