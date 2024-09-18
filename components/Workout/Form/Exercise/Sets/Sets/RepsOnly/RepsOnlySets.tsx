@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { FieldArrayWithId, UseFormGetValues } from "react-hook-form";
+import { FieldArrayWithId } from "react-hook-form";
 import { FormValues } from "@/app/(tabs)/_layout";
 
 import { styles } from "../styles";
@@ -11,10 +11,9 @@ interface RepsOnlySetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
-    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function RepsOnlySets({ getValues, exerciseIndex, removeSet, sets }: RepsOnlySetsProps) {
+export default function RepsOnlySets({ exerciseIndex, removeSet, sets }: RepsOnlySetsProps) {
     return (
         <View style={styles.container}>
             <Header />
@@ -25,7 +24,6 @@ export default function RepsOnlySets({ getValues, exerciseIndex, removeSet, sets
                     setIndex={index}
                     removeSet={removeSet}
                     key={set.keyName}
-                    getValues={getValues}
                 />
             ))}
         </View>

@@ -85,7 +85,7 @@ export default function TabsLayout() {
         }
     });
 
-    const { handleSubmit, reset, getValues, formState: { errors } } = methods
+    const { handleSubmit, reset, formState: { errors } } = methods
 
     const openWorkout = () => {
         setWorkoutIsActive(true);
@@ -101,7 +101,7 @@ export default function TabsLayout() {
     }
 
     const allSetsAreComplete = () => {
-        const exercises = getValues("exercises");
+        const exercises = methods.getValues("exercises");
         return exercises.every(exercise => exercise.sets.every(set => set.completed === true));
     }
 
@@ -148,7 +148,6 @@ export default function TabsLayout() {
                     startTime={workoutStartTime}
                     onFormSubmit={handleSubmit(onSubmit)}
                     errors={errors}
-                    getValues={getValues}
                     allSetsAreComplete={allSetsAreComplete}
                 />
             </WorkoutContext.Provider>

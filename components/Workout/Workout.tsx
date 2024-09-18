@@ -10,8 +10,8 @@ import Animated, {
     Extrapolation
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useFormContext, UseFormGetValues, useFieldArray } from "react-hook-form";
-import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { useFormContext, useFieldArray } from "react-hook-form";
+import { ExerciseInput } from "@/app/(tabs)/_layout";
 
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";
@@ -28,11 +28,10 @@ interface WorkoutProps {
     startTime: number | undefined;
     onFormSubmit: () => void;
     errors: {};
-    getValues: UseFormGetValues<FormValues>;
     allSetsAreComplete: () => boolean;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, onFormSubmit, errors, getValues, allSetsAreComplete  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, onFormSubmit, errors, allSetsAreComplete  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
@@ -103,7 +102,6 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
                 data={exercises} 
                 openAddExercisePopUp={() => setShowAddExercisePopUp(true)} 
                 move={move}
-                getValues={getValues}
                 startTime={startTime as number}
                 scrollHandler={scrollHandler}
             />

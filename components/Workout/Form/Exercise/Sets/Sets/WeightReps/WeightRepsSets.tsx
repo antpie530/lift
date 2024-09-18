@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { FieldArrayWithId, UseFormGetValues } from "react-hook-form";
+import { FieldArrayWithId } from "react-hook-form";
 import { FormValues } from "@/app/(tabs)/_layout";
 
 import { styles } from "../styles";
@@ -11,10 +11,9 @@ interface WeightRepsSetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
-    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function WeightRepsSets({ getValues, exerciseIndex, removeSet, sets }: WeightRepsSetsProps) {
+export default function WeightRepsSets({ exerciseIndex, removeSet, sets }: WeightRepsSetsProps) {
     return (
         <View style={styles.container}>
             <Header exerciseIndex={exerciseIndex} />
@@ -25,7 +24,6 @@ export default function WeightRepsSets({ getValues, exerciseIndex, removeSet, se
                     setIndex={index}
                     removeSet={removeSet}
                     key={set.keyName}
-                    getValues={getValues}
                 />
             ))}
         </View>

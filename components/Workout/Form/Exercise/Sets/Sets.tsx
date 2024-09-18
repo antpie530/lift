@@ -1,4 +1,4 @@
-import { FieldArrayWithId, UseFormGetValues } from "react-hook-form";
+import { FieldArrayWithId } from "react-hook-form";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import WeightRepsSets from "./Sets/WeightReps/WeightRepsSets";
@@ -11,16 +11,15 @@ interface SetsProps {
     removeSet: (index: number) => void;
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
-    getValues: UseFormGetValues<FormValues>;
 }
 
-export default function Sets({ getValues, schema, removeSet, sets, exerciseIndex }: SetsProps) {
+export default function Sets({ schema, removeSet, sets, exerciseIndex }: SetsProps) {
     return (
         <>
-            {schema == "Weight Reps" && <WeightRepsSets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
-            {schema == "Reps Only" && <RepsOnlySets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Time Only" && <TimeOnlySets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Weight Throws" && <WeightThrowsSets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Weight Reps" && <WeightRepsSets exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
+            {schema == "Reps Only" && <RepsOnlySets exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Time Only" && <TimeOnlySets exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Weight Throws" && <WeightThrowsSets exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
         </>
     )
 }
