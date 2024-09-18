@@ -1,24 +1,24 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Control, Controller, UseFormSetValue, useWatch } from "react-hook-form";
+import { Controller, useFormContext, UseFormSetValue, useWatch } from "react-hook-form";
 import Popover from "react-native-popover-view/dist/Popover";
 
 import { FormValues, TimeUnits, TimeOnly } from "@/app/(tabs)/_layout";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { styles } from "../styles";
-import { MMSSMask, updateFormat } from "./utils";
+import { updateFormat } from "./utils";
 
 import UnitButton from "../UnitButton";
 
 interface HeaderProps {
-    control: Control<FormValues>;
     exerciseIndex: number;
     setValue: UseFormSetValue<FormValues>;
 }
 
-export default function Header({ control, exerciseIndex, setValue }: HeaderProps) {
+export default function Header({ exerciseIndex, setValue }: HeaderProps) {
     const [showPopper, setShowPopper] = useState(false);
+    const { control } = useFormContext();
 
     const allSets = useWatch({
         control,

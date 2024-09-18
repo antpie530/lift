@@ -85,7 +85,7 @@ export default function TabsLayout() {
         }
     });
 
-    const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = methods
+    const { handleSubmit, reset, setValue, getValues, formState: { errors } } = methods
 
     const openWorkout = () => {
         setWorkoutIsActive(true);
@@ -146,7 +146,6 @@ export default function TabsLayout() {
                     minHeight={minWorkoutHeight}
                     maxHeight={maxWorkoutHeight}
                     startTime={workoutStartTime}
-                    control={control}
                     setValue={setValue}
                     onFormSubmit={handleSubmit(onSubmit)}
                     errors={errors}

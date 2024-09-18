@@ -1,23 +1,21 @@
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import Popover from "react-native-popover-view/dist/Popover";
-import { Control, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
-
-import { FormValues } from "@/app/(tabs)/_layout";
 
 import UnitButton from "../UnitButton";
 
 import { styles } from "../styles";
 
 interface HeaderProps {
-    control: Control<FormValues>;
     exerciseIndex: number;
 }
 
-export default function Header({ control, exerciseIndex }: HeaderProps) {
+export default function Header({ exerciseIndex }: HeaderProps) {
     const [showPopper, setShowPopper] = useState(false);
+    const { control } = useFormContext();
 
     const onUnitSelect = (unit: string, onChange: (unit: string) => void) => {
         onChange(unit);
