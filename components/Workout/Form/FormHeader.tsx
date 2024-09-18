@@ -1,15 +1,15 @@
 import { StyleSheet, Text, TextInput, View } from "react-native"
-import { Control, Controller } from "react-hook-form";
-import { FormValues } from "@/app/(tabs)/_layout";
+import { Controller, useFormContext } from "react-hook-form";
 
 import EllapsedTime from "../EllapsedTime";
 
 interface FormHeaderProps {
-    control: Control<FormValues>;
     startTime: number;
 }
 
-export default function FormHeader({ control, startTime }: FormHeaderProps) {
+export default function FormHeader({ startTime }: FormHeaderProps) {
+    const { control } = useFormContext();
+
     return (
         <View>
             <View style={styles.nameWrapper}>

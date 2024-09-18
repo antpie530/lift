@@ -1,6 +1,6 @@
 import { KeyboardAvoidingView, Platform, TouchableHighlight, View } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
-import { UseFormGetValues, UseFormSetValue, Control } from "react-hook-form";
+import { UseFormGetValues } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 import { lightHaptic } from "@/utils/haptics/haptics";
@@ -13,16 +13,14 @@ import Exercise from "./Exercise/Exercise";
 interface FormProps {
     data: ExerciseInput[];
     openAddExercisePopUp: () => void;
-    setValue: UseFormSetValue<FormValues>;
     remove: () => void;
     move: (from: number, to: number) => void;
-    control: Control<FormValues>;
     getValues: UseFormGetValues<FormValues>;
     startTime: number;
     scrollHandler: (offset: number) => void;
 }
 
-export default function Form({ scrollHandler, startTime, remove, data, openAddExercisePopUp, control, move, getValues, setValue }: FormProps) {
+export default function Form({ scrollHandler, startTime, remove, data, openAddExercisePopUp, move, getValues }: FormProps) {
     const bottomInsetHeight = useSafeAreaInsets().bottom;
     
     return (
@@ -34,7 +32,7 @@ export default function Form({ scrollHandler, startTime, remove, data, openAddEx
             <DraggableFlatList
                 containerStyle={{ flex: 1 }}
                 data={data}
-                ListHeaderComponent={() => <FormHeader startTime={startTime} control={control} />}
+                ListHeaderComponent={() => <FormHeader startTime={startTime} />}
                 onDragBegin={() => lightHaptic()}
                 onDragEnd={({ data, from, to }) => move(from, to)}
                 onPlaceholderIndexChange={() => lightHaptic()}
@@ -53,11 +51,9 @@ export default function Form({ scrollHandler, startTime, remove, data, openAddEx
                                 index={getIndex() as number} 
                                 name={item.name} 
                                 id={item.id} 
-                                removeExercise={remove} 
-                                control={control}  
+                                removeExercise={remove}   
                                 schema={item.schema}
                                 getValues={getValues}
-                                setValue={setValue}
                             />   
                         </TouchableHighlight>
                     </ScaleDecorator>

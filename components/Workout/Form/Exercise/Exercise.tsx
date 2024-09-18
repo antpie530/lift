@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFormContext, useFieldArray, UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { useFormContext, useFieldArray, UseFormGetValues } from "react-hook-form";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated"
 import { FormValues, ExerciseInput } from "@/app/(tabs)/_layout";
 
@@ -15,10 +15,9 @@ interface ExerciseProps {
     schema: ExerciseInput["schema"];
     removeExercise: (id: number) => void;
     getValues: UseFormGetValues<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
 }
 
-export default function Exercise({ index, name, id, schema, removeExercise, getValues, setValue }: ExerciseProps) {
+export default function Exercise({ index, name, id, schema, removeExercise, getValues }: ExerciseProps) {
     const [showNotes, setShowNotes] = useState(false);
     const { control } = useFormContext();
 
@@ -74,7 +73,7 @@ export default function Exercise({ index, name, id, schema, removeExercise, getV
                 openNotes={() => setShowNotes(true)}
             />
             {showNotes && <Notes index={index} />}
-            <Sets setValue={setValue} getValues={getValues} sets={sets} exerciseIndex={index} schema={schema} removeSet={removeSet}/>
+            <Sets getValues={getValues} sets={sets} exerciseIndex={index} schema={schema} removeSet={removeSet}/>
             <AddSetButton addSet={() => addSet(schema)}/>
         </Animated.View>
     )

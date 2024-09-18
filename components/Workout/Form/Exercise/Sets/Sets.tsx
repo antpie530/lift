@@ -1,4 +1,4 @@
-import { FieldArrayWithId, UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { FieldArrayWithId, UseFormGetValues } from "react-hook-form";
 import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import WeightRepsSets from "./Sets/WeightReps/WeightRepsSets";
@@ -12,16 +12,15 @@ interface SetsProps {
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     getValues: UseFormGetValues<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
 }
 
-export default function Sets({ setValue, getValues, schema, removeSet, sets, exerciseIndex }: SetsProps) {
+export default function Sets({ getValues, schema, removeSet, sets, exerciseIndex }: SetsProps) {
     return (
         <>
-            {schema == "Weight Reps" && <WeightRepsSets setValue={setValue} getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
-            {schema == "Reps Only" && <RepsOnlySets setValue={setValue} getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Time Only" && <TimeOnlySets setValue={setValue} getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
-            {schema == "Weight Throws" && <WeightThrowsSets setValue={setValue} getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Weight Reps" && <WeightRepsSets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets}/>}
+            {schema == "Reps Only" && <RepsOnlySets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Time Only" && <TimeOnlySets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
+            {schema == "Weight Throws" && <WeightThrowsSets getValues={getValues} exerciseIndex={exerciseIndex} removeSet={removeSet} sets={sets} />}
         </>
     )
 }

@@ -1,5 +1,5 @@
 import { View } from "react-native";
-import { FieldArrayWithId, UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { FieldArrayWithId, UseFormGetValues } from "react-hook-form";
 import { FormValues } from "@/app/(tabs)/_layout";
 
 import { styles } from "../styles";
@@ -12,10 +12,9 @@ interface WeightThrowsSetsProps {
     sets: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">[]
     exerciseIndex: number;
     getValues: UseFormGetValues<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
 }
 
-export default function WeightThrowsSets({ setValue, getValues, exerciseIndex, removeSet, sets }: WeightThrowsSetsProps) {
+export default function WeightThrowsSets({ getValues, exerciseIndex, removeSet, sets }: WeightThrowsSetsProps) {
     return (
         <View style={styles.container}>
             <Header exerciseIndex={exerciseIndex}/>
@@ -27,7 +26,6 @@ export default function WeightThrowsSets({ setValue, getValues, exerciseIndex, r
                     removeSet={removeSet}
                     key={set.keyName}
                     getValues={getValues}
-                    setValue={setValue}
                 />
             ))}
         </View>

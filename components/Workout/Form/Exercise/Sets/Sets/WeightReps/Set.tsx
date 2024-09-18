@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Controller, FieldArrayWithId, useFormContext, UseFormGetValues, UseFormSetValue, useWatch } from "react-hook-form";
+import { Controller, FieldArrayWithId, useFormContext, UseFormGetValues, useWatch } from "react-hook-form";
 import Animated, { 
     FadeInRight, 
     FadeOutLeft, 
@@ -25,12 +25,11 @@ interface SetProps {
     setIndex: number;
     exerciseIndex: number;
     getValues: UseFormGetValues<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
 }
 
-export default function Set({ getValues, setValue, removeSet, set, setIndex, exerciseIndex }: SetProps) {
+export default function Set({ getValues, removeSet, set, setIndex, exerciseIndex }: SetProps) {
     const [underValidation, setUnderValidation] = useState(false);
-    const { control } = useFormContext();
+    const { control, setValue } = useFormContext();
 
     const completed = useWatch({
         control,
