@@ -3,7 +3,7 @@ import { Dimensions } from "react-native";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Extrapolation, interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { useForm } from "react-hook-form";
+import { useForm, FormProvider } from "react-hook-form";
 import { Exercise } from "@/db/schema";
 
 import TabBar from "@/components/TabBar/TabBar";
@@ -77,13 +77,15 @@ export default function TabsLayout() {
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 65;
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
-    const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = useForm<FormValues>({
+    const methods = useForm<FormValues>({
         defaultValues: {
             name: "New Workout",
             notes: "",
             exercises: []
         }
     });
+
+    const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = methods
 
     const openWorkout = () => {
         setWorkoutIsActive(true);
@@ -122,34 +124,36 @@ export default function TabsLayout() {
     }));
 
     return (
-        <WorkoutContext.Provider 
-            value={{ 
-                openWorkout: openWorkout, 
-                closeWorkout: closeWorkout,
-                workoutIsActive: workoutIsActive 
-            }}
-        >
-            <Tabs 
-                screenOptions={{ headerShown: false }}
-                tabBar={({ state }) => <TabBar state={state} height={tabBarHeight} offset={offsetAnimatedStyle}/>}
+        <FormProvider {...methods}>
+            <WorkoutContext.Provider 
+                value={{ 
+                    openWorkout: openWorkout, 
+                    closeWorkout: closeWorkout,
+                    workoutIsActive: workoutIsActive 
+                }}
             >
-                <Tabs.Screen name="index" />
-                <Tabs.Screen name="exercises" />
-            </Tabs>
-            <Workout 
-                bottom={tabBarHeight} 
-                height={workoutHeight} 
-                offset={offsetAnimatedStyle}
-                minHeight={minWorkoutHeight}
-                maxHeight={maxWorkoutHeight}
-                startTime={workoutStartTime}
-                control={control}
-                setValue={setValue}
-                onFormSubmit={handleSubmit(onSubmit)}
-                errors={errors}
-                getValues={getValues}
-                allSetsAreComplete={allSetsAreComplete}
-            />
-        </WorkoutContext.Provider>
+                <Tabs 
+                    screenOptions={{ headerShown: false }}
+                    tabBar={({ state }) => <TabBar state={state} height={tabBarHeight} offset={offsetAnimatedStyle}/>}
+                >
+                    <Tabs.Screen name="index" />
+                    <Tabs.Screen name="exercises" />
+                </Tabs>
+                <Workout 
+                    bottom={tabBarHeight} 
+                    height={workoutHeight} 
+                    offset={offsetAnimatedStyle}
+                    minHeight={minWorkoutHeight}
+                    maxHeight={maxWorkoutHeight}
+                    startTime={workoutStartTime}
+                    control={control}
+                    setValue={setValue}
+                    onFormSubmit={handleSubmit(onSubmit)}
+                    errors={errors}
+                    getValues={getValues}
+                    allSetsAreComplete={allSetsAreComplete}
+                />
+            </WorkoutContext.Provider>
+        </FormProvider>
     )
 }
