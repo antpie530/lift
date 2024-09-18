@@ -27,14 +27,42 @@ type WeightThrows = {
     completed: boolean;
 }
 
-type TimeOnly = {
+export type TimeOnly = {
     time: string;
     completed: boolean;
 }
 
 export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
 
-export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string, sets: SetType[] };
+type WeightUnits = "lbs" | "kg" | "oz" | "g";
+
+type RepUnits = "reps";
+
+export type TimeUnits = "hours" | "minutes" | "seconds" | "HH:MM:SS" | "HH:MM" | "MM:SS" | "MM:SS.SS";
+
+type ThrowUnits = "throws"
+
+type WeightRepsUnits = {
+    weightUnit: WeightUnits;
+    repsUnit: RepUnits;
+}
+
+type RepsOnlyUnits = {
+    repsUnit: RepUnits;
+}
+
+type TimeOnlyUnits = {
+    timeUnit: TimeUnits
+}
+
+type WeightThrowUnits = {
+    weightUnit: WeightUnits;
+    throwsUnit: ThrowUnits; 
+}
+
+type schemaUnits = WeightThrowUnits | RepsOnlyUnits | TimeOnlyUnits | WeightRepsUnits;
+
+export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { uid: string, schemaUnits: schemaUnits, notes: string, sets: SetType[] };
 
 export interface FormValues {
     name: string,

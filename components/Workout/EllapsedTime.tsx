@@ -40,7 +40,7 @@ export default function EllapsedTime({ startTime }: EllapsedTimeProps) {
             <Text style={styles.timeText}>{startTime && formatTime(ellapsedTime)}</Text>
         </View>
     )
-}
+};
 
 const styles = StyleSheet.create({
     container: {

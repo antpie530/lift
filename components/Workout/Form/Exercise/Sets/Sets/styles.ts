@@ -89,5 +89,11 @@ export const styles = StyleSheet.create({
         color: "white",
         fontSize: 16,
         fontWeight: "700"
+    },
+    optionsPopover: {
+        backgroundColor: "rgba(73, 76, 82, 1)",
+        borderRadius: 15,
+        padding: 10,
+        width: 200
     }
 });

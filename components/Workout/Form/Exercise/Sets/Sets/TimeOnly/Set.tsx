@@ -17,6 +17,7 @@ import { errorHaptic, lightHaptic } from "@/utils/haptics/haptics";
 import { FormValues } from "@/app/(tabs)/_layout";
 import MaskInput from "react-native-mask-input";
 
+import { MMSSMask, HHMMSSMask, MMSSSSMask } from "./utils";
 import { styles } from "../styles";
 
 interface SetProps {
@@ -36,6 +37,41 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
         control,
         name: `exercises.${exerciseIndex}.sets.${setIndex}.completed`
     });
+
+    const timeFormat = useWatch({
+        control,
+        name: `exercises.${exerciseIndex}.schemaUnits.timeUnit`
+    });
+
+    let mask;
+    switch (timeFormat) {
+        case "MM:SS":
+            mask = MMSSMask;
+            break;
+        case "HH:MM":
+            mask = MMSSMask;
+            break;
+        case "HH:MM:SS":
+            mask = HHMMSSMask;
+            break;
+        case "MM:SS.SS":
+            mask = MMSSSSMask;
+            break;
+        default:
+            mask = undefined;
+            break;
+    }
+
+    const atMostOneDecimal = (value: string) => {
+        let decimalCount = 0;
+        for (const char of value) {
+            if (char === ".") {
+                decimalCount += 1;
+            }
+        }
+
+        return decimalCount < 2;
+    }
 
     const scaleValue = useSharedValue(1);
     const rotationValue = useSharedValue("0deg");
@@ -140,22 +176,10 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
                                     render={({ field: { onChange, onBlur, value }}) => (
                                         <Animated.View style={animatedStyle}>
                                             <MaskInput
-                                                mask={(text) => {
-                                                    const parts = text ? text.replace(/[^0-9]/g, '') : "";
-                                                    if (parts.length <= 4) {
-                                                        return [/\d/, /\d/, ".", /\d/, /\d/];
-                                                    } else if (parts.length <= 5) {
-                                                        return [/\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
-                                                    } else if (parts.length <= 6) {
-                                                        return [/\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
-                                                    } else if (parts.length <= 7) {
-                                                        return [/\d/, ":", /\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
-                                                    } else {
-                                                        return [/\d/, /\d/, ":", /\d/, /\d/, ":", /\d/, /\d/, ".", /\d/, /\d/];
-                                                    }
-                                                }}
-                                                keyboardType="numeric"
-                                                inputMode="numeric"
+                                                mask={mask}
+                                                keyboardType="decimal-pad"
+                                                inputMode="decimal"
+                                                selectTextOnFocus
                                                 style={[
                                                     styles.textInput, 
                                                     styles.timeInput,
@@ -164,10 +188,15 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
                                                     }
                                                 ]}
                                                 value={value}
-                                                onChangeText={onChange}
+                                                onChangeText={(text) => {
+                                                    if (atMostOneDecimal(text)) {
+                                                        onChange(text);
+                                                    } else {
+                                                        onChange(value);
+                                                    }
+                                                }}
                                                 onBlur={onBlur}
                                                 editable={!completed}
-                                                selectTextOnFocus
                                             />
                                         </Animated.View>
                                     )}

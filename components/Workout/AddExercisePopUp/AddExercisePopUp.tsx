@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal, StyleSheet, Text, View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
+import uuid from 'react-native-uuid';
 
 import { getAllExercises } from "@/db/queries";
 import { ExerciseInput } from "@/app/(tabs)/_layout";
@@ -33,11 +34,27 @@ export default function AddExercisePopUp({
     const openCreateExerciseForm = () => setShowCreateExerciseForm(true);
     const closeCreateExerciseForm = () => setShowCreateExerciseForm(false);
 
+    const getDefaultSchemaUnits = (schema: ExerciseInput["schema"]): ExerciseInput["schemaUnits"] => {
+        switch (schema) {
+            case "Weight Reps":
+                return { weightUnit: "lbs", repsUnit: "reps" }
+            case "Weight Throws":
+                return { weightUnit: "g", throwsUnit: "throws" }
+            case "Reps Only":
+                return { repsUnit: "reps" }
+            case "Time Only":
+                return { timeUnit: "seconds" }
+        }
+    }
+
     const addSelectedExercise = (exercise: ExerciseInput) => {
+        const schemaUnits = getDefaultSchemaUnits(exercise.schema);
         setSelectedExercises(prevSet => new Map(prevSet).set(exercise.id, {
+            uid: uuid.v4().toString(),
             id: exercise.id,
             name: exercise.name,
             schema: exercise.schema,
+            schemaUnits: schemaUnits,
             notes: "",
             sets: []
         }));

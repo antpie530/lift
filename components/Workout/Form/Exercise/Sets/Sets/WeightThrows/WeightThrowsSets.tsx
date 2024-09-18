@@ -19,7 +19,7 @@ interface WeightThrowsSetsProps {
 export default function WeightThrowsSets({ setValue, getValues, exerciseIndex, removeSet, sets, control }: WeightThrowsSetsProps) {
     return (
         <View style={styles.container}>
-            <Header />
+            <Header control={control} exerciseIndex={exerciseIndex}/>
             {sets.map((set, index) => (
                 <Set 
                     control={control}

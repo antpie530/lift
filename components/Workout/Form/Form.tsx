@@ -41,7 +41,7 @@ export default function Form({ scrollHandler, startTime, remove, data, openAddEx
                 onScrollOffsetChange={(offset) => {
                     scrollHandler(offset);
                 }}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => item.uid}
                 renderItem={({ item, drag, isActive, getIndex }) => (
                     <ScaleDecorator>
                         <TouchableHighlight

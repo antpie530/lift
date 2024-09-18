@@ -19,7 +19,7 @@ interface TimeOnlySetsProps {
 export default function TimeOnlySets({ getValues, setValue, exerciseIndex, removeSet, sets, control }: TimeOnlySetsProps) {
     return (
         <View style={styles.container}>
-            <Header />
+            <Header control={control} exerciseIndex={exerciseIndex} setValue={setValue} />
             {sets.map((set, index) => (
                 <Set 
                     control={control}

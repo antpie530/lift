@@ -71,7 +71,7 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
 
     const isValid = () => {
         const repsValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.reps`);
-        if (repsValue) {
+        if (repsValue || repsValue === 0) {
             return true;
         } else {
             return false;

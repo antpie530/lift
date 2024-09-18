@@ -81,7 +81,7 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
 
     const isValid = (type: "weight" | "reps"): boolean => {
         const value = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.${type}`);
-        return !!value;
+        return !!value || value === 0;
     }
 
     const handleTapComplete = () => {
@@ -160,7 +160,7 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
                                                     styles.weightInput,
                                                     styles.repsInput,
                                                     {
-                                                        backgroundColor: (value || !underValidation) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
+                                                        backgroundColor: (value || !underValidation || value === 0) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
                                                     }
                                                 ]}
                                                 value={value?.toString()}
@@ -190,7 +190,7 @@ export default function Set({ getValues, setValue, control, removeSet, set, setI
                                                     styles.repsInput,
                                                     styles.repsInput,
                                                     {
-                                                        backgroundColor: (value || !underValidation) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
+                                                        backgroundColor: (value || !underValidation || value === 0) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
                                                     }
                                                 ]}
                                                 value={value?.toString()}

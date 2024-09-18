@@ -19,7 +19,7 @@ interface WeightRepsSetsProps {
 export default function WeightRepsSets({ getValues, setValue, exerciseIndex, removeSet, sets, control }: WeightRepsSetsProps) {
     return (
         <View style={styles.container}>
-            <Header />
+            <Header control={control} exerciseIndex={exerciseIndex} />
             {sets.map((set, index) => (
                  <Set 
                     control={control}
