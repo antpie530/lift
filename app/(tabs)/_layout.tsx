@@ -12,7 +12,7 @@ import Workout from "@/components/Workout/Workout";
 import { WorkoutContext } from "@/hooks/workoutContext";
 
 export default function TabsLayout() {
-    const [workoutStartTime, setWorkoutStartTime] = useState<number | undefined>();
+    const [workoutStartTime, setWorkoutStartTime] = useState<number>(0);
     const [workoutIsActive, setWorkoutIsActive] = useState(false);
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
     const workoutHeight = useSharedValue<number>(0);
@@ -34,7 +34,7 @@ export default function TabsLayout() {
 
     const closeWorkout = () => {
         setWorkoutIsActive(false);
-        setWorkoutStartTime(undefined);
+        setWorkoutStartTime(0);
         methods.reset();
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
@@ -68,7 +68,8 @@ export default function TabsLayout() {
                 value={{ 
                     openWorkout: openWorkout, 
                     closeWorkout: closeWorkout,
-                    workoutIsActive: workoutIsActive 
+                    workoutIsActive: workoutIsActive,
+                    startTime: workoutStartTime
                 }}
             >
                 <Tabs 
@@ -84,7 +85,6 @@ export default function TabsLayout() {
                     offset={offsetAnimatedStyle}
                     minHeight={minWorkoutHeight}
                     maxHeight={maxWorkoutHeight}
-                    startTime={workoutStartTime}
                     onFormSubmit={methods.handleSubmit(onSubmit)}
                     allSetsAreComplete={allSetsAreComplete}
                 />

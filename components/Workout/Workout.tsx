@@ -25,12 +25,11 @@ interface WorkoutProps {
     offset: AnimatedStyle;
     minHeight: number;
     maxHeight: number;
-    startTime: number | undefined;
     onFormSubmit: () => void;
     allSetsAreComplete: () => boolean;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, onFormSubmit, allSetsAreComplete  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, onFormSubmit, allSetsAreComplete  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
@@ -47,18 +46,6 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
         exercises.forEach(exercise => {
             append(exercise);
         });
-    }
-
-    const ellapsedTimeAnimatedStyle = useAnimatedStyle(() => ({
-        alignItems: "center",
-        borderBottomWidth: 1,
-        borderColor: "white",
-        opacity: opacity.value,
-        width: "100%"
-    }));
-
-    const scrollHandler = (offset: number) => {
-        opacity.value = interpolate(offset, [0, 50], [0, 1], Extrapolation.CLAMP);
     }
 
     const pan = Gesture.Pan()
@@ -92,17 +79,12 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             <GestureDetector gesture={pan}>
                 <TopTab />
             </GestureDetector>
-            <Header allSetsAreComplete={allSetsAreComplete} startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
-            <Animated.View style={ellapsedTimeAnimatedStyle}>
-                <EllapsedTime startTime={startTime} />
-            </Animated.View>
+            <Header allSetsAreComplete={allSetsAreComplete} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
             <Form 
                 remove={remove} 
                 data={exercises}
                 openAddExercisePopUp={() => setShowAddExercisePopUp(true)} 
                 move={move}
-                startTime={startTime as number}
-                scrollHandler={scrollHandler}
             />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}

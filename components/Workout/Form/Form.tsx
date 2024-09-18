@@ -14,11 +14,9 @@ interface FormProps {
     openAddExercisePopUp: () => void;
     remove: () => void;
     move: (from: number, to: number) => void;
-    startTime: number;
-    scrollHandler: (offset: number) => void;
 }
 
-export default function Form({ scrollHandler, startTime, remove, data, openAddExercisePopUp, move }: FormProps) {
+export default function Form({ remove, data, openAddExercisePopUp, move }: FormProps) {
     const bottomInsetHeight = useSafeAreaInsets().bottom;
     
     return (
@@ -30,13 +28,10 @@ export default function Form({ scrollHandler, startTime, remove, data, openAddEx
             <DraggableFlatList
                 containerStyle={{ flex: 1 }}
                 data={data}
-                ListHeaderComponent={() => <FormHeader startTime={startTime} />}
+                ListHeaderComponent={() => <FormHeader />}
                 onDragBegin={() => lightHaptic()}
                 onDragEnd={({ data, from, to }) => move(from, to)}
                 onPlaceholderIndexChange={() => lightHaptic()}
-                onScrollOffsetChange={(offset) => {
-                    scrollHandler(offset);
-                }}
                 keyExtractor={item => item.uid}
                 renderItem={({ item, drag, isActive, getIndex }) => (
                     <ScaleDecorator>
