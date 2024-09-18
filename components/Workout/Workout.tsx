@@ -11,7 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { ExerciseInput, FormValues } from "@/types/commonTypes";
 
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";

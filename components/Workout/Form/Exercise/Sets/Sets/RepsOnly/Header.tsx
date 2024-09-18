@@ -2,8 +2,6 @@ import { Text, View } from "react-native";
 
 import { styles } from "../styles";
 
-// add a control with a popover as the select component
-
 export default function Header() {
     return (
         <View style={styles.headers}>

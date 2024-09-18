@@ -14,7 +14,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { errorHaptic, lightHaptic } from "@/utils/haptics/haptics";
-import { FormValues } from "@/app/(tabs)/_layout";
+import { FormValues } from "@/types/commonTypes";
 import MaskInput from "react-native-mask-input";
 
 import { MMSSMask, HHMMSSMask, MMSSSSMask } from "./utils";

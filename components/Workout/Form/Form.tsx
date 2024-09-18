@@ -1,7 +1,7 @@
 import { KeyboardAvoidingView, Platform, TouchableHighlight, View } from "react-native";
 import DraggableFlatList, { ScaleDecorator } from "react-native-draggable-flatlist";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { ExerciseInput } from "@/app/(tabs)/_layout";
+import { ExerciseInput } from "@/types/commonTypes";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
 import FormHeader from "./FormHeader";

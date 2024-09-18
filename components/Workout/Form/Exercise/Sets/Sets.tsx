@@ -1,5 +1,5 @@
 import { FieldArrayWithId } from "react-hook-form";
-import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { ExerciseInput, FormValues } from "@/types/commonTypes";
 
 import WeightRepsSets from "./Sets/WeightReps/WeightRepsSets";
 import RepsOnlySets from "./Sets/RepsOnly/RepsOnlySets";

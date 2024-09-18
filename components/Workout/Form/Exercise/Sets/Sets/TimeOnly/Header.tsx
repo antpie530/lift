@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Controller, useFormContext, useWatch } from "react-hook-form";
 import Popover from "react-native-popover-view/dist/Popover";
 
-import { TimeUnits, TimeOnly } from "@/app/(tabs)/_layout";
+import { TimeUnits, TimeOnly } from "@/types/commonTypes";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { styles } from "../styles";

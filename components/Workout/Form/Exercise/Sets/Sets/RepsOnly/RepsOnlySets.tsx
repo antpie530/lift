@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import { FieldArrayWithId } from "react-hook-form";
-import { FormValues } from "@/app/(tabs)/_layout";
+import { FormValues } from "@/types/commonTypes";
 
 import { styles } from "../styles";
 

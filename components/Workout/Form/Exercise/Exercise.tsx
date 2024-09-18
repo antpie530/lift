@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated"
-import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { ExerciseInput, FormValues } from "@/types/commonTypes";
 
 import Header from "./Header";
 import Notes from "./Notes";
