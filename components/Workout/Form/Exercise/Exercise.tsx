@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFormContext, useFieldArray } from "react-hook-form";
 import Animated, { FadeOut, LinearTransition } from "react-native-reanimated"
-import { ExerciseInput } from "@/app/(tabs)/_layout";
+import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import Header from "./Header";
 import Notes from "./Notes";
@@ -18,7 +18,7 @@ interface ExerciseProps {
 
 export default function Exercise({ index, name, id, schema, removeExercise }: ExerciseProps) {
     const [showNotes, setShowNotes] = useState(false);
-    const { control } = useFormContext();
+    const { control } = useFormContext<FormValues>();
 
     const { fields: sets, append, remove: removeSet } = useFieldArray({
         control,

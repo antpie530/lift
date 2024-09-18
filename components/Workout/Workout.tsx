@@ -11,7 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import { useFormContext, useFieldArray } from "react-hook-form";
-import { ExerciseInput } from "@/app/(tabs)/_layout";
+import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
 
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";
@@ -27,16 +27,15 @@ interface WorkoutProps {
     maxHeight: number;
     startTime: number | undefined;
     onFormSubmit: () => void;
-    errors: {};
     allSetsAreComplete: () => boolean;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, onFormSubmit, errors, allSetsAreComplete  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, onFormSubmit, allSetsAreComplete  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
     const opacity = useSharedValue(0);
-    const { control } = useFormContext();
+    const { control } = useFormContext<FormValues>();
 
     const { fields: exercises, append, remove, move } = useFieldArray({
         control,
@@ -99,7 +98,7 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             </Animated.View>
             <Form 
                 remove={remove} 
-                data={exercises} 
+                data={exercises}
                 openAddExercisePopUp={() => setShowAddExercisePopUp(true)} 
                 move={move}
                 startTime={startTime as number}

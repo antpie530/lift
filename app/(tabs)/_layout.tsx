@@ -85,8 +85,6 @@ export default function TabsLayout() {
         }
     });
 
-    const { handleSubmit, reset, formState: { errors } } = methods
-
     const openWorkout = () => {
         setWorkoutIsActive(true);
         setWorkoutStartTime(Date.now());
@@ -96,7 +94,7 @@ export default function TabsLayout() {
     const closeWorkout = () => {
         setWorkoutIsActive(false);
         setWorkoutStartTime(undefined);
-        reset();
+        methods.reset();
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
 
@@ -146,8 +144,7 @@ export default function TabsLayout() {
                     minHeight={minWorkoutHeight}
                     maxHeight={maxWorkoutHeight}
                     startTime={workoutStartTime}
-                    onFormSubmit={handleSubmit(onSubmit)}
-                    errors={errors}
+                    onFormSubmit={methods.handleSubmit(onSubmit)}
                     allSetsAreComplete={allSetsAreComplete}
                 />
             </WorkoutContext.Provider>
