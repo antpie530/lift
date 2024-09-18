@@ -54,7 +54,13 @@ export default function TabsLayout() {
         removeUncompleteSets(data);
         console.log("Data Submitted");
         console.log(workoutStartTime);
-        console.log(JSON.stringify(data, null, 2));
+        console.log(Date.now() - workoutStartTime);
+        const updatedData = {
+            ...data,
+            startTime: workoutStartTime,
+            duration: Date.now() - workoutStartTime
+        }
+        console.log(JSON.stringify(updatedData, null, 2));
         closeWorkout();
     }
 

@@ -79,6 +79,9 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
 
     const isValid = (type: "weight" | "throws"): boolean => {
         const value = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.${type}`);
+        if (isNaN(value)) {
+            return false;
+        }
         return !!value || value === 0;
     }
 
@@ -186,7 +189,7 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
                                                     styles.textInput, 
                                                     styles.throwsInput,
                                                     {
-                                                        backgroundColor: (value || !underValidation || value === 0) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
+                                                        backgroundColor: (!underValidation || !isNaN(value)) ? "rgba(0, 0, 0, .5)" : "rgba(250, 0, 0, .4)"
                                                     }
                                                 ]}
                                                 value={value?.toString()}

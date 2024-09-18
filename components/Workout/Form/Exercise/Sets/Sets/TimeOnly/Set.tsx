@@ -107,8 +107,11 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
     }
 
     const isValid = () => {
-        const repsValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.time`);
-        if (repsValue) {
+        const timeValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.time`);
+        if (isNaN(timeValue)) {
+            return false;
+        }
+        if (timeValue) {
             return true;
         } else {
             return false;

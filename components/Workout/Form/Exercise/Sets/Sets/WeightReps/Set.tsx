@@ -80,6 +80,9 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
 
     const isValid = (type: "weight" | "reps"): boolean => {
         const value = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.${type}`);
+        if (isNaN(value)) {
+            return false;
+        }
         return !!value || value === 0;
     }
 

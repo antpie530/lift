@@ -70,6 +70,10 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
 
     const isValid = () => {
         const repsValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.reps`);
+        if (isNaN(repsValue)) {
+            return false;
+        }
+
         if (repsValue || repsValue === 0) {
             return true;
         } else {

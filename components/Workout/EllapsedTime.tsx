@@ -42,7 +42,7 @@ const EllapsedTimeChild = memo(({ startTime }:EllapsedTimeProps) => {
             <Text style={styles.timeText}>{startTime && formatTime(ellapsedTime)}</Text>
         </View>
     )
-}, (prevProp, newProp) => prevProp.startTime == newProp.startTime || newProp.startTime === 0);
+}, (prevProp, newProp) => prevProp.startTime == newProp.startTime);
 
 export default function EllapsedTime() {
     const { startTime } = useContext(WorkoutContext);
