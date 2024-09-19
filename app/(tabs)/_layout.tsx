@@ -57,7 +57,7 @@ export default function TabsLayout() {
         console.log(Date.now() - workoutStartTime);
         const updatedData = {
             ...data,
-            startTime: workoutStartTime,
+            startTimestamp: workoutStartTime,
             duration: Date.now() - workoutStartTime
         }
         console.log(JSON.stringify(updatedData, null, 2));

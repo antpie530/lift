@@ -59,3 +59,11 @@ export interface FormValues {
     notes: string,
     exercises: ExerciseInput[];
 }
+
+export interface SubmittedWorkout {
+    name: string;
+    notes: string;
+    startTimestamp: number;
+    duration: number;
+    exercises: ExerciseInput[];
+}
