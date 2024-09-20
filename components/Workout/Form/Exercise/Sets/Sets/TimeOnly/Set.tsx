@@ -17,7 +17,7 @@ import { errorHaptic, lightHaptic } from "@/utils/haptics/haptics";
 import { FormValues } from "@/types/commonTypes";
 import MaskInput from "react-native-mask-input";
 
-import { MMSSMask, HHMMSSMask, MMSSSSMask } from "./utils";
+import { MMSSMask, HHMMSSMask, MMSSSSMask } from "../../../../../../../utils/timeUtils";
 import { styles } from "../styles";
 
 interface SetProps {

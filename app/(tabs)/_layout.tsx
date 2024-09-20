@@ -4,12 +4,16 @@ import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Extrapolation, interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { useForm, FormProvider } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { WorkoutContext } from "@/hooks/workoutContext";
+
+import { createWorkout } from "@/db/services/workoutService";
 
 import { FormValues } from "@/types/commonTypes";
 
 import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
-import { WorkoutContext } from "@/hooks/workoutContext";
 
 export default function TabsLayout() {
     const [workoutStartTime, setWorkoutStartTime] = useState<number>(0);
@@ -17,6 +21,13 @@ export default function TabsLayout() {
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 65;
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: createWorkout,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["completedExercises"]})
+        }
+    });
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
     const methods = useForm<FormValues>({
         defaultValues: {
@@ -60,6 +71,7 @@ export default function TabsLayout() {
             startTimestamp: workoutStartTime,
             duration: Date.now() - workoutStartTime
         }
+        mutation.mutate(updatedData);
         console.log(JSON.stringify(updatedData, null, 2));
         closeWorkout();
     }
@@ -84,6 +96,7 @@ export default function TabsLayout() {
                 >
                     <Tabs.Screen name="index" />
                     <Tabs.Screen name="exercises" />
+                    <Tabs.Screen name="history" />
                 </Tabs>
                 <Workout 
                     bottom={tabBarHeight} 

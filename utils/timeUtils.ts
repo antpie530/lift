@@ -1,4 +1,4 @@
-import { TimeUnits } from "@/app/(tabs)/_layout";
+import { TimeUnits } from "@/types/commonTypes";
 
 export const MMSSMask = [/\d/, /\d/, ":", /\d/, /\d/];
 
@@ -10,7 +10,7 @@ function msToSeconds(ms: number) {
     return ms / 1000;
 }
 
-function secondsToMs(seconds: number) {
+export function secondsToMs(seconds: number) {
     return seconds * 1000;
 }
 
@@ -94,6 +94,38 @@ function msToMMSSSS(ms: number): string {
     const seconds = Math.floor((ms % 60000) / 1000).toString().padStart(2, '0');
     const hundredths = Math.floor((ms % 1000) / 10).toString().padStart(2, '0');
     return `${minutes}:${seconds}.${hundredths}`;
+}
+
+export function convertTimeToMs(value: string, from: TimeUnits) {
+    let ms = 0;
+
+    switch (from) {
+        case "seconds":
+            ms = secondsToMs(Number(value));
+            break;
+        case "minutes":
+            ms = minutesToMs(Number(value));
+            break;
+        case "hours":
+            ms = hoursToMs(Number(value));
+            break;
+        case "MM:SS":
+            ms = MMSSToMs(value);
+            break;
+        case "HH:MM":
+            ms = hhmmToMs(value);
+            break;
+        case "HH:MM:SS":
+            ms = hhmmssToMs(value);
+        case "MM:SS.SS":
+            ms = MMSSToMs(value);
+            break;
+        default:
+            ms = 0;
+            break;
+    }
+
+    return ms;
 }
 
 

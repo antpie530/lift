@@ -6,6 +6,7 @@ import {
 import Animated, { AnimatedStyle } from "react-native-reanimated"
 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Tab from "./Tab";
 
 interface TabBarProps {
@@ -41,6 +42,18 @@ export default function TabBar({ state, height, offset }: TabBarProps) {
                         name="dumbbell" 
                         size={20} 
                         color={"exercises" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"} 
+                    />
+                }
+            />
+            <Tab 
+                name="history"
+                color={"history" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"}
+                href="/history"
+                icon={
+                    <FontAwesome5 
+                        name="history" 
+                        size={20} 
+                        color={"history" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"} 
                     />
                 }
             />

@@ -7,7 +7,7 @@ import { TimeUnits, TimeOnly } from "@/types/commonTypes";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 import { styles } from "../styles";
-import { updateFormat } from "./utils";
+import { updateFormat } from "../../../../../../../utils/timeUtils";
 
 import UnitButton from "../UnitButton";
 

@@ -1,17 +1,17 @@
 import { Exercise } from "@/db/schema";
 
-type WeightReps = {
+export type WeightReps = {
     weight: number | undefined;
     reps: number | undefined;
     completed: boolean;
 };
 
-type RepsOnly = {
+export type RepsOnly = {
     reps: number | undefined;
     completed: boolean;
 }
 
-type WeightThrows = {
+export type WeightThrows = {
     weight: number | undefined;
     throws: number | undefined;
     completed: boolean;
@@ -24,33 +24,33 @@ export type TimeOnly = {
 
 export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
 
-type WeightUnits = "lbs" | "kg" | "oz" | "g";
+export type WeightUnits = "lbs" | "kg" | "oz" | "g";
 
-type RepUnits = "reps";
+export type RepUnits = "reps";
 
 export type TimeUnits = "hours" | "minutes" | "seconds" | "HH:MM:SS" | "HH:MM" | "MM:SS" | "MM:SS.SS";
 
-type ThrowUnits = "throws"
+export type ThrowUnits = "throws"
 
-type WeightRepsUnits = {
+export type WeightRepsUnits = {
     weightUnit: WeightUnits;
     repsUnit: RepUnits;
 }
 
-type RepsOnlyUnits = {
+export type RepsOnlyUnits = {
     repsUnit: RepUnits;
 }
 
-type TimeOnlyUnits = {
+export type TimeOnlyUnits = {
     timeUnit: TimeUnits
 }
 
-type WeightThrowUnits = {
+export type WeightThrowUnits = {
     weightUnit: WeightUnits;
     throwsUnit: ThrowUnits; 
 }
 
-type schemaUnits = WeightThrowUnits | RepsOnlyUnits | TimeOnlyUnits | WeightRepsUnits;
+export type schemaUnits = WeightThrowUnits | RepsOnlyUnits | TimeOnlyUnits | WeightRepsUnits;
 
 export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { uid: string, schemaUnits: schemaUnits, notes: string, sets: SetType[] };
 
