@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Control, Controller, FieldArrayWithId, UseFormGetValues, UseFormSetValue, useWatch } from "react-hook-form";
+import { Controller, FieldArrayWithId, useFormContext, useWatch } from "react-hook-form";
 import Animated, {
     FadeInRight, 
     FadeOutLeft, 
@@ -14,7 +14,7 @@ import Swipeable from 'react-native-gesture-handler/Swipeable';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { errorHaptic, lightHaptic } from "@/utils/haptics/haptics";
-import { FormValues } from "@/app/(tabs)/_layout";
+import { FormValues } from "@/types/commonTypes";
 
 import { styles } from "../styles";
 
@@ -23,13 +23,12 @@ interface SetProps {
     set: FieldArrayWithId<FormValues, `exercises.${number}.sets`, "keyName">;
     setIndex: number;
     exerciseIndex: number;
-    control: Control<FormValues>;
-    getValues: UseFormGetValues<FormValues>
-    setValue: UseFormSetValue<FormValues>;
 }
 
-export default function Set({ setValue, getValues, control, removeSet, set, setIndex, exerciseIndex }: SetProps) {
+export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProps) {
     const [underValidation, setUnderValidation] = useState(false);
+    const { control, getValues, setValue } = useFormContext();
+
     const completed = useWatch({
         control,
         name: `exercises.${exerciseIndex}.sets.${setIndex}.completed`
@@ -71,7 +70,11 @@ export default function Set({ setValue, getValues, control, removeSet, set, setI
 
     const isValid = () => {
         const repsValue = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.reps`);
-        if (repsValue) {
+        if (isNaN(repsValue)) {
+            return false;
+        }
+
+        if (repsValue || repsValue === 0) {
             return true;
         } else {
             return false;

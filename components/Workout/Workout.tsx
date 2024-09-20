@@ -10,8 +10,8 @@ import Animated, {
     Extrapolation
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { UseFormGetValues, useFieldArray, Control, UseFormSetValue } from "react-hook-form";
-import { ExerciseInput, FormValues } from "@/app/(tabs)/_layout";
+import { useFormContext, useFieldArray } from "react-hook-form";
+import { ExerciseInput, FormValues } from "@/types/commonTypes";
 
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";
@@ -25,20 +25,16 @@ interface WorkoutProps {
     offset: AnimatedStyle;
     minHeight: number;
     maxHeight: number;
-    startTime: number | undefined;
-    control: Control<FormValues>;
-    setValue: UseFormSetValue<FormValues>;
     onFormSubmit: () => void;
-    errors: {};
-    getValues: UseFormGetValues<FormValues>;
     allSetsAreComplete: () => boolean;
 }
 
-export default function Workout({ bottom, height, offset, minHeight, maxHeight, startTime, control, setValue, onFormSubmit, errors, getValues, allSetsAreComplete  }: WorkoutProps) {
+export default function Workout({ bottom, height, offset, minHeight, maxHeight, onFormSubmit, allSetsAreComplete  }: WorkoutProps) {
     const [showAddExercisePopUp, setShowAddExercisePopUp] = useState(false);
     const prevHeight = useSharedValue(0);
     const velo = useSharedValue(0);
     const opacity = useSharedValue(0);
+    const { control } = useFormContext<FormValues>();
 
     const { fields: exercises, append, remove, move } = useFieldArray({
         control,
@@ -50,18 +46,6 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
         exercises.forEach(exercise => {
             append(exercise);
         });
-    }
-
-    const ellapsedTimeAnimatedStyle = useAnimatedStyle(() => ({
-        alignItems: "center",
-        borderBottomWidth: 1,
-        borderColor: "white",
-        opacity: opacity.value,
-        width: "100%"
-    }));
-
-    const scrollHandler = (offset: number) => {
-        opacity.value = interpolate(offset, [0, 50], [0, 1], Extrapolation.CLAMP);
     }
 
     const pan = Gesture.Pan()
@@ -95,20 +79,12 @@ export default function Workout({ bottom, height, offset, minHeight, maxHeight, 
             <GestureDetector gesture={pan}>
                 <TopTab />
             </GestureDetector>
-            <Header allSetsAreComplete={allSetsAreComplete} startTime={startTime} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
-            <Animated.View style={ellapsedTimeAnimatedStyle}>
-                <EllapsedTime startTime={startTime} />
-            </Animated.View>
+            <Header allSetsAreComplete={allSetsAreComplete} headerHeight={minHeight} height={height} onFormSubmit={onFormSubmit} />
             <Form 
                 remove={remove} 
-                data={exercises} 
+                data={exercises}
                 openAddExercisePopUp={() => setShowAddExercisePopUp(true)} 
-                setValue={setValue}
-                control={control}
                 move={move}
-                getValues={getValues}
-                startTime={startTime as number}
-                scrollHandler={scrollHandler}
             />
             <AddExercisePopUp
                 showAddExercisePopUp={showAddExercisePopUp}

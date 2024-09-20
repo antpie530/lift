@@ -1,4 +1,3 @@
-import { useContext, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { lightHaptic } from "@/utils/haptics/haptics";

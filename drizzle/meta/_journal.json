@@ -15,6 +15,20 @@
       "when": 1724801451005,
       "tag": "0001_ambitious_shape",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1726782906834,
+      "tag": "0002_military_mongoose",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1726785833551,
+      "tag": "0003_sturdy_mattie_franklin",
+      "breakpoints": true
     }
   ]
 }

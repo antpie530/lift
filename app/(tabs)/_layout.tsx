@@ -3,53 +3,33 @@ import { Dimensions } from "react-native";
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Extrapolation, interpolate, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import { useForm } from "react-hook-form";
-import { Exercise } from "@/db/schema";
+import { useForm, FormProvider } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { WorkoutContext } from "@/hooks/workoutContext";
+
+import { createWorkout } from "@/db/services/workoutService";
+
+import { FormValues } from "@/types/commonTypes";
 
 import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
-import { WorkoutContext } from "@/hooks/workoutContext";
-
-type WeightReps = {
-    weight: number | undefined;
-    reps: number | undefined;
-    completed: boolean;
-};
-
-type RepsOnly = {
-    reps: number | undefined;
-    completed: boolean;
-}
-
-type WeightThrows = {
-    weight: number | undefined;
-    throws: number | undefined;
-    completed: boolean;
-}
-
-type TimeOnly = {
-    time: string;
-    completed: boolean;
-}
-
-export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
-
-export type ExerciseInput = Pick<Exercise, "id" | "name" | "schema"> & { notes: string, sets: SetType[] };
-
-export interface FormValues {
-    name: string,
-    notes: string,
-    exercises: ExerciseInput[];
-}
 
 export default function TabsLayout() {
-    const [workoutStartTime, setWorkoutStartTime] = useState<number | undefined>();
+    const [workoutStartTime, setWorkoutStartTime] = useState<number>(0);
     const [workoutIsActive, setWorkoutIsActive] = useState(false);
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 65;
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: createWorkout,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["completedExercises"]})
+        }
+    });
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
-    const { control, handleSubmit, reset, setValue, getValues, formState: { errors } } = useForm<FormValues>({
+    const methods = useForm<FormValues>({
         defaultValues: {
             name: "New Workout",
             notes: "",
@@ -65,13 +45,13 @@ export default function TabsLayout() {
 
     const closeWorkout = () => {
         setWorkoutIsActive(false);
-        setWorkoutStartTime(undefined);
-        reset();
+        setWorkoutStartTime(0);
+        methods.reset();
         workoutHeight.value = withTiming(0, { duration: 200 });
     }
 
     const allSetsAreComplete = () => {
-        const exercises = getValues("exercises");
+        const exercises = methods.getValues("exercises");
         return exercises.every(exercise => exercise.sets.every(set => set.completed === true));
     }
 
@@ -85,7 +65,14 @@ export default function TabsLayout() {
         removeUncompleteSets(data);
         console.log("Data Submitted");
         console.log(workoutStartTime);
-        console.log(JSON.stringify(data, null, 2));
+        console.log(Date.now() - workoutStartTime);
+        const updatedData = {
+            ...data,
+            startTimestamp: workoutStartTime,
+            duration: Date.now() - workoutStartTime
+        }
+        mutation.mutate(updatedData);
+        console.log(JSON.stringify(updatedData, null, 2));
         closeWorkout();
     }
 
@@ -94,34 +81,33 @@ export default function TabsLayout() {
     }));
 
     return (
-        <WorkoutContext.Provider 
-            value={{ 
-                openWorkout: openWorkout, 
-                closeWorkout: closeWorkout,
-                workoutIsActive: workoutIsActive 
-            }}
-        >
-            <Tabs 
-                screenOptions={{ headerShown: false }}
-                tabBar={({ state }) => <TabBar state={state} height={tabBarHeight} offset={offsetAnimatedStyle}/>}
+        <FormProvider {...methods}>
+            <WorkoutContext.Provider 
+                value={{ 
+                    openWorkout: openWorkout, 
+                    closeWorkout: closeWorkout,
+                    workoutIsActive: workoutIsActive,
+                    startTime: workoutStartTime
+                }}
             >
-                <Tabs.Screen name="index" />
-                <Tabs.Screen name="exercises" />
-            </Tabs>
-            <Workout 
-                bottom={tabBarHeight} 
-                height={workoutHeight} 
-                offset={offsetAnimatedStyle}
-                minHeight={minWorkoutHeight}
-                maxHeight={maxWorkoutHeight}
-                startTime={workoutStartTime}
-                control={control}
-                setValue={setValue}
-                onFormSubmit={handleSubmit(onSubmit)}
-                errors={errors}
-                getValues={getValues}
-                allSetsAreComplete={allSetsAreComplete}
-            />
-        </WorkoutContext.Provider>
+                <Tabs 
+                    screenOptions={{ headerShown: false }}
+                    tabBar={({ state }) => <TabBar state={state} height={tabBarHeight} offset={offsetAnimatedStyle}/>}
+                >
+                    <Tabs.Screen name="index" />
+                    <Tabs.Screen name="exercises" />
+                    <Tabs.Screen name="history" />
+                </Tabs>
+                <Workout 
+                    bottom={tabBarHeight} 
+                    height={workoutHeight} 
+                    offset={offsetAnimatedStyle}
+                    minHeight={minWorkoutHeight}
+                    maxHeight={maxWorkoutHeight}
+                    onFormSubmit={methods.handleSubmit(onSubmit)}
+                    allSetsAreComplete={allSetsAreComplete}
+                />
+            </WorkoutContext.Provider>
+        </FormProvider>
     )
 }

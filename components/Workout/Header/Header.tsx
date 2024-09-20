@@ -7,19 +7,20 @@ import FinishButton from "./FinishButton";
 
 interface HeaderProps {
     headerHeight: number;
-    startTime: number | undefined;
     height: SharedValue<number>;
     onFormSubmit: () => void;
     allSetsAreComplete: () => boolean;
 }
 
-export default function Header({ allSetsAreComplete, headerHeight, startTime, height, onFormSubmit }: HeaderProps) {
+export default function Header({ allSetsAreComplete, headerHeight, height, onFormSubmit }: HeaderProps) {
     const buttonAnimatedStyle = useAnimatedStyle(() => ({
         opacity: interpolate(height.value, [650, headerHeight], [1, 0], Extrapolation.CLAMP)
     }));
 
     const ellapsedTimeAnimatedStyle = useAnimatedStyle(() => ({
-        opacity: interpolate(height.value, [headerHeight, 650], [1, 0], Extrapolation.CLAMP)
+        transform: [{
+            translateY: interpolate(height.value, [650, headerHeight], [0, -20], Extrapolation.CLAMP)
+        }]
     }))
 
     return (
@@ -28,7 +29,7 @@ export default function Header({ allSetsAreComplete, headerHeight, startTime, he
                 <Timer />
             </Animated.View>
             <Animated.View style={[styles.ellapsedTime, ellapsedTimeAnimatedStyle]}>
-                <EllapsedTime startTime={startTime} />
+                <EllapsedTime />
             </Animated.View>
             <Animated.View style={[styles.finishButtonSection, buttonAnimatedStyle]}>
                 <FinishButton allSetsAreComplete={allSetsAreComplete} onFormSubmit={onFormSubmit} />
@@ -50,6 +51,7 @@ const styles = StyleSheet.create({
     },
     ellapsedTime: {
         alignItems: "center",
+        justifyContent: "center",
         flex: 1,
     },
     finishButtonSection: {

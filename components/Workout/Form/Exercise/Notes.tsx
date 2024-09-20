@@ -1,18 +1,17 @@
 import { useState } from "react";
 import { Dimensions, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { Control, Controller } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-import { FormValues } from "@/app/(tabs)/_layout";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
 interface NotesProps {
-    control: Control<FormValues>;
     index: number;
 }
 
-export default function Notes({ control, index}: NotesProps) {
+export default function Notes({ index }: NotesProps) {
     const [notesLocked, setNotesLocked] = useState(false);
+    const { control } = useFormContext();
 
     return (
         <View style={styles.container}>

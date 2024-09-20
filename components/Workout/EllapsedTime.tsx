@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+
+import { WorkoutContext } from "@/hooks/workoutContext";
 
 function formatTime(totalSeconds: number) {
     const hours = Math.floor(totalSeconds / 3600);
@@ -16,10 +18,10 @@ function formatTime(totalSeconds: number) {
 }
 
 interface EllapsedTimeProps {
-    startTime: number | undefined;
+    startTime: number;
 }
 
-export default function EllapsedTime({ startTime }: EllapsedTimeProps) {
+const EllapsedTimeChild = memo(({ startTime }:EllapsedTimeProps) => {
     const [ellapsedTime, setEllapsedTime] = useState(0);
 
     useEffect(() => {
@@ -40,7 +42,15 @@ export default function EllapsedTime({ startTime }: EllapsedTimeProps) {
             <Text style={styles.timeText}>{startTime && formatTime(ellapsedTime)}</Text>
         </View>
     )
+}, (prevProp, newProp) => prevProp.startTime == newProp.startTime);
+
+export default function EllapsedTime() {
+    const { startTime } = useContext(WorkoutContext);
+
+    return <EllapsedTimeChild startTime={startTime} />
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
