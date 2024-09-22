@@ -13,7 +13,8 @@ export default function Exercises({ exercises }: ExercisesProp) {
         content += exercises[i].sets + "x" + exercises[i].name + ", "
     }
 
-    content += exercises[exercises.length - 1].sets + "x" + exercises[exercises.length - 1].name;
+
+    content += exercises.length > 0 ? exercises[exercises.length - 1].sets + "x" + exercises[exercises.length - 1].name : "";
     return (
         <View>
             <Text style={styles.exercises}>{content}</Text>
