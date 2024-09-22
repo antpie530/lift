@@ -1,5 +1,6 @@
 import { StyleSheet, NativeSyntheticEvent, NativeScrollEvent, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { Workouts } from "@/db/services/types";
 
@@ -12,6 +13,8 @@ interface CompletedWorkoutsProps {
 }
 
 export default function CompletedWorkouts({ workouts, scrollHandler }: CompletedWorkoutsProps) {
+    const bottomInset = useSafeAreaInsets().bottom;
+
     return (
         <View style={styles.container}>
             <Animated.FlatList
@@ -31,6 +34,8 @@ export default function CompletedWorkouts({ workouts, scrollHandler }: Completed
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }}/>}
                 ListHeaderComponent={ListHeader}
+                ListFooterComponent={() => <View style={{ height: bottomInset + 45 }}/>}
+                showsVerticalScrollIndicator={false}
             />
         </View>
     )
