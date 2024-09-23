@@ -33,7 +33,7 @@ export default function History() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "rgba(0, 0, 0, 1)",
+        backgroundColor: "rgba(57, 60, 64, 1)",
         flex: 1,
     }
 })

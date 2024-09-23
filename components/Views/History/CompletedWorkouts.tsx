@@ -32,7 +32,7 @@ export default function CompletedWorkouts({ workouts, scrollHandler }: Completed
                         }))}
                     />
                 )}
-                ItemSeparatorComponent={() => <View style={{ height: 10 }}/>}
+                ItemSeparatorComponent={() => <View style={{ height: 15 }}/>}
                 ListHeaderComponent={ListHeader}
                 ListFooterComponent={() => <View style={{ height: bottomInset + 45 }}/>}
                 showsVerticalScrollIndicator={false}

@@ -19,7 +19,9 @@ export default function Header({ name, animatedHeaderStyle }: HeaderProps) {
 const styles = StyleSheet.create({
     appearingHeader: {
         alignItems: "center",
-        backgroundColor: "black",
+        backgroundColor: "rgba(57, 60, 64, 1)",
+        borderBottomColor: "white",
+        borderBottomWidth: 1,
         justifyContent: "center",
         paddingVertical: 10,
         width: "100%"
