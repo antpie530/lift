@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import Animated, { Extrapolation, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
+
+import { Workout } from "@/db/services/types";
 
 import { getAllWorkoutData } from "@/db/services/getWorkoutData";
 
 import Header from "./Header";
 import CompletedWorkouts from "./CompletedWorkouts";
+import EditWorkout from "./EditWorkout/EditWorkout";
 
 export default function History() {
+    const [editWorkoutData, setEditWorkoutData] = useState<Workout | undefined>();
+    const visible = editWorkoutData ? true : false;
+    const closeEditWorkout = () => { 
+        setEditWorkoutData(undefined) 
+    };
+
     const { isPending, isError, error, data } = useQuery({
         queryKey: ["workouts", "exercises"],
         queryFn: getAllWorkoutData
@@ -26,7 +36,8 @@ export default function History() {
             <Header name="History" animatedHeaderStyle={animatedHeaderStyle} />
             {isPending && <Text>Loading...</Text>}
             {isError && <Text>{JSON.stringify(error)}</Text>}
-            {data && <CompletedWorkouts workouts={data} scrollHandler={scrollHandler} />}
+            {data && <CompletedWorkouts workouts={data} scrollHandler={scrollHandler} setEditWorkoutData={setEditWorkoutData} />}
+            <EditWorkout visible={visible} closeEditWorkout={closeEditWorkout} workout={editWorkoutData} />
         </SafeAreaView>
     )
 }

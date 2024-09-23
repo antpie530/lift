@@ -1,8 +1,10 @@
-import { StyleSheet, NativeSyntheticEvent, NativeScrollEvent, View } from "react-native";
+import { StyleSheet, NativeSyntheticEvent, NativeScrollEvent, TouchableOpacity, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Workouts } from "@/db/services/types";
+import { lightHaptic } from "@/utils/haptics/haptics";
+
+import { Workout, Workouts } from "@/db/services/types";
 
 import CompletedWorkoutCard from "@/components/Common/CompletedWorkoutCard/CompletedWorkoutCard";
 import ListHeader from "./ListHeader";
@@ -10,9 +12,10 @@ import ListHeader from "./ListHeader";
 interface CompletedWorkoutsProps {
     workouts: Workouts;
     scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
+    setEditWorkoutData: React.Dispatch<React.SetStateAction<Workout | undefined>>;
 }
 
-export default function CompletedWorkouts({ workouts, scrollHandler }: CompletedWorkoutsProps) {
+export default function CompletedWorkouts({ workouts, scrollHandler, setEditWorkoutData }: CompletedWorkoutsProps) {
     const bottomInset = useSafeAreaInsets().bottom;
 
     return (
@@ -22,15 +25,22 @@ export default function CompletedWorkouts({ workouts, scrollHandler }: Completed
                 data={workouts}
                 keyExtractor={(item) => item.id.toString()}
                 renderItem={({ item }) => (
-                    <CompletedWorkoutCard 
-                        name={item.name}
-                        startTimeStamp={item.startTimestamp}
-                        duration={item.duration}
-                        exercises={item.exercises.map(exercise => ({
-                            name: exercise.name,
-                            sets: exercise.sets?.length ?? 0
-                        }))}
-                    />
+                    <TouchableOpacity
+                        onPress={() => {
+                            lightHaptic();
+                            setEditWorkoutData(item);
+                        }}
+                    >
+                        <CompletedWorkoutCard 
+                            name={item.name}
+                            startTimeStamp={item.startTimestamp}
+                            duration={item.duration}
+                            exercises={item.exercises.map(exercise => ({
+                                name: exercise.name,
+                                sets: exercise.sets?.length ?? 0
+                            }))}
+                        />
+                    </TouchableOpacity>
                 )}
                 ItemSeparatorComponent={() => <View style={{ height: 15 }}/>}
                 ListHeaderComponent={ListHeader}

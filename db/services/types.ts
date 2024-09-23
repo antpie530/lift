@@ -31,7 +31,7 @@ type Exercise = {
     sets?: SetType[]
 }
 
-type Workout = {
+export type Workout = {
     id: number;
     name: string;
     notes: string | null;
