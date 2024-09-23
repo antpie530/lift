@@ -11,13 +11,20 @@ import { WorkoutContext } from "@/hooks/workoutContext";
 import { createWorkout } from "@/db/services/workoutService";
 
 import { FormValues } from "@/types/commonTypes";
+import { ExerciseSummary } from "@/components/Common/CompletedWorkoutCard/CompletedWorkoutCard";
 
 import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
+import WorkoutSuccessPopup from "@/components/WorkoutSuccess/WorkoutSuccessPopup";
 
 export default function TabsLayout() {
     const [workoutStartTime, setWorkoutStartTime] = useState<number>(0);
     const [workoutIsActive, setWorkoutIsActive] = useState(false);
+    const [successPopupName, setSuccessPopupName] = useState("");
+    const [successPopupTimestamp, setSuccessPopupTimestamp] = useState(0);
+    const [successPopupDuration, setSuccessPopupDuration] = useState(0);
+    const [successPopupExercises, setSuccessPopupExercises] = useState<ExerciseSummary[]>([]);
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const tabBarHeight = useSafeAreaInsets().bottom + 45;
     const workoutHeight = useSharedValue<number>(0);
     const minWorkoutHeight = 65;
@@ -73,6 +80,15 @@ export default function TabsLayout() {
         }
         mutation.mutate(updatedData);
         console.log(JSON.stringify(updatedData, null, 2));
+        setSuccessPopupTimestamp(workoutStartTime);
+        setSuccessPopupDuration(updatedData.duration);
+        setSuccessPopupName(data.name);
+        const exercisesSummary = data.exercises.map(exercise => ({
+            name: exercise.name,
+            sets: exercise.sets.length
+        }));
+        setSuccessPopupExercises(exercisesSummary);
+        setShowSuccessPopup(true);
         closeWorkout();
     }
 
@@ -106,6 +122,14 @@ export default function TabsLayout() {
                     maxHeight={maxWorkoutHeight}
                     onFormSubmit={methods.handleSubmit(onSubmit)}
                     allSetsAreComplete={allSetsAreComplete}
+                />
+                <WorkoutSuccessPopup
+                    showPopup={showSuccessPopup}
+                    name={successPopupName}
+                    startTimestamp={successPopupTimestamp}
+                    duration={successPopupDuration}
+                    exercises={successPopupExercises}
+                    closePopup={() => setShowSuccessPopup(false)}
                 />
             </WorkoutContext.Provider>
         </FormProvider>
