@@ -2,6 +2,8 @@ import { Button, Modal, StyleSheet, View } from "react-native";
 
 import { Workout } from "@/db/services/types";
 
+import Header from "./Header";
+
 interface EditWorkoutProps {
     visible: boolean;
     closeEditWorkout: () => void;
@@ -18,7 +20,7 @@ export default function EditWorkout({ visible, closeEditWorkout, workout }: Edit
         >
             <View style={styles.background}>
                 <View style={styles.container}>
-                    <Button onPress={closeEditWorkout} title="Close" />
+                    <Header closeWorkout={closeEditWorkout} />
                 </View>
             </View>
         </Modal>
