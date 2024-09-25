@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, Text } from "react-native";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Animated, { Extrapolation, interpolate, useAnimatedScrollHandler, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
 
 import { Workout } from "@/db/services/types";
@@ -12,9 +12,11 @@ import CompletedWorkouts from "./CompletedWorkouts";
 import EditWorkout from "./EditWorkout/EditWorkout";
 
 export default function History() {
+    const queryClient = useQueryClient();
     const [editWorkoutData, setEditWorkoutData] = useState<Workout | undefined>();
     const visible = editWorkoutData ? true : false;
-    const closeEditWorkout = () => { 
+    const closeEditWorkout = () => {
+        queryClient.invalidateQueries({ queryKey: ["workouts"]})
         setEditWorkoutData(undefined) 
     };
 
