@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, TextInput, View } from "react-native";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import Animated, { useAnimatedProps, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
-import LottieView from "lottie-react-native";
+import { useAnimatedProps, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 import { UpdateWorkoutData } from "@/db/types";
 
@@ -12,7 +11,7 @@ import { lightHaptic } from "@/utils/haptics/haptics";
 import ReactiveTextInput from "./ReactiveTextInput";
 import { updateWorkout } from "@/db/queries";
 
-const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
+import AnimatedLottieView from "@/components/Common/AnimatedLottieView";
 
 interface MetaFieldsProps {
     id: number;

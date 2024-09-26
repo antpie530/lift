@@ -21,7 +21,7 @@ export default function History() {
     };
 
     const { isPending, isError, error, data } = useQuery({
-        queryKey: ["workouts", "exercises"],
+        queryKey: ["workouts", "completedExercises"],
         queryFn: getAllWorkoutData
     });
     const opacity = useSharedValue(0);

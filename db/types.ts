@@ -3,3 +3,8 @@ export type UpdateWorkoutData = {
     name: string;
     notes: string | null;
 }
+
+export type UpdateCompletedExerciseNotesData = {
+    id: number;
+    notes: string | null;
+}

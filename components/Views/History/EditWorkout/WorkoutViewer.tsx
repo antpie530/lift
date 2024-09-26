@@ -20,7 +20,6 @@ export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
     const mutation = useMutation({
         mutationFn: deleteExercise,
         onSuccess: () => {
-            console.log("ran");
             queryClient.invalidateQueries({ queryKey: ["exercises"]});
         }
     });

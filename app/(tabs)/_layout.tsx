@@ -32,7 +32,7 @@ export default function TabsLayout() {
     const mutation = useMutation({
         mutationFn: createWorkout,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["completedExercises"]})
+            queryClient.invalidateQueries({ queryKey: ["workouts", "completedExercises"]})
         }
     });
     const maxWorkoutHeight = Dimensions.get("window").height - useSafeAreaInsets().top;
