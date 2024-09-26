@@ -12,6 +12,7 @@ interface EditWorkoutProps {
 }
 
 export default function EditWorkout({ visible, closeEditWorkout, workout }: EditWorkoutProps) {
+    console.log(JSON.stringify(workout));
     return (
         <Modal
             animationType="fade"

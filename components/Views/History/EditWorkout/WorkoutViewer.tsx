@@ -1,22 +1,51 @@
-import { FlatList, Text, View } from "react-native";
+import { useState } from "react";
+import { FlatList, View } from "react-native";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { deleteExercise } from "@/db/queries";
 
 import { Workout } from "@/db/services/types";
 
 import MetaFields from "./MetaFields";
 import TimeDataDisplay from "./TimeDataDisplay";
+import EditExercise from "./EditExercise/EditExercise";
 
 interface WorkoutViewerProps {
     workout: Workout;
 }
 
 export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
+    const [exercises, setExercises] = useState(workout.exercises);
+    const queryClient = useQueryClient();
+    const mutation = useMutation({
+        mutationFn: deleteExercise,
+        onSuccess: () => {
+            console.log("ran");
+            queryClient.invalidateQueries({ queryKey: ["exercises"]});
+        }
+    });
+
+    const handleDeleteExercise = (id: number) => {
+        mutation.mutate(id);
+        const updatedExercises = exercises.filter(exercise => exercise.id !== id);
+        setExercises(updatedExercises);
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={workout.exercises}
+                data={exercises}
                 keyExtractor={item => item.id.toString()}
                 renderItem={({ item }) => (
-                    null
+                    <EditExercise 
+                        id={item.id}
+                        exerciseId={item.exerciseId as number}
+                        name={item.name}
+                        notes={item.notes}
+                        schema={item.schema}
+                        sets={item.sets}
+                        onDelete={() => handleDeleteExercise(item.id)}
+                    />
                 )}
                 ListHeaderComponent={() => (
                     <>

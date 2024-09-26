@@ -1,3 +1,5 @@
+import { SchemaTypes } from "@/types/commonTypes";
+
 type WeightRepsSet  = {
     id: number;
     weight: number;
@@ -20,15 +22,15 @@ type TimeOnlySet = {
     time: number;
 }
 
-type SetType = WeightRepsSet | WeightThrowsSet | RepsOnlySet | TimeOnlySet;
+export type SetType = WeightRepsSet | WeightThrowsSet | RepsOnlySet | TimeOnlySet;
 
 type Exercise = {
     id: number;
     exerciseId: number | null;
     name: string;
     notes: string | null;
-    schema: "Weight Reps" | "Reps Only" | "Weight Throws" | "Time Only";
-    sets?: SetType[]
+    schema: SchemaTypes;
+    sets: SetType[]
 }
 
 export type Workout = {

@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm"
+import { asc, desc, eq } from "drizzle-orm"
 import { db } from "./db";
 import {
     completedExercise,
@@ -22,7 +22,7 @@ export const getExercise = async (id: number) => await db.select().from(exercise
 
 export const editExercise = async (id: number, name: string, description: string | undefined | null) => await db.update(exercise).set({ name: name, description: description}).where(eq(exercise.id, id));
 
-export const getAllWorkouts = async () => await db.select().from(workout);
+export const getAllWorkouts = async () => await db.select().from(workout).orderBy(desc(workout.startTimestamp));
 
 export const getWorkoutExercises = async (workoutId: number) => await db
     .select({
@@ -82,3 +82,5 @@ export const updateWorkout = async (data: UpdateWorkoutData) => await db
         notes: data.notes
     })
     .where(eq(workout.id, data.id));
+
+export const deleteExercise = async (id: number) => await db.delete(completedExercise).where(eq(completedExercise.id, id));

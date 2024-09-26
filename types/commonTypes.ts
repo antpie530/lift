@@ -22,7 +22,14 @@ export type TimeOnly = {
     completed: boolean;
 }
 
-export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly
+export type SetType = WeightReps | RepsOnly | WeightThrows | TimeOnly;
+
+export enum SchemaTypes {
+    WeightReps = "WeightReps",
+    RepsOnly = "RepsOnly",
+    WeightThrows = "Weight Throws",
+    TimeOnly = "TimeOnly"
+}
 
 export type WeightUnits = "lbs" | "kg" | "oz" | "g";
 
