@@ -5,13 +5,14 @@ import { EditExerciseProps } from "./types";
 
 import Header from "./Header/Header";
 import Notes from "./Notes/Notes";
+import Sets from "./Sets/Sets";
 
 export default function EditExercise({ id, exerciseId, name, notes, schema, sets, onDelete }: EditExerciseProps) {
     return (
         <Animated.View entering={FadeInDown} exiting={FadeOut} layout={LinearTransition}>
             <Header name={name} exerciseId={exerciseId} onDelete={onDelete} />
             <Notes id={id} notes={notes} />
-            <Text>Sets</Text>
+            <Sets schema={schema} sets={sets} />
         </Animated.View>
     )
 }

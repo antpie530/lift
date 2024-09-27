@@ -8,3 +8,8 @@ export type UpdateCompletedExerciseNotesData = {
     id: number;
     notes: string | null;
 }
+
+export type UpdateRepsOnlySetData = {
+    id: number;
+    reps: number;
+}

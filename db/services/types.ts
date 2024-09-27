@@ -1,23 +1,23 @@
 import { SchemaTypes } from "@/types/commonTypes";
 
-type WeightRepsSet  = {
+export type WeightRepsSet  = {
     id: number;
     weight: number;
     reps: number;
 }
 
-type WeightThrowsSet = {
+export type WeightThrowsSet = {
     id: number;
     weight: number;
     throws: number;
 }
 
-type RepsOnlySet = {
+export type RepsOnlySet = {
     id: number;
     reps: number;
 }
 
-type TimeOnlySet = {
+export type TimeOnlySet = {
     id: number;
     time: number;
 }

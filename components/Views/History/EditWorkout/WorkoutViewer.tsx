@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, KeyboardAvoidingView, Platform } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { deleteExercise } from "@/db/queries";
@@ -31,7 +31,11 @@ export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={100}
+        >
             <FlatList
                 data={exercises}
                 keyExtractor={item => item.id.toString()}
@@ -53,6 +57,6 @@ export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
                     </>
                 )}
             />
-        </View>
+        </KeyboardAvoidingView>
     )
 }

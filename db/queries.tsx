@@ -10,7 +10,7 @@ import {
     schemaWeightThrows,
     workout 
 } from "./schema";
-import { UpdateCompletedExerciseNotesData, UpdateWorkoutData } from "./types";
+import { UpdateCompletedExerciseNotesData, UpdateRepsOnlySetData, UpdateWorkoutData } from "./types";
 
 export const getAllExercises = async () => await db.select().from(exercise).where(eq(exercise.hidden, false)).orderBy(asc(exercise.name));
 
@@ -91,3 +91,10 @@ export const updateCompletedExerciseNotes = async (data: UpdateCompletedExercise
         notes: data.notes
     })
     .where(eq(completedExercise.id, data.id));
+
+export const updateRepsOnlySet = async (data: UpdateRepsOnlySetData) => await db
+    .update(schemaRepsOnly)
+    .set({
+        reps: data.reps
+    })
+    .where(eq(schemaRepsOnly.id, data.id));
