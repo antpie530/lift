@@ -31,6 +31,11 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         width: 150
     },
+    weightColumn: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 150
+    },
     inputValues: {
         borderRadius: 8,
         paddingHorizontal: 1,

@@ -1,5 +1,5 @@
 import { SchemaTypes } from "@/types/commonTypes"
-import { RepsOnlySet, SetType, TimeOnlySet } from "@/db/services/types"
+import { RepsOnlySet, SetType, TimeOnlySet, WeightRepsSet } from "@/db/services/types"
 
 export interface RepsOnlyProps {
     sets: RepsOnlySet[];
@@ -23,5 +23,16 @@ export interface TimeOnlyProps {
 export interface TimeOnlySetProps {
     id: number;
     time: number;
+    setNumber: number;
+}
+
+export interface WeightRepsProps {
+    sets: WeightRepsSet[]
+}
+
+export interface WeightRepsSetProps {
+    id: number;
+    weight: number;
+    reps: number;
     setNumber: number;
 }

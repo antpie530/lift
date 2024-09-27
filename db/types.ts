@@ -18,3 +18,9 @@ export type UpdateTimeOnlySetData = {
     id: number;
     time: number;
 }
+
+export type UpdateWeightRepsSetData = {
+    id: number;
+    weight: number;
+    reps: number;
+}
