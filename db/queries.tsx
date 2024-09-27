@@ -15,6 +15,7 @@ import {
     UpdateRepsOnlySetData, 
     UpdateTimeOnlySetData,
     UpdateWeightRepsSetData,
+    UpdateWeightThrowsSetData,
     UpdateWorkoutData 
 } from "./types";
 
@@ -118,4 +119,12 @@ export const updateWeightRepsSet = async (data: UpdateWeightRepsSetData) => awai
         weight: data.weight,
         reps: data.reps
     })
-    .where(eq(schemaWeightReps.id, data.id))
+    .where(eq(schemaWeightReps.id, data.id));
+
+export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => await db
+    .update(schemaWeightThrows)
+    .set({
+        weight: data.weight,
+        throws: data.throws
+    })
+    .where(eq(schemaWeightThrows.id, data.id));

@@ -26,6 +26,11 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         width: 100
     },
+    throwsColumn: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 100
+    },
     timeColumn: {
         alignItems: "center",
         justifyContent: "center",

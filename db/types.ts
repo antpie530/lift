@@ -24,3 +24,9 @@ export type UpdateWeightRepsSetData = {
     weight: number;
     reps: number;
 }
+
+export type UpdateWeightThrowsSetData = {
+    id: number;
+    weight: number;
+    throws: number;
+}

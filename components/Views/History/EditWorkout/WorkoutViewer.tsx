@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FlatList, KeyboardAvoidingView, Platform } from "react-native";
+import { FlatList, KeyboardAvoidingView, Platform, View } from "react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { deleteExercise } from "@/db/queries";
@@ -56,6 +56,7 @@ export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
                         <TimeDataDisplay startTimestamp={workout.startTimestamp} duration={workout.duration} />
                     </>
                 )}
+                ListFooterComponent={() => <View style={{ height: 10 }} />}
             />
         </KeyboardAvoidingView>
     )
