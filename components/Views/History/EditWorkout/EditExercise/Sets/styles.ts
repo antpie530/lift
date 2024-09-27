@@ -26,7 +26,12 @@ export const styles = StyleSheet.create({
         justifyContent: "center",
         width: 100
     },
-    repsValues: {
+    timeColumn: {
+        alignItems: "center",
+        justifyContent: "center",
+        width: 150
+    },
+    inputValues: {
         borderRadius: 8,
         paddingHorizontal: 1,
         paddingVertical: 3,

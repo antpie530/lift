@@ -13,3 +13,8 @@ export type UpdateRepsOnlySetData = {
     id: number;
     reps: number;
 }
+
+export type UpdateTimeOnlySetData = {
+    id: number;
+    time: number;
+}

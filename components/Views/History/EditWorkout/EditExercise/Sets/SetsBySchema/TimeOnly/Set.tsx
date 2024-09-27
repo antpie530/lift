@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react";
 import { Pressable, Text, View } from "react-native";
-import { useAnimatedProps, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { Controller, useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+import { useAnimatedProps, useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
+import { msToSeconds, secondsToMs } from "@/utils/conversions/timeConversions";
 
-import { updateRepsOnlySet } from "@/db/queries";
+import { updateTimeOnlySet } from "@/db/queries";
 
-import { UpdateRepsOnlySetData } from "@/db/types";
+import { UpdateTimeOnlySetData } from "@/db/types";
+import { TimeOnlySetProps } from "../../types";
 
 import { styles } from "../../styles";
-import { RepsOnlySetProps } from "../../types";
 
 import AnimatedLottieView from "@/components/Common/AnimatedLottieView";
 import ReactiveTextInput from "../../../../ReactiveTextInput";
 
-export default function Set({ id, reps, setNumber }: RepsOnlySetProps) {
+export default function Set({ id, time, setNumber }: TimeOnlySetProps) {
     const [isEditing, setIsEditing] = useState(false);
     const progress = useSharedValue(0);
-    const repsWidth = useSharedValue(45);
-    const { control, handleSubmit, formState: { errors } } = useForm<UpdateRepsOnlySetData>({
+    const timeWidth = useSharedValue(50);
+    const { control, handleSubmit, formState: { errors } } = useForm<UpdateTimeOnlySetData>({
         defaultValues: {
             id: id,
-            reps: reps
+            time: msToSeconds(time)
         }
     });
 
     const mutation = useMutation({
-        mutationFn: updateRepsOnlySet
-    })
+        mutationFn: updateTimeOnlySet
+    });
 
     useEffect(() => {
         progress.value = withTiming(.2, {
@@ -37,20 +38,26 @@ export default function Set({ id, reps, setNumber }: RepsOnlySetProps) {
         });
     }, []);
 
-    const onSubmit = (data: UpdateRepsOnlySetData) => {
-        mutation.mutate(data);
+    const onSubmit = (data: UpdateTimeOnlySetData) => {
+        const processedData = {
+            ...data,
+            time: secondsToMs(data.time)
+        };
+        
+        mutation.mutate(processedData);
+
         progress.value = withTiming(1, { duration: 1000 }, () => {
-            progress.value = withTiming(.2)
+            progress.value = withTiming(0.2);
         });
-        repsWidth.value = withTiming(45);
+        timeWidth.value = withTiming(50);
         setIsEditing(false);
-    }
+    };
 
     const startEdit = () => {
         setIsEditing(true);
         progress.value = withTiming(0.4);
-        repsWidth.value = withTiming(50);
-    }
+        timeWidth.value = withTiming(75);
+    };
 
     const handlePress = () => {
         lightHaptic();
@@ -67,7 +74,7 @@ export default function Set({ id, reps, setNumber }: RepsOnlySetProps) {
     }));
 
     const animatedStyle = useAnimatedStyle(() => ({
-        width: repsWidth.value,
+        width: timeWidth.value
     }));
 
     return (
@@ -76,18 +83,18 @@ export default function Set({ id, reps, setNumber }: RepsOnlySetProps) {
                 <Text style={styles.headerText}>{setNumber}</Text>
             </View>
             <View style={styles.editHeaders}>
-                <View style={styles.repsColumn}>
+                <View style={styles.timeColumn}>
                     <Controller 
-                        name="reps"
+                        name="time"
                         control={control}
                         rules={{
-                            required: "This field is required",
+                            required: "This field is required"
                         }}
-                        render={({ field: { onBlur, onChange, value } }) => (
+                        render={({ field: { onBlur, onChange, value }}) => (
                             <ReactiveTextInput
                                 scale={1.1}
                                 rotationDegrees={15}
-                                error={errors.reps ? true : false}
+                                error={errors.time ? true : false}
                                 value={value.toString()}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
@@ -96,27 +103,27 @@ export default function Set({ id, reps, setNumber }: RepsOnlySetProps) {
                                     styles.inputValues,
                                     animatedStyle,
                                     {
-                                        backgroundColor: isEditing ? (errors.reps ? "rgba(250, 0, 0, .4)" : "rgba(0, 0, 0, .3)") : "transparent",
+                                        backgroundColor: isEditing ? (errors.time ? "rgba(250, 0, 0, .4)" : "rgba(0, 0, 0, .3)") : "transparent",
                                     }
                                 ]}
                                 editable={isEditing}
                                 returnKeyType="done"
-                                keyboardType="number-pad"
-                                inputMode="numeric"
+                                keyboardType="decimal-pad"
+                                inputMode="decimal"
                                 selectTextOnFocus
                             />
                         )}
                     />
                 </View>
-                <Pressable 
+                <Pressable
                     onPress={handlePress}
-                    style={[styles.statusColumn]}
+                    style={styles.statusColumn}
                 >
                     <AnimatedLottieView 
-                        animatedProps={animatedProps}
-                        loop={false}
-                        style={{ height: 35, width: 35 }}
-                        source={require("@/assets/animations/lockToSuccessAnimation.json")}
+                            animatedProps={animatedProps}
+                            loop={false}
+                            style={{ height: 35, width: 35 }}
+                            source={require("@/assets/animations/lockToSuccessAnimation.json")}
                     />
                 </Pressable>
             </View>
