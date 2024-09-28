@@ -10,13 +10,13 @@ import TimeOnly from "./SetsBySchema/TimeOnly/TimeOnly";
 import WeightReps from "./SetsBySchema/WeightReps/WeightReps";
 import WeightThrows from "./SetsBySchema/WeightThrows/WeightThrows";
 
-export default function Sets({ schema, sets }: SetsProps) {
+export default function Sets({ exerciseId, schema, sets }: SetsProps) {
     return (
         <View>
-            {schema === SchemaTypes.RepsOnly && <RepsOnly sets={sets as RepsOnlySet[]} />}
-            {schema === SchemaTypes.TimeOnly && <TimeOnly sets={sets as TimeOnlySet[]} />}
-            {schema === SchemaTypes.WeightReps && <WeightReps sets={sets as WeightRepsSet[]} />}
-            {schema === SchemaTypes.WeightThrows && <WeightThrows sets={sets as WeightThrowsSet[]} />}
+            {schema === SchemaTypes.RepsOnly && <RepsOnly exerciseId={exerciseId} sets={sets as RepsOnlySet[]} />}
+            {schema === SchemaTypes.TimeOnly && <TimeOnly exerciseId={exerciseId} sets={sets as TimeOnlySet[]} />}
+            {schema === SchemaTypes.WeightReps && <WeightReps exerciseId={exerciseId} sets={sets as WeightRepsSet[]} />}
+            {schema === SchemaTypes.WeightThrows && <WeightThrows exerciseId={exerciseId} sets={sets as WeightThrowsSet[]} />}
         </View>
     )
 }

@@ -12,7 +12,7 @@ export default function EditExercise({ id, exerciseId, name, notes, schema, sets
         <Animated.View entering={FadeInDown} exiting={FadeOut} layout={LinearTransition}>
             <Header name={name} exerciseId={exerciseId} onDelete={onDelete} />
             <Notes id={id} notes={notes} />
-            <Sets schema={schema} sets={sets} />
+            <Sets schema={schema} sets={sets} exerciseId={exerciseId}/>
         </Animated.View>
     )
 }

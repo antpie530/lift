@@ -43,3 +43,8 @@ export type Workout = {
 }
 
 export type Workouts = Workout[];
+
+export interface DeleteSetFromEditData {
+    schema: SchemaTypes;
+    id: number
+}
