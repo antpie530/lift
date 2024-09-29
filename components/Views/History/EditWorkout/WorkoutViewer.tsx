@@ -129,6 +129,7 @@ export default function WorkoutViewer({ workout }: WorkoutViewerProps) {
                             schema={item.schema}
                             sets={item.sets}
                             onDelete={() => handleDeleteExercise(item.id)}
+                            setExercises={setExercises}
                         />
                     )}
                     ListHeaderComponent={() => (

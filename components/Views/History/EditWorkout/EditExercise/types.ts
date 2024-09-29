@@ -1,5 +1,5 @@
 import { SchemaTypes } from "@/types/commonTypes";
-import { SetType } from "@/db/services/types";
+import { Exercise, SetType } from "@/db/services/types";
 
 export interface EditExerciseProps {
     id: number;
@@ -9,4 +9,5 @@ export interface EditExerciseProps {
     schema: SchemaTypes;
     sets: SetType[];
     onDelete: () => void;
+    setExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 }
