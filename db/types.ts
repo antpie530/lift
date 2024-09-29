@@ -30,3 +30,10 @@ export type UpdateWeightThrowsSetData = {
     weight: number;
     throws: number;
 }
+
+export type createCompletedExerciseDate = {
+    workoutId: number;
+    exerciseId: number;
+    notes: string | null;
+    orderNumber: number
+}

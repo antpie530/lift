@@ -24,7 +24,7 @@ export type TimeOnlySet = {
 
 export type SetType = WeightRepsSet | WeightThrowsSet | RepsOnlySet | TimeOnlySet;
 
-type Exercise = {
+export type Exercise = {
     id: number;
     exerciseId: number | null;
     name: string;
@@ -47,4 +47,19 @@ export type Workouts = Workout[];
 export interface DeleteSetFromEditData {
     schema: SchemaTypes;
     id: number
+}
+
+export interface CreateCompletedExerciseData {
+    workoutId: number;
+    exerciseId: number;
+    name: string;
+    schema: "Weight Reps" | "Reps Only" | "Weight Throws" | "Time Only";
+}
+
+export interface ReturnedDataFromCreateCompletedExercise {
+    id: number;
+    exerciseId: number,
+    name: string,
+    schema: "Weight Reps" | "Reps Only" | "Weight Throws" | "Time Only";
+    sets: SetType[];
 }

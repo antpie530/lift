@@ -16,7 +16,7 @@ import { ExerciseInput, FormValues } from "@/types/commonTypes";
 import TopTab from "./TopTab";
 import EllapsedTime from "./EllapsedTime";
 import Header from "./Header/Header";
-import AddExercisePopUp from "./AddExercisePopUp/AddExercisePopUp";
+import AddExercisePopUp from "../Common/AddExercisePopUp/AddExercisePopUp";
 import Form from "./Form/Form";
 
 interface WorkoutProps {

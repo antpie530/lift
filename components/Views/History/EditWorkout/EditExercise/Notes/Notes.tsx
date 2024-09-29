@@ -80,6 +80,7 @@ export default function Notes({ id, notes }: NotesProps) {
                             value={value ?? ""}
                             onChangeText={onChange}
                             onBlur={onBlur}
+                            placeholder="Notes..."
                             style={[
                                 styles.notesTextInput,
                                 notesAnimatedStyles,

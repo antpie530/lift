@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import uuid from 'react-native-uuid';
 
 import { getAllExercises } from "@/db/queries";
-import { ExerciseInput } from "@/app/(tabs)/_layout";
+import { ExerciseInput } from "@/types/commonTypes";
 
 import Header from "./Header";
 import Filters from "./Filters";

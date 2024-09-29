@@ -112,6 +112,7 @@ export default function MetaFields({ id, name, notes }: MetaFieldsProps) {
                                 value={value ?? ""}
                                 onChangeText={onChange}
                                 onBlur={onBlur}
+                                placeholder="Notes..."
                                 style={[
                                     styles.notes,
                                     {
