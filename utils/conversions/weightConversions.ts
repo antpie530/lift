@@ -1,7 +1,11 @@
 import { WeightUnits } from "@/types/commonTypes";
 
-function lbsToGrams(lbs: number): number {
+export function poundsToGrams(lbs: number): number {
     return Math.round(lbs * 453.59237);
+}
+
+export function gramsToPounds(grams: number) {
+    return Math.round(grams / 453.59237);
 }
 
 function kgToGrams(kg: number): number {
@@ -19,7 +23,7 @@ export default function convertWeightToGrams(value: number, weight: WeightUnits)
         case "kg":
             return kgToGrams(value);
         case "lbs":
-            return lbsToGrams(value);
+            return poundsToGrams(value);
         case "oz":
             return ozToGrams(value);
     }

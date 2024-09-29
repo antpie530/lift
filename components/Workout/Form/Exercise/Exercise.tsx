@@ -6,7 +6,7 @@ import { ExerciseInput, FormValues } from "@/types/commonTypes";
 import Header from "./Header";
 import Notes from "./Notes";
 import Sets from "./Sets/Sets";
-import AddSetButton from "./AddSetButton";
+import AddSetButton from "../../../Common/AddSetButton";
 
 interface ExerciseProps {
     index: number;

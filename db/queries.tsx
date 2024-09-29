@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm"
+import { asc, desc, eq } from "drizzle-orm"
 import { db } from "./db";
 import {
     completedExercise,
@@ -10,6 +10,14 @@ import {
     schemaWeightThrows,
     workout 
 } from "./schema";
+import { 
+    UpdateCompletedExerciseNotesData, 
+    UpdateRepsOnlySetData, 
+    UpdateTimeOnlySetData,
+    UpdateWeightRepsSetData,
+    UpdateWeightThrowsSetData,
+    UpdateWorkoutData 
+} from "./types";
 
 export const getAllExercises = async () => await db.select().from(exercise).where(eq(exercise.hidden, false)).orderBy(asc(exercise.name));
 
@@ -21,7 +29,7 @@ export const getExercise = async (id: number) => await db.select().from(exercise
 
 export const editExercise = async (id: number, name: string, description: string | undefined | null) => await db.update(exercise).set({ name: name, description: description}).where(eq(exercise.id, id));
 
-export const getAllWorkouts = async () => await db.select().from(workout);
+export const getAllWorkouts = async () => await db.select().from(workout).orderBy(desc(workout.startTimestamp));
 
 export const getWorkoutExercises = async (workoutId: number) => await db
     .select({
@@ -73,3 +81,50 @@ export const getCompletedExerciseTimeOnly = async (completedExerciseId: number) 
     .from(schemaTimeOnly)
     .where(eq(schemaTimeOnly.completedExerciseId, completedExerciseId))
     .orderBy(schemaTimeOnly.setNumber);
+
+export const updateWorkout = async (data: UpdateWorkoutData) => await db
+    .update(workout)
+    .set({
+        name: data.name,
+        notes: data.notes
+    })
+    .where(eq(workout.id, data.id));
+
+export const deleteExercise = async (id: number) => await db.delete(completedExercise).where(eq(completedExercise.id, id));
+
+export const updateCompletedExerciseNotes = async (data: UpdateCompletedExerciseNotesData) => await db
+    .update(completedExercise)
+    .set({
+        notes: data.notes
+    })
+    .where(eq(completedExercise.id, data.id));
+
+export const updateRepsOnlySet = async (data: UpdateRepsOnlySetData) => await db
+    .update(schemaRepsOnly)
+    .set({
+        reps: data.reps
+    })
+    .where(eq(schemaRepsOnly.id, data.id));
+
+export const updateTimeOnlySet = async (data: UpdateTimeOnlySetData) => await db
+    .update(schemaTimeOnly)
+    .set({
+        time: data.time
+    })
+    .where(eq(schemaTimeOnly.id, data.id));
+
+export const updateWeightRepsSet = async (data: UpdateWeightRepsSetData) => await db
+    .update(schemaWeightReps)
+    .set({
+        weight: data.weight,
+        reps: data.reps
+    })
+    .where(eq(schemaWeightReps.id, data.id));
+
+export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => await db
+    .update(schemaWeightThrows)
+    .set({
+        weight: data.weight,
+        throws: data.throws
+    })
+    .where(eq(schemaWeightThrows.id, data.id));

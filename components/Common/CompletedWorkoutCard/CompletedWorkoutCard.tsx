@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
-import Timestamp from "./Timestamp";
-import Duration from "./Duration";
+import Timestamp from "../Timestamp";
+import Duration from "../Duration";
 import Exercises from "./Exercises";
 
 export type ExerciseSummary = {

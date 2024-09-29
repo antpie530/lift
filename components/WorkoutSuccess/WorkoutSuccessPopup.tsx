@@ -20,6 +20,7 @@ export default function WorkoutSuccessPopup({ showPopup, closePopup, name, start
     return (
         <Modal
             animationType="fade"
+            transparent={true}
             visible={showPopup}
             style={styles.modal}
         >
