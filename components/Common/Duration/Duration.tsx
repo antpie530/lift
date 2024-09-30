@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-interface DurationProps {
-    duration: number;
-}
+import { styles } from "./styles";
+import { DurationProps } from "./types";
 
 export default function Duration({ duration }: DurationProps) {
     const durationMinutes = Math.floor(duration / 60000);
@@ -17,19 +16,3 @@ export default function Duration({ duration }: DurationProps) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        alignItems: "center",
-        flexDirection: "row",
-        paddingBottom: 10
-    },
-    iconWrapper: {
-        paddingRight: 5,
-    },
-    duration: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "600"
-    }
-});

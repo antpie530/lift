@@ -1,11 +1,7 @@
-import { StyleSheet, Text, TouchableHighlight } from "react-native";
+import { Text, TouchableHighlight } from "react-native";
 
-interface ExerciseItemProps {
-    name: string,
-    schema: string,
-    selected: boolean,
-    onPress: () => void;
-}
+import { styles } from "./styles";
+import { ExerciseItemProps } from "./types";
 
 export default function ExerciseItem({ name, schema, selected, onPress }: ExerciseItemProps) {
     return (
@@ -24,20 +20,3 @@ export default function ExerciseItem({ name, schema, selected, onPress }: Exerci
         </TouchableHighlight>
     )
 }
-
-const styles = StyleSheet.create({
-    itemContainer: {
-        borderBottomWidth: 1,
-        borderColor: "rgba(255, 255, 255, .8)",
-        padding: 15,
-    },
-    itemText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "700"
-    },
-    schema: {
-        color: "rgba(166, 166, 166, .8)",
-        fontWeight: "700"
-    }
-});

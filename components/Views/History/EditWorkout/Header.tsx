@@ -1,6 +1,6 @@
 import { View } from "react-native";
 
-import ExitButton from "@/components/Common/Buttons/ExitButton";
+import ExitButton from "@/components/Common/Buttons/ExitButton/ExitButton";
 
 interface HeaderProps {
     closeWorkout: () => void;

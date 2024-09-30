@@ -1,7 +1,7 @@
 import { View } from "react-native";
 
-import Timestamp from "@/components/Common/Timestamp";
-import Duration from "@/components/Common/Duration";
+import Timestamp from "@/components/Common/Timestamp/Timestamp";
+import Duration from "@/components/Common/Duration/Duration";
 
 interface TimeDataDisplayProps {
     startTimestamp: number;

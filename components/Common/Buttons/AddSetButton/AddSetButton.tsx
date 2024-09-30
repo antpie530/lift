@@ -1,11 +1,11 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+
 import { lightHaptic } from "@/utils/haptics/haptics";
 
-interface AddSetButtonProps {
-    addSet: () => void;
-}
+import { styles } from "./styles";
+import { AddSetButtonProps } from "./types";
 
 export default function AddSetButton({ addSet }: AddSetButtonProps) {
     return (
@@ -28,17 +28,3 @@ export default function AddSetButton({ addSet }: AddSetButtonProps) {
         </Animated.View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        paddingHorizontal: 15,
-        paddingVertical: 5
-    },
-    buttonWrapper: {
-        backgroundColor: "rgba(0, 0, 0, .4)",
-        borderRadius: 8,
-        flexDirection: "row",
-        padding: 5
-    }
-})

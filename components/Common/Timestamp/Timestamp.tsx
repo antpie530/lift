@@ -1,9 +1,8 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
-interface TimestampProps {
-    timestamp: number;
-}
+import { styles } from "./styles";
+import { TimestampProps } from "./types";
 
 export default function Timestamp({ timestamp }: TimestampProps) {
     const dateObj = new Date(timestamp);
@@ -30,21 +29,3 @@ export default function Timestamp({ timestamp }: TimestampProps) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        marginBottom: 5
-    },
-    iconWrapper: {
-        paddingRight: 5
-    },
-    timeStampWrapper: {
-        justifyContent: "flex-end"
-    },
-    date: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "600"
-    }
-})

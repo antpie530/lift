@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import ExerciseDetail from "./ExerciseDetail/ExerciseDetail";
-import EditExerciseForm from "@/components/Forms/EditExercise/EditExerciseForm";
 
 interface ExerciseDetailViewerProps {
     showDetails: boolean;

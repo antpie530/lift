@@ -1,16 +1,10 @@
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Modal, Text, TouchableOpacity, View } from "react-native";
 
 import ConfirmationHeader from "./confirmationHeader";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { lightHaptic } from "@/utils/haptics/haptics";
 
-interface ConfirmationPopUpProps {
-    header: string;
-    description: string;
-    showConfirmation: boolean;
-    closeConfirmation: () => void;
-    onConfirm: () => void;
-}
+import { styles } from "./styles";
+import { ConfirmationPopUpProps } from "./types";
 
 export default function ConfirmationPopUp({ header, description, showConfirmation, closeConfirmation, onConfirm }: ConfirmationPopUpProps) {
     return (
@@ -39,42 +33,3 @@ export default function ConfirmationPopUp({ header, description, showConfirmatio
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    modalBackground: {
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, .8)",
-        height: "100%",
-        justifyContent: "center",
-        width: "100%"
-    },
-    popup: {
-        aspectRatio: 5/4,
-        backgroundColor: "rgba(80, 80, 80, 1)",
-        borderRadius: 15,
-        overflow: "hidden",
-        width: "95%"
-    },
-    body: {
-        alignItems: "center",
-        flex: 1,
-    },
-    bodyText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "700",
-        textAlign: "center",
-        padding: 15
-    },
-    confirmButton: {
-        backgroundColor: "rgba(255, 0, 0, .7)",
-        borderRadius: 15,
-        padding: 15,
-        width: "80%"
-    },
-    confirmButtonText: {
-        color: "white",
-        fontSize: 18,
-        fontWeight: "800"
-    }
-})

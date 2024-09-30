@@ -1,22 +1,18 @@
 import { useState } from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Modal, Text, View } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import uuid from 'react-native-uuid';
 
 import { getAllExercises } from "@/db/queries";
+
+import { styles } from "./styles";
+import { AddExercisePopUpProps } from "./types";
 import { ExerciseInput } from "@/types/commonTypes";
 
 import Header from "./Header";
 import Filters from "./Filters";
 import ExerciseList from "./ExerciseList/ExerciseList";
 import CreateExerciseForm from "@/components/Forms/CreateExercise/CreateExerciseForm";
-
-
-interface AddExercisePopUpProps {
-    showAddExercisePopUp: boolean;
-    closeAddExercisePopUp: () => void;
-    addExercises: (exercises: ExerciseInput[]) => void;
-}
 
 export default function AddExercisePopUp({ 
     showAddExercisePopUp,
@@ -120,18 +116,3 @@ export default function AddExercisePopUp({
         </Modal>
     )
 }
-
-const styles = StyleSheet.create({
-    modal: {
-        alignItems: "center",
-        backgroundColor: "rgba(0, 0, 0, .7)",
-        flex: 1,
-        justifyContent: "center"
-    },
-    content: {
-        aspectRatio: 5/9,
-        backgroundColor: "rgba(80, 80, 80, 1)",
-        borderRadius: 15,
-        width: "95%"
-    }
-});

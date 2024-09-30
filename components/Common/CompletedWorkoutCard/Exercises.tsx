@@ -1,10 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
-import { ExerciseSummary } from "./CompletedWorkoutCard"
-
-interface ExercisesProp {
-    exercises: ExerciseSummary[];
-}
+import { styles } from "./styles";
+import { ExercisesProp } from "./types";
 
 export default function Exercises({ exercises }: ExercisesProp) {
     let content = "";
@@ -21,14 +18,3 @@ export default function Exercises({ exercises }: ExercisesProp) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        paddingTop: 5
-    },
-    exercises: {
-        color: "white",
-        fontSize: 16,
-        fontWeight: "700"
-    }
-})

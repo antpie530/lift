@@ -1,11 +1,10 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { TouchableOpacity } from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 
-interface ExitButtonProps {
-    onPress: () => void;
-}
+import { styles } from "./styles";
+import { ExitButtonProps } from "./types";
 
 export default function ExitButton({ onPress }: ExitButtonProps) {
     return (
@@ -20,11 +19,3 @@ export default function ExitButton({ onPress }: ExitButtonProps) {
         </TouchableOpacity>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: "rgba(255, 255, 255, .3)",
-        borderRadius: 5,
-        justifyContent: "center"
-    }
-})
