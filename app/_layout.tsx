@@ -10,14 +10,14 @@ import { db } from "@/db/db";
 const queryClient = new QueryClient();
 
 export default function RootLayout() {
-  const { error, success } = useMigrations(db, migrations)
+  const { error, success } = useMigrations(db, migrations);
 
   if (error) {
     return (
       <View>
         <Text>Database migrations error: {error.message}</Text>
       </View>
-    )
+    );
   }
 
   if (!success) {
@@ -25,7 +25,7 @@ export default function RootLayout() {
       <View>
         <Text>Database loading...</Text>
       </View>
-    )
+    );
   }
   return (
     <QueryClientProvider client={queryClient}>
