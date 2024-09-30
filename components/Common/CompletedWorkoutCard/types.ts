@@ -1,4 +1,4 @@
-type ExerciseSummary = {
+export type ExerciseSummary = {
     name: string;
     sets: number;
 }

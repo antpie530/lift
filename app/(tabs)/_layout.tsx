@@ -11,7 +11,7 @@ import { WorkoutContext } from "@/hooks/workoutContext";
 import { createWorkout } from "@/db/services/workoutService";
 
 import { FormValues } from "@/types/commonTypes";
-import { ExerciseSummary } from "@/components/Common/CompletedWorkoutCard/CompletedWorkoutCard";
+import { ExerciseSummary } from "@/components/Common/CompletedWorkoutCard/types";
 
 import TabBar from "@/components/TabBar/TabBar";
 import Workout from "@/components/Workout/Workout";
