@@ -5,7 +5,7 @@ import { createSetFromEdit } from "@/db/services/createSetFromEdit";
 
 import { EditExerciseProps } from "./types";
 
-import AddSetButton from "@/components/Common/AddSetButton";
+import AddSetButton from "@/components/Common/Buttons/AddSetButton/AddSetButton";
 import Header from "./Header/Header";
 import Notes from "./Notes/Notes";
 import Sets from "./Sets/Sets";

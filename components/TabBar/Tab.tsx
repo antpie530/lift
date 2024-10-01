@@ -1,13 +1,7 @@
-import { ReactNode } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { Link, Href } from "expo-router";
+import { Link } from "expo-router";
 
-interface TabProps {
-    name: string;
-    icon: ReactNode;
-    href: Href;
-    color: string;
-}
+import { TabProps } from "./types";
 
 export default function Tab({ name, icon, href, color }: TabProps) {
     return (

@@ -1,12 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import { Text, TouchableOpacity, View} from "react-native";
 import Feather from '@expo/vector-icons/Feather';
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 
-interface ConfirmationHeaderProps {
-    header: string;
-    closeConfirmation: () => void;
-}
+import { styles } from "./styles";
+import { ConfirmationHeaderProps } from "./types";
 
 export default function ConfirmationHeader({ header, closeConfirmation }: ConfirmationHeaderProps) {
     return (
@@ -27,26 +25,3 @@ export default function ConfirmationHeader({ header, closeConfirmation }: Confir
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    header: {
-        alignItems: "center",
-        height: 50,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        paddingHorizontal: 15,
-        position: "relative",
-        width: "100%"
-    },
-    headerText: {
-        color: "white",
-        fontSize: 20,
-        fontWeight: "800",
-        textAlign: "center"
-    },
-    exitButtonWrapper: {
-        backgroundColor: "rgba(255, 255, 255, .3)",
-        borderRadius: 5,
-        justifyContent: "center"
-    }
-})
