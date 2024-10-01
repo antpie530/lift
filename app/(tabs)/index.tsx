@@ -4,7 +4,7 @@ import Traq from "@/components/Views/Traq/Traq";
 
 export default function Index() {
     return (
-        <ScreenWrapper name="traq" >
+        <ScreenWrapper name="lift" >
             <Traq />
         </ScreenWrapper>
     )

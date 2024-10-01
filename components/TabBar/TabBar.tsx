@@ -14,7 +14,7 @@ export default function TabBar({ state, height, offset }: TabBarProps) {
     return (
         <Animated.View style={[styles.container, { height: height }, offset]}>
             <Tab 
-                name="traq"
+                name="lift"
                 color={"index" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"}
                 href="/"
                 icon={
