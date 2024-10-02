@@ -21,10 +21,13 @@ module.exports = {
     }]
   },
   settings: {
-    alias: {
-      map: [
-        ['@', './lift']
-      ]
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@', './lift']
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+      }
     }
   },
 };
