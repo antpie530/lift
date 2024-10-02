@@ -20,7 +20,15 @@
       "!**/node_modules/**",
       "!**/babel.config.js",
       "!**/expo-env.d.ts",
-      "!**/.expo/**"
+      "!**/.expo/**",
+      "!**/styles.{js,ts}",
+      "!**/types.{js,ts}",
+      "!**/.eslintrc.js",
+      "!**/*.config.js",
+      "!**/*.spec.{js,ts,tsx}",
+      "!**/coverage/**",
+      "!/*.{js,ts,jsx,tsx}",
+      "!**/drizzle.config.ts"
     ]
   },
   "dependencies": {
