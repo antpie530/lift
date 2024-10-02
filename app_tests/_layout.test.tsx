@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react-native";
 import { useMigrations } from "drizzle-orm/expo-sqlite/migrator";
 
-import RootLayout from "./_layout";
+import RootLayout from "../app/_layout";
 
 jest.mock("drizzle-orm/expo-sqlite/migrator", () => ({
     useMigrations: jest.fn(),
