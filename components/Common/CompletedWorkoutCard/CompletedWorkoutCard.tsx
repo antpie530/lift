@@ -1,13 +1,17 @@
 import { Text, View } from "react-native";
 
+import Exercises from "./Exercises";
 import { styles } from "./styles";
 import { CompletedWorkoutCardProps } from "./types";
-
-import Timestamp from "../Timestamp/Timestamp";
 import Duration from "../Duration/Duration";
-import Exercises from "./Exercises";
+import Timestamp from "../Timestamp/Timestamp";
 
-export default function CompletedWorkoutCard({ name, startTimeStamp, duration, exercises }: CompletedWorkoutCardProps) {
+export default function CompletedWorkoutCard({
+    name,
+    startTimeStamp,
+    duration,
+    exercises,
+}: CompletedWorkoutCardProps) {
     return (
         <View style={styles.cardContainer}>
             <Text style={styles.cardHeader}>{name}</Text>
@@ -15,5 +19,5 @@ export default function CompletedWorkoutCard({ name, startTimeStamp, duration, e
             <Duration duration={duration} />
             <Exercises exercises={exercises} />
         </View>
-    )
+    );
 }
