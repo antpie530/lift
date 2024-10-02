@@ -5,6 +5,7 @@
 ![Made with TypeScript](https://img.shields.io/badge/made%20with-typescript-007ACC?logo=typescript)
 ![Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?logo=prettier)
 ![ESLint](https://img.shields.io/badge/linting-eslint-4B32C3?logo=eslint)
+[![Node.js CI](https://github.com/antpie530/lift/actions/workflows/node.js.yml/badge.svg)](https://github.com/antpie530/lift/actions/workflows/node.js.yml)
 
 lift is a native app for creating, tracking, and analyzing training programs.
 
