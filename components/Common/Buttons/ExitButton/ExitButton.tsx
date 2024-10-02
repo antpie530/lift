@@ -1,5 +1,5 @@
-import { TouchableOpacity } from "react-native";
-import Feather from '@expo/vector-icons/Feather';
+import Feather from "@expo/vector-icons/Feather";
+import { TouchableOpacity, View } from "react-native";
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 
@@ -14,8 +14,11 @@ export default function ExitButton({ onPress }: ExitButtonProps) {
                 onPress();
             }}
             style={styles.container}
+            testID="exit-button"
         >
-            <Feather name="x" size={24} color="white" />
+            <View testID="exit-button-icon">
+                <Feather name="x" size={24} color="white" />
+            </View>
         </TouchableOpacity>
-    )
+    );
 }

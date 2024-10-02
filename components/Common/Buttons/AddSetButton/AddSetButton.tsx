@@ -1,6 +1,6 @@
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { TouchableOpacity, View } from "react-native";
 import Animated, { LinearTransition } from "react-native-reanimated";
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 
 import { lightHaptic } from "@/utils/haptics/haptics";
 
@@ -12,6 +12,7 @@ export default function AddSetButton({ addSet }: AddSetButtonProps) {
         <Animated.View
             layout={LinearTransition}
             style={styles.container}
+            testID={"add-set-button"}
         >
             <TouchableOpacity
                 onPress={() => {
@@ -19,12 +20,15 @@ export default function AddSetButton({ addSet }: AddSetButtonProps) {
                     addSet();
                 }}
                 style={styles.buttonWrapper}
-            >  
-                <View style={{ paddingRight: 6 }}>
-                    <FontAwesome6 name="add" size={20} color="white"/>
+                testID="add-set-touchable"
+            >
+                <View style={{ paddingRight: 6 }} testID="add-set-plus-icon">
+                    <FontAwesome6 name="add" size={20} color="white" />
                 </View>
-                <FontAwesome6 name="dumbbell" size={20} color="white" />
+                <View testID="add-set-dumbbell-icon">
+                    <FontAwesome6 name="dumbbell" size={20} color="white" />
+                </View>
             </TouchableOpacity>
         </Animated.View>
-    )
+    );
 }
