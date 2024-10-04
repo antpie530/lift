@@ -5,5 +5,5 @@ export const COLORS = {
     buttonPrimary: "#CCFF66",
     danger: "#E63E3F",
     cancel: "#E63E3F",
-    text: "#FFFFFF"
-}
+    text: "#FFFFFF",
+};
