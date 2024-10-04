@@ -113,6 +113,7 @@ export default function TabsLayout() {
                     <Tabs.Screen name="index" />
                     <Tabs.Screen name="exercises" />
                     <Tabs.Screen name="history" />
+                    <Tabs.Screen name="analytics" />
                 </Tabs>
                 <Workout 
                     bottom={tabBarHeight} 
