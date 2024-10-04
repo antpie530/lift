@@ -1,6 +1,5 @@
 import { Text } from "react-native";
 
-import { styles } from "./styles";
 import { TimestampOnlyProps } from "./types";
 
 export default function TimestampOnly({
@@ -21,7 +20,7 @@ export default function TimestampOnly({
     });
 
     return (
-        <Text style={styles.date} testID="timestamp">
+        <Text style={style} testID="timestamp">
             {time} {date}
         </Text>
     );
