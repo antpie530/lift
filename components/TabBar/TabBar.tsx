@@ -1,10 +1,11 @@
-import Animated from "react-native-reanimated"
+import Animated from "react-native-reanimated";
 
 import { styles } from "./styles";
 import { TabBarProps } from "./types";
 
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import Tab from "./Tab";
 
 export default function TabBar({ state, height, offset }: TabBarProps) {
@@ -18,8 +19,8 @@ export default function TabBar({ state, height, offset }: TabBarProps) {
                 color={"analytics" === activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"}
                 href="/analytics"
                 icon={
-                    <FontAwesome5
-                        name="history"
+                    <Ionicons
+                        name="analytics"
                         size={20}
                         color={"analytics" == activeTabName ? "rgba(230, 230, 230, 1)" : "rgba(130, 130, 130, 1)"} 
                     />
