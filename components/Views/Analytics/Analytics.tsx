@@ -12,10 +12,6 @@ export default function Analytics() {
     return (
         <SafeAreaView style={styles.analyticsPageContainer}>
             <AnalyticsPageHeader />
-            <BaseBarChart
-                data={barData}
-                width={screenWidth - 70}
-            />
         </SafeAreaView>
     );
 }
