@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm"
+import { asc, count, desc, eq } from "drizzle-orm"
 import { db } from "./db";
 import {
     completedExercise,
@@ -128,3 +128,5 @@ export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => 
         throws: data.throws
     })
     .where(eq(schemaWeightThrows.id, data.id));
+
+export const getTotalWorkoutCount = async () => await db.select({ count: count() }).from(workout);

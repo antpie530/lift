@@ -3,15 +3,6 @@ module.exports = {
   extends: ["expo", "prettier"],
   plugins: ["import", "prettier"],
   rules: {
-    'import/order': [
-      'error',
-      {
-        'alphabetize': { order: 'asc', caseInsensitive: true },
-      },
-    ],
-    "prettier/prettier": ["error", {
-      tabWidth: 4
-    }]
   },
   settings: {
     'import/resolver': {

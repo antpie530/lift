@@ -2,8 +2,8 @@ import { Dimensions, StyleSheet, SafeAreaView, View } from "react-native";
 import { COLORS } from "@/constants/Colors";
 
 import AnalyticsPageHeader from "./Header";
-import BaseBarChart from "@/components/Common/Analytics/BarChart/BaseBarChart";
-import Card from "@/components/Common/Analytics/Card/Card";
+import TotalWorkoutsCard from "./MainVisuals/TotalWorkoutsCard";
+import CardLoading from "@/components/Common/Analytics/Card/CardLoading";
 
 export default function Analytics() {
     const barData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
@@ -12,6 +12,14 @@ export default function Analytics() {
     return (
         <SafeAreaView style={styles.analyticsPageContainer}>
             <AnalyticsPageHeader />
+            <View style={styles.cardsContainer}>
+                <View style={styles.card}>
+                    <TotalWorkoutsCard />
+                </View>
+                <View style={styles.card}>
+                    <CardLoading />
+                </View>
+            </View>
         </SafeAreaView>
     );
 }

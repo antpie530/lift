@@ -6,4 +6,5 @@ export const COLORS = {
     danger: "#E63E3F",
     cancel: "#E63E3F",
     text: "#FFFFFF",
+    secondaryText: "#B0B0B0"
 };
