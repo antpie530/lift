@@ -4,7 +4,8 @@ import { COLORS } from "@/constants/Colors";
 import AnalyticsPageHeader from "./Header";
 import TotalWorkoutsCard from "./MainVisuals/TotalWorkoutsCard";
 import CardLoading from "@/components/Common/Analytics/Card/CardLoading";
-import TotalCompletedExercisesCard from "./MainVisuals/TotalCompletedExercisesCard(";
+import TotalCompletedExercisesCard from "./MainVisuals/TotalCompletedExercisesCard";
+import AverageWorkoutDurationCard from "./MainVisuals/AverageWorkoutDurationCard";
 
 export default function Analytics() {
     const barData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
@@ -21,6 +22,9 @@ export default function Analytics() {
                     <TotalCompletedExercisesCard />
                 </View>
                 <View style={styles.card}>
+                    <AverageWorkoutDurationCard />
+                </View>
+                <View style={styles.card}>
                     <CardLoading />
                 </View>
             </View>
@@ -34,12 +38,12 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     cardsContainer: {
-        borderWidth: 1,
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-between",
         paddingHorizontal: 15,
+        paddingTop: 15
     },
     card: {
         aspectRatio: 1/1,

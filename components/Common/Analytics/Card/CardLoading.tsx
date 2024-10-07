@@ -10,16 +10,11 @@ export default function CardLoading() {
                 speed={2}
                 width="100%"
                 height="100%"
-                backgroundColor="#000000"
+                backgroundColor={COLORS.secondary}
                 foregroundColor="#d4d4d4"
             >
-                {/* Title placeholder */}
                 <Rect x="0" y="0" rx="10" ry="10" width="70%" height="30" />
-
-                {/* Value placeholder */}
                 <Rect x="43%" y="35" rx="6" ry="6" width="55%" height="55" />
-
-                {/* Unit placeholder */}
                 <Rect x="63%" y="95" rx="4" ry="4" width="35%" height="20" />
             </ContentLoader>
         </View>

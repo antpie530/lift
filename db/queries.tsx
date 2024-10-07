@@ -1,4 +1,4 @@
-import { asc, count, desc, eq } from "drizzle-orm"
+import { asc, avg, count, desc, eq } from "drizzle-orm"
 import { db } from "./db";
 import {
     completedExercise,
@@ -132,3 +132,5 @@ export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => 
 export const getTotalWorkoutCount = async () => await db.select({ count: count() }).from(workout);
 
 export const getTotalCompletedExerciseCount = async () => await db.select({ count: count() }).from(completedExercise);
+
+export const getAverageWorkoutDuration = async () => await db.select({ value: avg(workout.duration) }).from(workout);
