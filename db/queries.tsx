@@ -130,3 +130,5 @@ export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => 
     .where(eq(schemaWeightThrows.id, data.id));
 
 export const getTotalWorkoutCount = async () => await db.select({ count: count() }).from(workout);
+
+export const getTotalCompletedExerciseCount = async () => await db.select({ count: count() }).from(completedExercise);

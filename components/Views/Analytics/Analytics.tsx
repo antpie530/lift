@@ -4,6 +4,7 @@ import { COLORS } from "@/constants/Colors";
 import AnalyticsPageHeader from "./Header";
 import TotalWorkoutsCard from "./MainVisuals/TotalWorkoutsCard";
 import CardLoading from "@/components/Common/Analytics/Card/CardLoading";
+import TotalCompletedExercisesCard from "./MainVisuals/TotalCompletedExercisesCard(";
 
 export default function Analytics() {
     const barData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
@@ -15,6 +16,9 @@ export default function Analytics() {
             <View style={styles.cardsContainer}>
                 <View style={styles.card}>
                     <TotalWorkoutsCard />
+                </View>
+                <View style={styles.card}>
+                    <TotalCompletedExercisesCard />
                 </View>
                 <View style={styles.card}>
                     <CardLoading />
