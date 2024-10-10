@@ -18,6 +18,7 @@ lift is a native app for creating, tracking, and analyzing training programs.
 ## Features
 
 - **Create Exercises**: Easily create exercises with customizable schema types. Add details such as name, description, and specific schemas tailored to each exercise.
+- **Data Visualization**: Analyze your workout data with charts and graphs for a clearer understanding of your progress.
 - **Smart Exercise Search**: Quickly find exercises using a smart search feature.
 - **Create Workouts**: Build and manage workout routines. Each workout tracks the total time spent and logs sets for each exercise.
 - **Set Management**: User-friendly interface for adding, editing, and removing sets during a workout.
@@ -26,7 +27,6 @@ lift is a native app for creating, tracking, and analyzing training programs.
 
 ### Upcoming Features
 
-- **Data Visualization**: Analyze your workout data with charts and graphs for a clearer understanding of your progress.
 - **Workout Templates**: Create reusable workout templates for easy planning.
 - **Training Programs**: Design entire training programs to follow over time.
 
