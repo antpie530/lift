@@ -1,4 +1,4 @@
-import { asc, desc, eq } from "drizzle-orm"
+import { asc, avg, count, desc, eq, max } from "drizzle-orm"
 import { db } from "./db";
 import {
     completedExercise,
@@ -128,3 +128,20 @@ export const updateWeightThrowsSet = async (data: UpdateWeightThrowsSetData) => 
         throws: data.throws
     })
     .where(eq(schemaWeightThrows.id, data.id));
+
+export const getTotalWorkoutCount = async () => await db.select({ count: count() }).from(workout);
+
+export const getTotalCompletedExerciseCount = async () => await db.select({ count: count() }).from(completedExercise);
+
+export const getAverageWorkoutDuration = async () => await db.select({ value: avg(workout.duration) }).from(workout);
+
+export const getMaxReps = async (exerciseId: number) => await db
+    .select({ maxReps: max(schemaRepsOnly.reps) })
+    .from(schemaRepsOnly)
+    .innerJoin(completedExercise, eq(schemaRepsOnly.completedExerciseId, completedExercise.id))
+    .where(eq(completedExercise.exerciseId, exerciseId));
+
+export const getExerciseName = async (exerciseId: number) => await db
+    .select({ name: exercise.name })
+    .from(exercise)
+    .where(eq(exercise.id, exerciseId));

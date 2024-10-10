@@ -121,7 +121,7 @@ export default function Set({ removeSet, set, setIndex, exerciseIndex }: SetProp
     const handleTapComplete = () => {
         const completeStatus = getValues(`exercises.${exerciseIndex}.sets.${setIndex}.completed`);
 
-        if (completeStatus == true) {
+        if (completeStatus === true) {
             setUnderValidation(false);
             setValue(`exercises.${exerciseIndex}.sets.${setIndex}.completed`, false);
         } else {
