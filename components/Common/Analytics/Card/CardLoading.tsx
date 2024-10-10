@@ -1,11 +1,17 @@
 import ContentLoader, { Rect } from "react-content-loader/native";
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanimated";
 
 import { COLORS } from "@/constants/Colors";
 
 export default function CardLoading() {
     return (
-        <View style={styles.cardContainer}>
+        <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+            layout={LinearTransition}
+            style={styles.cardContainer}
+        >
             <ContentLoader
                 speed={2}
                 width="100%"
@@ -17,7 +23,7 @@ export default function CardLoading() {
                 <Rect x="43%" y="35" rx="6" ry="6" width="55%" height="55" />
                 <Rect x="63%" y="95" rx="4" ry="4" width="35%" height="20" />
             </ContentLoader>
-        </View>
+        </Animated.View>
     )
 }
 

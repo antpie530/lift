@@ -1,5 +1,6 @@
 import { COLORS } from "@/constants/Colors";
 import { StyleSheet, Text, View } from "react-native";
+import Animated, { FadeIn, FadeOut, LinearTransition } from "react-native-reanimated";
 
 interface CardProps {
     title: string;
@@ -27,7 +28,12 @@ export default function Card({ title, value, unit }: CardProps) {
     }
 
     return (
-        <View style={styles.cardContainer}>
+        <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+            layout={LinearTransition}
+            style={styles.cardContainer}
+        >
             <View style={styles.titleWrapper}>
                 <Text style={styles.title}>{title}</Text>
             </View>
@@ -48,7 +54,7 @@ export default function Card({ title, value, unit }: CardProps) {
                     <Text style={styles.unit}>{unit}</Text>
                 </View>
             </View>
-        </View>
+        </Animated.View>
     );
 }
 
