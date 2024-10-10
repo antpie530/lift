@@ -7,6 +7,7 @@ import CardLoading from "@/components/Common/Analytics/Card/CardLoading";
 import TotalCompletedExercisesCard from "./MainVisuals/TotalCompletedExercisesCard";
 import AverageWorkoutDurationCard from "./MainVisuals/AverageWorkoutDurationCard";
 import WorkoutCountByWeek from "./MainVisuals/WorkoutCountByWeek";
+import MaxRepsCard from "@/components/Common/Analytics/SchemaSpecificVisuals/RepsOnly/MaxRepsCard";
 
 export default function Analytics() {
     const screenWidth = Dimensions.get("screen").width;
@@ -26,6 +27,9 @@ export default function Analytics() {
                 </View>
                 <View style={styles.card}>
                     <CardLoading />
+                </View>
+                <View style={styles.card}>
+                    <MaxRepsCard exerciseId={3}/>
                 </View>
                 <WorkoutCountByWeek 
                     width={screenWidth}
