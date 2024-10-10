@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, SafeAreaView, View } from "react-native";
+import { Dimensions, StyleSheet, SafeAreaView, ScrollView, View } from "react-native";
 import { COLORS } from "@/constants/Colors";
 
 import AnalyticsPageHeader from "./Header";
@@ -6,15 +6,15 @@ import TotalWorkoutsCard from "./MainVisuals/TotalWorkoutsCard";
 import CardLoading from "@/components/Common/Analytics/Card/CardLoading";
 import TotalCompletedExercisesCard from "./MainVisuals/TotalCompletedExercisesCard";
 import AverageWorkoutDurationCard from "./MainVisuals/AverageWorkoutDurationCard";
+import WorkoutCountByWeek from "./MainVisuals/WorkoutCountByWeek";
 
 export default function Analytics() {
-    const barData = [{value: 15}, {value: 30}, {value: 26}, {value: 40}];
     const screenWidth = Dimensions.get("screen").width;
 
     return (
         <SafeAreaView style={styles.analyticsPageContainer}>
             <AnalyticsPageHeader />
-            <View style={styles.cardsContainer}>
+            <ScrollView contentContainerStyle={styles.cardsContainer}>
                 <View style={styles.card}>
                     <TotalWorkoutsCard />
                 </View>
@@ -27,7 +27,10 @@ export default function Analytics() {
                 <View style={styles.card}>
                     <CardLoading />
                 </View>
-            </View>
+                <WorkoutCountByWeek 
+                    width={screenWidth}
+                />
+            </ScrollView>
         </SafeAreaView>
     );
 }

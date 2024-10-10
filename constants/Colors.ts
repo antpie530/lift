@@ -1,5 +1,7 @@
 export const COLORS = {
     primary: "#FFC200",
+    primaryGradientOne: "#FFD447",
+    primaryGradientTwo: "#FFE285",
     primaryBackground: "#4A5859",
     secondary: "#8F9396",
     buttonPrimary: "#CCFF66",
